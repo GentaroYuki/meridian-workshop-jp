@@ -10,47 +10,49 @@ tests/
 ├── backend/            # Backend API tests
 │   ├── conftest.py     # Test fixtures and configuration
 │   ├── test_inventory.py      # Inventory endpoint tests (10 tests)
-│   ├── test_orders.py         # Orders endpoint tests (15 tests)
 │   ├── test_dashboard.py      # Dashboard endpoint tests (13 tests)
-│   └── test_misc_endpoints.py # Demand, backlog, spending tests (13 tests)
+│   └── test_misc_endpoints.py # Demand, backlog, spending, root tests (18 tests)
+├── TEST_SUMMARY.md     # Test summary
 └── README.md           # This file
 ```
+
+注文 endpoint のテスト(`test_orders.py`)は未納品で、存在しません。
 
 ## テストの実行方法
 
 ### すべてのテストを実行する
 ```bash
 cd tests
-uv run pytest -v
+uv run --project ../server pytest -v
 ```
 
 ### 特定のテストファイルを実行する
 ```bash
 cd tests
-uv run pytest backend/test_inventory.py -v
+uv run --project ../server pytest backend/test_inventory.py -v
 ```
 
 ### 特定のテストクラスを実行する
 ```bash
 cd tests
-uv run pytest backend/test_inventory.py::TestInventoryEndpoints -v
+uv run --project ../server pytest backend/test_inventory.py::TestInventoryEndpoints -v
 ```
 
 ### 特定のテストだけを実行する
 ```bash
 cd tests
-uv run pytest backend/test_inventory.py::TestInventoryEndpoints::test_get_all_inventory -v
+uv run --project ../server pytest backend/test_inventory.py::TestInventoryEndpoints::test_get_all_inventory -v
 ```
 
 ### カバレッジ付きで実行する(pytest-cov が必要)
 ```bash
 cd tests
-uv run pytest --cov=../server --cov-report=html
+uv run --project ../server pytest --cov=../server --cov-report=html
 ```
 
 ## テストカバレッジ
 
-**合計 51 テスト**で、すべての API endpoint をカバーしています。
+**合計 41 テスト**です。注文(`/api/orders`)と Reports(`/api/reports/*`)の endpoint には専用のテストがありません。
 
 ### 在庫関連の endpoint(10 テスト)
 - ✓ 全在庫アイテムの取得
@@ -62,17 +64,8 @@ uv run pytest --cov=../server --cov-report=html
 - ✓ フィールド構造の検証
 - ✓ データ型の検証
 
-### 注文関連の endpoint(15 テスト)
-- ✓ 全注文の取得
-- ✓ 倉庫、カテゴリ、ステータスによるフィルタリング
-- ✓ 月および四半期によるフィルタリング
-- ✓ 複数フィルターの組み合わせ
-- ✓ ID を指定した特定注文の取得
-- ✓ 存在しない注文の処理(404)
-- ✓ 注文アイテムの構造検証
-- ✓ ステータス値の検証
-- ✓ 日付フォーマットの検証
-- ✓ 合計金額の計算検証
+### 注文関連の endpoint(0 テスト)
+- `test_orders.py` は未納品です。ダッシュボードの保留中注文数のテストで、間接的に呼ばれるだけです。
 
 ### ダッシュボード関連の endpoint(13 テスト)
 - ✓ ダッシュボードサマリーの取得
@@ -84,11 +77,14 @@ uv run pytest --cov=../server --cov-report=html
   - 在庫僅少アイテム数の計算
   - 在庫総額の計算
 
-### その他の endpoint(13 テスト)
-- **需要予測(3 テスト)**
+### その他の endpoint(18 テスト)
+- **需要予測(6 テスト)**
   - ✓ 需要予測の取得
   - ✓ トレンド値の検証
   - ✓ 非負値の検証
+  - ✓ stable の変化率が increasing / decreasing より小さいこと
+  - ✓ トレンドと予測値の増減の向きの一致
+  - ✓ SKU と品名が在庫データと一致すること
 
 - **バックログアイテム(4 テスト)**
   - ✓ バックログアイテムの取得
@@ -96,9 +92,11 @@ uv run pytest --cov=../server --cov-report=html
   - ✓ 数量ロジックの検証
   - ✓ 遅延日数の検証
 
-- **支出データ(4 テスト)**
+- **支出データ(6 テスト)**
   - ✓ 支出サマリーの取得
   - ✓ 月次支出の取得
+  - ✓ 月次支出にすべてのコストカテゴリが揃っていること
+  - ✓ 月次支出にばらつきがあること
   - ✓ カテゴリ別支出の取得
   - ✓ 直近の取引履歴の取得
 
@@ -117,7 +115,7 @@ uv run pytest --cov=../server --cov-report=html
 
 ## 依存パッケージ
 
-テストの実行には以下のパッケージが必要です(`uv sync` で自動的にインストールされます)。
+テストの実行には以下のパッケージが必要です(`server/` の開発用依存です。`cd server && uv sync` でインストールされます)。
 - pytest >= 8.0.0
 - pytest-asyncio >= 0.23.0
 - httpx >= 0.27.0
@@ -150,7 +148,7 @@ CI/CD パイプラインに組み込む場合の例です。
 - name: Run API Tests
   run: |
     cd tests
-    uv run pytest -v --tb=short
+    uv run --project ../server pytest -v --tb=short
 ```
 
 ## 補足
