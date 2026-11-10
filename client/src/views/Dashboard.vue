@@ -62,8 +62,7 @@
             <div class="kpi-value">{{ avgProcessingDays === null ? '—' : avgProcessingDays.toFixed(1) }}</div>
             <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ processingGoalDays.toFixed(1) }}<template v-if="avgProcessingDays !== null"> ({{ formatDiff((avgProcessingDays / processingGoalDays - 1) * 100) }}%)</template></div>
             <div class="kpi-progress-bar">
-              <!-- 短いほど良い指標なので、目標以下なら 100% -->
-              <div class="kpi-progress success" :style="{ width: progressWidth(avgProcessingDays ? processingGoalDays / avgProcessingDays * 100 : 0) }"></div>
+              <div class="kpi-progress success" :style="{ width: progressWidth(processingProgress) }"></div>
             </div>
           </div>
         </div>
@@ -346,23 +345,41 @@ export default {
     }))
 
     // 注文充足率 = (Delivered + Shipped) ÷ 全注文 × 100。注文が0件なら null（「—」表示）
+    // 分母は allOrders の全件（4種類以外のステータスも含める）
     const fillRateGoal = 95
     const fillRate = computed(() => {
-      if (totalOrders.value === 0) return null
-      return (statusData.value.delivered + statusData.value.shipped) / totalOrders.value * 100
+      const total = allOrders.value.length
+      if (total === 0) return null
+      return (statusData.value.delivered + statusData.value.shipped) / total * 100
     })
 
-    // 平均処理時間 = Delivered の (actual_delivery − order_date) の平均日数。対象が0件なら null
+    // 2つの日付の差（日数）。どちらかが不正、または負の値なら null
+    const daysBetween = (from, to) => {
+      const start = new Date(from)
+      const end = new Date(to)
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return null
+      const days = (end - start) / (1000 * 60 * 60 * 24)
+      return days >= 0 ? days : null
+    }
+
+    // 平均処理時間 = Delivered の (actual_delivery − order_date) の平均日数
+    // 日付が不正な行は除く。対象が0件なら null（「—」表示）
     const processingGoalDays = 3.0
     const avgProcessingDays = computed(() => {
-      const delivered = allOrders.value.filter(o =>
-        o.status.toLowerCase() === 'delivered' && o.order_date && o.actual_delivery
-      )
-      if (delivered.length === 0) return null
-      const totalDays = delivered.reduce((sum, o) => {
-        return sum + (new Date(o.actual_delivery) - new Date(o.order_date)) / (1000 * 60 * 60 * 24)
-      }, 0)
-      return totalDays / delivered.length
+      const days = allOrders.value
+        .filter(o => o.status?.toLowerCase() === 'delivered')
+        .map(o => daysBetween(o.order_date, o.actual_delivery))
+        .filter(d => d !== null)
+      if (days.length === 0) return null
+      return days.reduce((sum, d) => sum + d, 0) / days.length
+    })
+
+    // 短いほど良い指標なので、目標以下（0日を含む）なら 100%
+    const processingProgress = computed(() => {
+      const avg = avgProcessingDays.value
+      if (avg === null) return 0
+      if (avg <= processingGoalDays) return 100
+      return processingGoalDays / avg * 100
     })
 
     const progressWidth = (percent) => {
@@ -414,19 +431,8 @@ export default {
       }).length
       const onTimeRate = deliveredOrders.length > 0 ? (onTimeDeliveries / deliveredOrders.length) * 100 : 0
 
-      // Calculate average fulfillment speed (days from order to delivery for delivered orders)
-      let totalDays = 0
-      let countWithDates = 0
-      deliveredOrders.forEach(o => {
-        if (o.order_date && o.actual_delivery) {
-          const orderDate = new Date(o.order_date)
-          const deliveryDate = new Date(o.actual_delivery)
-          const days = Math.round((deliveryDate - orderDate) / (1000 * 60 * 60 * 24))
-          totalDays += days
-          countWithDates++
-        }
-      })
-      const avgFulfillmentDays = countWithDates > 0 ? totalDays / countWithDates : 0
+      // 平均処理日数は KPI と同じ計算（avgProcessingDays）を使い、値を揃える
+      const avgFulfillmentDays = avgProcessingDays.value ?? 0
 
       return {
         totalOrders,
@@ -724,6 +730,7 @@ export default {
       fillRateGoal,
       avgProcessingDays,
       processingGoalDays,
+      processingProgress,
       progressWidth,
       formatDiff,
       statusData,
