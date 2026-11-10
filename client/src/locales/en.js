@@ -22,7 +22,8 @@ export default {
       revenueYTD: 'Revenue (Orders) YTD',
       revenueMTD: 'Revenue (Orders) MTD',
       avgProcessingTime: 'Avg Processing Time (Days)',
-      goal: 'Goal'
+      goal: 'Goal',
+      definitionPending: 'Definition under review'
     },
     summary: {
       title: 'Summary'

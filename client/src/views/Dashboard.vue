@@ -15,10 +15,10 @@
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.inventoryTurnover') }}</span>
             </div>
-            <div class="kpi-value">4.2</div>
-            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 4.5 (-6.67%)</div>
+            <div class="kpi-value">—</div>
+            <div class="kpi-goal">{{ t('dashboard.kpi.definitionPending') }}</div>
             <div class="kpi-progress-bar">
-              <div class="kpi-progress" style="width: 93.33%"></div>
+              <div class="kpi-progress" style="width: 0%"></div>
             </div>
           </div>
 
@@ -26,10 +26,10 @@
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.ordersFulfilled') }}</span>
             </div>
-            <div class="kpi-value">{{ ordersData.fulfilled }}</div>
-            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ ordersData.goal }} ({{ calculatePercentage(ordersData.fulfilled, ordersData.goal) }}%)</div>
+            <div class="kpi-value">{{ fulfilledKpi.fulfilled }}</div>
+            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ fulfilledKpi.goal }} ({{ calculatePercentage(fulfilledKpi.fulfilled, fulfilledKpi.goal) }}%)</div>
             <div class="kpi-progress-bar">
-              <div class="kpi-progress" :style="{ width: calculatePercentage(ordersData.fulfilled, ordersData.goal) + '%' }"></div>
+              <div class="kpi-progress" :style="{ width: progressWidth(fulfilledKpi.fulfilled / fulfilledKpi.goal * 100) }"></div>
             </div>
           </div>
 
@@ -37,10 +37,10 @@
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.orderFillRate') }}</span>
             </div>
-            <div class="kpi-value">{{ fillRate }}%</div>
-            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 95% ({{ fillRate - 95 > 0 ? '+' : '' }}{{ (fillRate - 95).toFixed(2) }}%)</div>
+            <div class="kpi-value">{{ fillRate === null ? '—' : fillRate.toFixed(1) + '%' }}</div>
+            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ fillRateGoal }}%<template v-if="fillRate !== null"> ({{ formatDiff(fillRate - fillRateGoal) }}%)</template></div>
             <div class="kpi-progress-bar">
-              <div class="kpi-progress success" :style="{ width: (fillRate / 95 * 100) + '%' }"></div>
+              <div class="kpi-progress success" :style="{ width: progressWidth(fillRate === null ? 0 : fillRate / fillRateGoal * 100) }"></div>
             </div>
           </div>
 
@@ -59,10 +59,11 @@
             <div class="kpi-header">
               <span class="kpi-label">{{ t('dashboard.kpi.avgProcessingTime') }}</span>
             </div>
-            <div class="kpi-value">2.8</div>
-            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: 3.0 (-6.67%)</div>
+            <div class="kpi-value">{{ avgProcessingDays === null ? '—' : avgProcessingDays.toFixed(1) }}</div>
+            <div class="kpi-goal">{{ t('dashboard.kpi.goal') }}: {{ processingGoalDays.toFixed(1) }}<template v-if="avgProcessingDays !== null"> ({{ formatDiff((avgProcessingDays / processingGoalDays - 1) * 100) }}%)</template></div>
             <div class="kpi-progress-bar">
-              <div class="kpi-progress success" style="width: 93.33%"></div>
+              <!-- 短いほど良い指標なので、目標以下なら 100% -->
+              <div class="kpi-progress success" :style="{ width: progressWidth(avgProcessingDays ? processingGoalDays / avgProcessingDays * 100 : 0) }"></div>
             </div>
           </div>
         </div>
@@ -337,8 +338,41 @@ export default {
       getCurrentFilters
     } = useFilters()
 
-    const ordersData = ref({ fulfilled: 187, goal: 200 })
-    const fillRate = ref(96.8)
+    // KPI はすべて、フィルター済みの allOrders から計算する
+    // 出荷完了 = Delivered の件数。目標は全期間 200、単月 17（200 ÷ 12 を丸め）
+    const fulfilledKpi = computed(() => ({
+      fulfilled: statusData.value.delivered,
+      goal: selectedPeriod.value === 'all' ? 200 : 17
+    }))
+
+    // 注文充足率 = (Delivered + Shipped) ÷ 全注文 × 100。注文が0件なら null（「—」表示）
+    const fillRateGoal = 95
+    const fillRate = computed(() => {
+      if (totalOrders.value === 0) return null
+      return (statusData.value.delivered + statusData.value.shipped) / totalOrders.value * 100
+    })
+
+    // 平均処理時間 = Delivered の (actual_delivery − order_date) の平均日数。対象が0件なら null
+    const processingGoalDays = 3.0
+    const avgProcessingDays = computed(() => {
+      const delivered = allOrders.value.filter(o =>
+        o.status.toLowerCase() === 'delivered' && o.order_date && o.actual_delivery
+      )
+      if (delivered.length === 0) return null
+      const totalDays = delivered.reduce((sum, o) => {
+        return sum + (new Date(o.actual_delivery) - new Date(o.order_date)) / (1000 * 60 * 60 * 24)
+      }, 0)
+      return totalDays / delivered.length
+    })
+
+    const progressWidth = (percent) => {
+      if (!Number.isFinite(percent)) return '0%'
+      return Math.min(Math.max(percent, 0), 100) + '%'
+    }
+
+    const formatDiff = (value) => {
+      return (value > 0 ? '+' : '') + value.toFixed(2)
+    }
 
     const revenueGoal = computed(() => {
       // $800K per month, so if looking at all months (12 months), goal is 12 * 800K = 9.6M
@@ -582,6 +616,7 @@ export default {
     }
 
     const calculatePercentage = (value, goal) => {
+      if (!goal) return '0.00'
       return ((value / goal) * 100).toFixed(2)
     }
 
@@ -684,8 +719,13 @@ export default {
       loading,
       error,
       summary,
-      ordersData,
+      fulfilledKpi,
       fillRate,
+      fillRateGoal,
+      avgProcessingDays,
+      processingGoalDays,
+      progressWidth,
+      formatDiff,
       statusData,
       orderHealthMetrics,
       categoryData,

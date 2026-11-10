@@ -22,7 +22,8 @@ export default {
       revenueYTD: '収益（注文）年初来',
       revenueMTD: '収益（注文）月初来',
       avgProcessingTime: '平均処理時間（日）',
-      goal: '目標'
+      goal: '目標',
+      definitionPending: '定義を確認中'
     },
     summary: {
       title: '概要'
