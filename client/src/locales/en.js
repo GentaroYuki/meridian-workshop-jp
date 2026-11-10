@@ -1,4 +1,30 @@
 export default {
+  // Purchase orders (backlog item -> supplier PO)
+  purchaseOrder: {
+    createButton: 'Create PO',
+    viewButton: 'View PO',
+    createTitle: 'Create Purchase Order',
+    viewTitle: 'Purchase Order',
+    shortage: 'Shortage',
+    supplier: 'Supplier',
+    supplierPlaceholder: 'Enter supplier name',
+    quantity: 'Quantity',
+    unitCost: 'Unit Cost (USD)',
+    total: 'Total',
+    expectedDelivery: 'Expected Delivery',
+    notes: 'Notes',
+    poNumber: 'PO Number',
+    status: 'Status',
+    createdDate: 'Created',
+    cancel: 'Cancel',
+    submit: 'Create PO',
+    submitting: 'Submitting...',
+    close: 'Close',
+    loading: 'Loading...',
+    loadError: 'Failed to load purchase order',
+    submitError: 'Failed to create purchase order',
+    required: 'Enter a supplier, a quantity of 1 or more, a unit cost of 0 or more, and a delivery date'
+  },
   // Navigation
   nav: {
     overview: 'Overview',

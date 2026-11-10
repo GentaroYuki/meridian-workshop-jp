@@ -1,4 +1,30 @@
 export default {
+  // Purchase orders (backlog item -> supplier PO)
+  purchaseOrder: {
+    createButton: '発注を作成',
+    viewButton: '発注を表示',
+    createTitle: '発注書の作成',
+    viewTitle: '発注書',
+    shortage: '不足数',
+    supplier: '仕入先',
+    supplierPlaceholder: '仕入先名を入力',
+    quantity: '発注数量',
+    unitCost: '単価（USD）',
+    total: '合計金額',
+    expectedDelivery: '納品予定日',
+    notes: 'メモ',
+    poNumber: '発注番号',
+    status: 'ステータス',
+    createdDate: '作成日時',
+    cancel: 'キャンセル',
+    submit: '発注する',
+    submitting: '送信中...',
+    close: '閉じる',
+    loading: '読み込み中...',
+    loadError: '発注書を読み込めませんでした',
+    submitError: '発注を作成できませんでした',
+    required: '仕入先、1以上の数量、0以上の単価、納品予定日を入力してください'
+  },
   // Navigation
   nav: {
     overview: '概要',

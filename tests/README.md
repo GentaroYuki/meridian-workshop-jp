@@ -9,14 +9,14 @@ tests/
 ├── pytest.ini          # Pytest configuration
 ├── backend/            # Backend API tests
 │   ├── conftest.py     # Test fixtures and configuration
-│   ├── test_inventory.py      # Inventory endpoint tests (10 tests)
-│   ├── test_dashboard.py      # Dashboard endpoint tests (13 tests)
-│   └── test_misc_endpoints.py # Demand, backlog, spending, root tests (18 tests)
+│   ├── test_inventory.py        # Inventory endpoint tests (10 tests)
+│   ├── test_orders.py           # Orders endpoint tests (21 tests, 2 xfail)
+│   ├── test_purchase_orders.py  # Purchase order endpoint tests (14 tests)
+│   ├── test_dashboard.py        # Dashboard endpoint tests (13 tests)
+│   └── test_misc_endpoints.py   # Demand, backlog, spending, root tests (18 tests)
 ├── TEST_SUMMARY.md     # Test summary
 └── README.md           # This file
 ```
-
-注文 endpoint のテスト(`test_orders.py`)は未納品で、存在しません。
 
 ## テストの実行方法
 
@@ -52,7 +52,7 @@ uv run --project ../server pytest --cov=../server --cov-report=html
 
 ## テストカバレッジ
 
-**合計 41 テスト**です。注文(`/api/orders`)と Reports(`/api/reports/*`)の endpoint には専用のテストがありません。
+**合計 76 テスト**(74 件成功、2 件は既知のデータ不整合による xfail)です。Reports(`/api/reports/*`)の endpoint には専用のテストがありません。
 
 ### 在庫関連の endpoint(10 テスト)
 - ✓ 全在庫アイテムの取得
@@ -64,8 +64,22 @@ uv run --project ../server pytest --cov=../server --cov-report=html
 - ✓ フィールド構造の検証
 - ✓ データ型の検証
 
-### 注文関連の endpoint(0 テスト)
-- `test_orders.py` は未納品です。ダッシュボードの保留中注文数のテストで、間接的に呼ばれるだけです。
+### 注文関連の endpoint(21 テスト)
+- ✓ 全注文の取得、フィールド・注文アイテムの構造、ステータス値、日付フォーマット(ISO)
+- ✓ 合計金額 = sum(数量 × 単価) の検算
+- ✓ 配達済み以外の注文に actual_delivery がないこと
+- ✓ 倉庫、カテゴリ(大文字小文字を区別しない)、ステータス、月、四半期によるフィルタリング
+- ✓ 四半期 Q1〜Q4 で全注文が重複なく分かれること、`all` の扱い、複数フィルターの組み合わせ、該当なしで空配列
+- ✓ ID を指定した取得、存在しない注文の 404
+- ✗(xfail)配達済みの注文すべてに actual_delivery があること: 8 件で欠落しています
+- ✗(xfail)注文 ID が一意であること: ID 201〜210 が 2 件ずつあります
+
+### 発注関連の endpoint(14 テスト)
+- ✓ `POST /api/purchase-orders` で発注を作成(201)、作成した発注を `GET /api/purchase-orders/{backlog_item_id}` で取得
+- ✓ 作成後に `/api/backlog` の has_purchase_order が true になること
+- ✓ 同じバックログに 2 件目は 409、存在しないバックログは 404、空白だけの仕入先は 400
+- ✓ 数量 0 以下・負の単価・空の仕入先・不正な日付は 422 で、何も作成されないこと
+- ✓ 発注がないバックログの取得は 404
 
 ### ダッシュボード関連の endpoint(13 テスト)
 - ✓ ダッシュボードサマリーの取得
