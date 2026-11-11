@@ -23,7 +23,10 @@ export default {
     loading: '読み込み中...',
     loadError: '発注書を読み込めませんでした',
     submitError: '発注を作成できませんでした',
-    required: '仕入先、1以上の数量、0以上の単価、納品予定日を入力してください'
+    required: '仕入先、1以上の数量、0以上の単価、納品予定日を入力してください',
+    statuses: {
+      Pending: '処理待ち'
+    }
   },
   // Navigation
   nav: {

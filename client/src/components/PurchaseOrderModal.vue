@@ -78,7 +78,7 @@
                 </div>
                 <div class="info-item">
                   <div class="field-label">{{ t('purchaseOrder.status') }}</div>
-                  <div class="info-value"><span class="badge">{{ purchaseOrder.status }}</span></div>
+                  <div class="info-value"><span class="po-status">{{ translateStatus(purchaseOrder.status) }}</span></div>
                 </div>
                 <div class="info-item">
                   <div class="field-label">{{ t('purchaseOrder.supplier') }}</div>
@@ -244,6 +244,18 @@ export default {
       emit('close')
     }
 
+    // Status codes from the API (e.g. "Pending") -> localized label; unknown codes are shown as-is
+    const translateStatus = (status) => {
+      const key = `purchaseOrder.statuses.${status}`
+      const label = t(key)
+      return label === key ? status : label
+    }
+
+    // Clear a stale validation/submit error as soon as the user edits the form
+    watch(form, () => {
+      if (error.value && !submitting.value) error.value = null
+    }, { deep: true })
+
     const formatDateTime = (value) => {
       if (!value) return '-'
       const date = new Date(value)
@@ -283,7 +295,8 @@ export default {
       today,
       submit,
       close,
-      formatDateTime
+      formatDateTime,
+      translateStatus
     }
   }
 }
@@ -480,7 +493,7 @@ export default {
   color: #2563eb;
 }
 
-.badge {
+.po-status {
   display: inline-block;
   padding: 0.25rem 0.625rem;
   border-radius: 6px;

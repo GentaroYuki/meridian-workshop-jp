@@ -23,7 +23,10 @@ export default {
     loading: 'Loading...',
     loadError: 'Failed to load purchase order',
     submitError: 'Failed to create purchase order',
-    required: 'Enter a supplier, a quantity of 1 or more, a unit cost of 0 or more, and a delivery date'
+    required: 'Enter a supplier, a quantity of 1 or more, a unit cost of 0 or more, and a delivery date',
+    statuses: {
+      Pending: 'Pending'
+    }
   },
   // Navigation
   nav: {
