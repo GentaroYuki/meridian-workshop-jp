@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>進捗レポート — Meridian ワークショップ</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    />
+    <style>
+      /* Adapted from the "Claude teaches Claude" process report template (renamed: Progress Report): same design, Meridian's sections. */
+      :root {
+        --ivory: #faf9f5;
+        --slate: #141413;
+        --ink2: #3d3d3a;
+        --clay: #d97757;
+        --clay-d: #a5482b;
+        --oat: #e3dacc;
+        --tint: #f0eee6;
+        --sky: #6a9bcc;
+        --sky-d: #4874a3;
+        --mineral: #629987;
+        --mineral-d: #3d6f60;
+        --olive: #788c5d;
+        --gray: #73726c;
+        --line: rgba(31, 30, 29, 0.12);
+        --sans:
+          "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", Meiryo,
+          -apple-system, "Segoe UI", system-ui, sans-serif;
+        --head:
+          "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--ivory);
+        color: var(--slate);
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--clay-d);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      header {
+        background: var(--slate);
+        color: #edebe3;
+        padding: 56px 0 44px;
+        margin-bottom: 52px;
+        background-image:
+          linear-gradient(rgba(250, 249, 245, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(250, 249, 245, 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .kicker {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--clay);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .kicker .bar {
+        width: 30px;
+        height: 2px;
+        background: currentColor;
+      }
+      header h1 {
+        font-family: var(--head);
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #fff;
+      }
+      header p.sub {
+        font-size: 17px;
+        color: #cfccc2;
+        margin-top: 14px;
+        max-width: 800px;
+      }
+      .hmeta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 34px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(250, 249, 245, 0.2);
+      }
+      .hmeta .k {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: #9b9a92;
+        margin-bottom: 5px;
+      }
+      .hmeta .v {
+        font-size: 15px;
+        font-weight: 500;
+        color: #edebe3;
+      }
+      section {
+        margin-bottom: 60px;
+      }
+      h2 {
+        font-family: var(--head);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        padding-bottom: 12px;
+        border-bottom: 3px solid var(--slate);
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+      }
+      h2 .num {
+        font-family: var(--mono);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--clay);
+      }
+      p {
+        margin-bottom: 12px;
+        color: var(--ink2);
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.88em;
+        background: var(--tint);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin: 26px 0 8px;
+      }
+      .stat {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-top: 4px solid var(--gray);
+        border-radius: 10px;
+        padding: 18px 20px;
+      }
+      .stat .v {
+        font-family: var(--head);
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .stat .v small {
+        font-size: 17px;
+        color: var(--gray);
+        font-weight: 500;
+      }
+      .stat .k {
+        font-size: 13px;
+        color: var(--gray);
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+      .stat.c {
+        border-top-color: var(--clay);
+      }
+      .stat.s {
+        border-top-color: var(--sky);
+      }
+      .stat.m {
+        border-top-color: var(--mineral);
+      }
+      .stat.d {
+        border-top-color: var(--slate);
+      }
+      .box {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--gray);
+        border-radius: 0 10px 10px 0;
+        padding: 16px 20px;
+        margin: 14px 0;
+      }
+      .box .h {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--gray);
+        margin-bottom: 6px;
+      }
+      .box p:last-child {
+        margin-bottom: 0;
+      }
+      .box.c {
+        border-left-color: var(--clay);
+      }
+      .box.c .h {
+        color: var(--clay-d);
+      }
+      .box.m {
+        border-left-color: var(--mineral);
+      }
+      .box.m .h {
+        color: var(--mineral-d);
+      }
+      .box.s {
+        border-left-color: var(--sky);
+      }
+      .box.s .h {
+        color: var(--sky-d);
+      }
+      .chip {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 3px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .chip.c {
+        background: #d9775722;
+        color: var(--clay-d);
+      }
+      .chip.m {
+        background: #62998722;
+        color: var(--mineral-d);
+      }
+      .chip.s {
+        background: #6a9bcc22;
+        color: var(--sky-d);
+      }
+      .chip.n {
+        background: var(--tint);
+        color: var(--gray);
+      }
+      .chip.k {
+        background: var(--slate);
+        color: #fff;
+        font-family: var(--mono);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        margin: 18px 0;
+        font-size: 14.5px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      th {
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--gray);
+        background: var(--tint);
+        border-bottom: 2px solid var(--slate);
+        white-space: nowrap;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .tl {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 8px 18px;
+        margin: 18px 0;
+      }
+      .trow {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1.6fr) minmax(0, 2fr) 96px;
+        gap: 12px;
+        align-items: center;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .trow:last-child {
+        border-bottom: none;
+      }
+      .trow .n {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--gray);
+      }
+      .trow .t small {
+        color: var(--gray);
+      }
+      .bars {
+        position: relative;
+        height: 16px;
+      }
+      .bars i {
+        position: absolute;
+        left: 0;
+        top: 2px;
+        height: 5px;
+        border-radius: 3px;
+        background: var(--oat);
+      }
+      .bars b {
+        position: absolute;
+        left: 0;
+        top: 9px;
+        height: 5px;
+        border-radius: 3px;
+        background: var(--clay);
+      }
+      .trow .m {
+        font-family: var(--mono);
+        font-size: 12px;
+        text-align: right;
+        color: var(--ink2);
+      }
+      .phead {
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: var(--clay-d);
+        padding: 12px 0 4px;
+        font-weight: 700;
+      }
+      .legend {
+        font-size: 12.5px;
+        color: var(--gray);
+        display: flex;
+        gap: 18px;
+        margin-top: -6px;
+      }
+      .legend span::before {
+        content: "";
+        display: inline-block;
+        width: 18px;
+        height: 5px;
+        border-radius: 3px;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+      .legend .a::before {
+        background: var(--oat);
+      }
+      .legend .b::before {
+        background: var(--clay);
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin: 18px 0;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 20px;
+      }
+      .card h3 {
+        font-family: var(--head);
+        font-size: 18px;
+        font-weight: 700;
+        margin: 6px 0 8px;
+        line-height: 1.4;
+      }
+      .card p {
+        font-size: 14.5px;
+        margin: 0 0 8px;
+      }
+      .card .meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      h3.sub {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--gray);
+        margin: 26px 0 4px;
+      }
+      .pairs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: stretch;
+        margin: 10px 0 6px;
+      }
+      .pairs .box {
+        margin: 0;
+        height: 100%;
+      }
+      .files {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin: 18px 0;
+      }
+      .file {
+        background: var(--slate);
+        color: #edebe3;
+        border-radius: 10px;
+        padding: 14px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      .file .p {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: #e8a48c;
+        word-break: break-all;
+        margin-bottom: 6px;
+      }
+      .file .d {
+        font-size: 13px;
+        color: #cfccc2;
+        line-height: 1.5;
+      }
+      a.file:hover {
+        outline: 2px solid var(--clay);
+      }
+      ul.plain {
+        margin: 8px 0 12px 22px;
+      }
+      ul.plain li {
+        margin-bottom: 6px;
+        color: var(--ink2);
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 22px 0 60px;
+        color: var(--gray);
+        font-size: 13px;
+      }
+      @media (max-width: 820px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .cards,
+        .files,
+        .pairs {
+          grid-template-columns: 1fr;
+        }
+        header h1 {
+          font-size: 28px;
+        }
+        .trow {
+          grid-template-columns: 30px 1fr 70px;
+        }
+        .trow .bars {
+          display: none;
+        }
+      }
+      @media print {
+        header {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        section {
+          break-inside: avoid;
+        }
+      }
+      /* Long sentences, paths and hashes must wrap inside their card or cell instead of widening the grid. */
+      .cards > .card { min-width: 0; }
+      .card p, .card h3, .card .check, td, .box p { overflow-wrap: anywhere; }
+      td code, .card code { word-break: break-all; }
+      .card .check { font-size: 13.5px; color: var(--ink2); line-height: 1.6; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+      .card .check .chip { margin-right: 8px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="kicker">
+          <span class="bar"></span
+          ><span>進捗レポート · Meridian ワークショップ</span>
+        </div>
+        <h1 id="h1">今日あなたがやったこと</h1>
+        <p class="sub" id="sub"></p>
+        <div class="hmeta" id="hmeta"></div>
+      </div>
+    </header>
+    <div class="wrap" id="root"></div>
+    <div class="wrap"><footer id="foot"></footer></div>
+
+    <script id="data" type="application/json">
+      {"generatedAt":"2026-11-10T03:10:38.001Z","timeline":[{"id":"00-welcome","title":"ようこそ · 環境の確認と「いまどこ？」","plannedMinutes":3,"startedAt":"2026-11-10T02:37:15.048Z","endedAt":"2026-11-10T02:39:03.532Z","actualMinutes":1.8,"forced":true},{"id":"01-intro-deck","title":"読む: このワークショップの進め方 · 紹介スライド","plannedMinutes":4,"startedAt":"2026-11-10T02:39:03.532Z","endedAt":"2026-11-10T02:39:19.235Z","actualMinutes":0.3,"forced":false},{"id":"02-page-rfp","title":"読む: RFP とは · 一般的な流れと、応札側が考えること","plannedMinutes":4,"startedAt":"2026-11-10T02:39:19.235Z","endedAt":"2026-11-10T02:39:35.888Z","actualMinutes":0.3,"forced":false},{"id":"03-kickoff","title":"RFP を読む · @ で読み込み、私たちの理解を整理する","plannedMinutes":4,"startedAt":"2026-11-10T02:39:35.888Z","endedAt":"2026-11-10T02:41:26.676Z","actualMinutes":1.8,"forced":false},{"id":"04-analyze","title":"穴を探す · 決めないと見積もれない点と、引き継ぎメモ","plannedMinutes":6,"startedAt":"2026-11-10T02:41:26.676Z","endedAt":"2026-11-10T02:44:41.865Z","actualMinutes":3.3,"forced":false},{"id":"05-proposal","title":"提案の方針を決める · 提案書は Claude が一気に書く","plannedMinutes":8,"startedAt":"2026-11-10T02:44:41.865Z","endedAt":"2026-11-10T02:49:12.438Z","actualMinutes":4.5,"forced":false},{"id":"06-deck","title":"HTML ページとスライドにする · 提案書を見せる形に","plannedMinutes":5,"startedAt":"2026-11-10T02:49:12.438Z","endedAt":"2026-11-10T02:50:48.697Z","actualMinutes":1.6,"forced":false},{"id":"07-env","title":"受注 · 環境を確認し、/start でアプリを起動","plannedMinutes":6,"startedAt":"2026-11-10T02:50:48.697Z","endedAt":"2026-11-10T02:55:15.096Z","actualMinutes":4.4,"forced":false},{"id":"08-plan-r1","title":"R1 の原因を調べて計画する · 概要ページで期間や場所を選んでも反映されない","plannedMinutes":6,"startedAt":"2026-11-10T02:55:15.096Z","endedAt":"2026-11-10T03:00:48.707Z","actualMinutes":5.6,"forced":false},{"id":"09-build-r1","title":"R1 を直す · 概要ページの KPI をフィルターに連動させる","plannedMinutes":22,"startedAt":"2026-11-10T03:00:48.707Z","endedAt":"2026-11-10T03:05:03.051Z","actualMinutes":4.2,"forced":false},{"id":"10-review","title":"コードレビュー · サブエージェントの指摘を選んで直す","plannedMinutes":10,"startedAt":"2026-11-10T03:05:03.051Z","endedAt":"2026-11-10T03:10:10.044Z","actualMinutes":5.1,"forced":false}],"tests":{},"deliverables":[{"name":"capabilities-deck.html","kind":"html","url":"/proposal/capabilities-deck.html"},{"name":"proposal.html","kind":"html","url":"/proposal/proposal.html"},{"name":"proposal.md","kind":"md","url":"/proposal/proposal.md"}],"state":{"title":"Meridian ワークショップ — RFP への応札から最初の納品まで","startedAt":"2026-11-10T02:37:15.048Z","elapsedMin":33,"totalMinutes":85,"budgetMinutes":90,"plannedUntilNow":85,"plannedBeforeNow":78,"current":"11-wrap","finishedAt":null,"hint":"進捗レポートがブラウザで開きます。今日の成果、予定と実績、次フェーズへの引き継ぎがまとまっています。","deliverables":[{"name":"capabilities-deck.html","kind":"html","url":"/proposal/capabilities-deck.html"},{"name":"proposal.html","kind":"html","url":"/proposal/proposal.html"},{"name":"proposal.md","kind":"md","url":"/proposal/proposal.md"}],"parts":[{"id":"p1","title":"第1幕 · RFP に応札する（提案書づくり）","minutes":34},{"id":"p2","title":"第2幕 · 受注した案件を遂行する（概要ページの不具合の修正、コードレビュー）","minutes":51}],"steps":[{"id":"00-welcome","n":0,"part":"p1","title":"ようこそ · 環境の確認と「いまどこ？」","minutes":3,"where":"cli","page":"map.html","doneAt":"2026-11-10T02:39:03.532Z","status":"done"},{"id":"01-intro-deck","n":1,"part":"p1","title":"読む: このワークショップの進め方 · 紹介スライド","minutes":4,"where":"browser","page":"intro/deck.html","doneAt":"2026-11-10T02:39:19.235Z","status":"done"},{"id":"02-page-rfp","n":2,"part":"p1","title":"読む: RFP とは · 一般的な流れと、応札側が考えること","minutes":4,"where":"browser","page":"01-rfp-process.html","doneAt":"2026-11-10T02:39:35.888Z","status":"done"},{"id":"03-kickoff","n":3,"part":"p1","title":"RFP を読む · @ で読み込み、私たちの理解を整理する","minutes":4,"where":"cli","page":"02-rfp-meridian.html","doneAt":"2026-11-10T02:41:26.676Z","status":"done"},{"id":"04-analyze","n":4,"part":"p1","title":"穴を探す · 決めないと見積もれない点と、引き継ぎメモ","minutes":6,"where":"cli","page":null,"doneAt":"2026-11-10T02:44:41.865Z","status":"done"},{"id":"05-proposal","n":5,"part":"p1","title":"提案の方針を決める · 提案書は Claude が一気に書く","minutes":8,"where":"cli","page":null,"doneAt":"2026-11-10T02:49:12.438Z","status":"done"},{"id":"06-deck","n":6,"part":"p1","title":"HTML ページとスライドにする · 提案書を見せる形に","minutes":5,"where":"cli","page":null,"doneAt":"2026-11-10T02:50:48.697Z","status":"done"},{"id":"07-env","n":7,"part":"p2","title":"受注 · 環境を確認し、/start でアプリを起動","minutes":6,"where":"cli","page":null,"doneAt":"2026-11-10T02:55:15.096Z","status":"done"},{"id":"08-plan-r1","n":8,"part":"p2","title":"R1 の原因を調べて計画する · 概要ページで期間や場所を選んでも反映されない","minutes":6,"where":"cli","page":null,"doneAt":"2026-11-10T03:00:48.707Z","status":"done"},{"id":"09-build-r1","n":9,"part":"p2","title":"R1 を直す · 概要ページの KPI をフィルターに連動させる","minutes":22,"where":"cli","page":null,"doneAt":"2026-11-10T03:05:03.051Z","status":"done"},{"id":"10-review","n":10,"part":"p2","title":"コードレビュー · サブエージェントの指摘を選んで直す","minutes":10,"where":"cli","page":null,"doneAt":"2026-11-10T03:10:10.044Z","status":"done"},{"id":"11-wrap","n":11,"part":"p2","title":"まとめ · 進捗レポート（次フェーズへの引き継ぎつき）","minutes":7,"where":"cli","page":null,"doneAt":null,"status":"current"}],"notes":{"kickoff":"done","gaps":"予算レンジの記載なし","decisions":"上限付きT&M/R1→R4・R5/D2のみ/確実に進める","reports_issue":"東京にすると売上は変わるがKPIは変わらない（別途: Reportsが日本語化されていない）","r1_scope":"Dashboard.vueのみ/出荷完了=Delivered件数(目標200・単月17)/充足率=(Delivered+Shipped)÷全注文/平均処理時間=Deliveredの平均日数/在庫回転率は計算せず「—（定義を確認中）」","review":"4件修正（0日でバー空/不正日付でNaN/平均処理時間の計算統一/充足率の分母）、次フェーズ: 差分表示の単位統一・絞り込み時のKPIの意味・目標値の定数化・status null・売上KPIの初期NaN・KPIのcomposable化","review_findings":"🔴|平均処理時間0日で進捗バーが0%|Dashboard.vue:66|最良の結果なのにバーが空、nullと0を同一視|修正|processingProgress computedで目標以下は100% ;; 🔴|不正な日付でNaN表示|Dashboard.vue:358-365|new Dateを検証せず合計がNaNに|修正|daysBetweenで検証し不正行を除外 ;; 🟡|平均処理時間が2通りの定義|Dashboard.vue:357/417-429|KPIは丸めなし、注文の状況カードは注文ごとに丸め|修正|orderHealthMetricsがavgProcessingDaysを参照 ;; 🟡|充足率の分母が4ステータス合計|Dashboard.vue:351-352|未知のステータスがあると率が高く出る|修正|分母をallOrders.lengthに ;; 🟡|差分表示の単位がばらばら|Dashboard.vue:41,63,373|ポイント差と相対%が同じ%表記、-0.00表示|次フェーズ|- ;; 🟡|ステータス・倉庫で絞るとKPIの意味が崩れる|Dashboard.vue:343-353|目標が全社値のまま|次フェーズ（仕様確認）|- ;; 🟢|目標値が散在|Dashboard.vue:345-384|マジックナンバー|次フェーズ|- ;; 🟢|statusがnullで例外|Dashboard.vue:396|toLowerCaseが落ちる（新規側は?.で対応済み）|次フェーズ|- ;; ⏭|売上KPIがsummary依存で初期NaNの恐れ|Dashboard.vue:49-54|allOrders方針とずれる|次フェーズ|- ;; ⏭|KPI計算のcomposable化|Dashboard.vue|単体テストしやすくする|次フェーズ|-"}},"git":{"commits":[{"hash":"deba073","subject":"概要: KPI をフィルター済みのデータから計算し、期間・場所の選択を反映"},{"hash":"43cd0a3","subject":"R1: レビュー指摘の修正"}],"stat":"3 files changed, 79 insertions(+), 30 deletions(-)"}}
+    </script>
+    <script id="story" type="application/json">
+      {}
+    </script>
+    <script>
+      // D: the recorded run (tutor report-data). S: the narrative Claude wrote (tutor/state/story.json). Numbers come only from D.
+      const D = JSON.parse(document.getElementById("data").textContent);
+      const S = JSON.parse(document.getElementById("story").textContent);
+      const $ = (tag, cls, html) => {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (html != null) e.innerHTML = html;
+        return e;
+      };
+      const esc = (s) =>
+        String(s == null ? "" : s).replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      const root = document.getElementById("root");
+      let secNo = 0;
+      function section(title, build) {
+        const s = $("section");
+        secNo++;
+        s.appendChild(
+          $(
+            "h2",
+            null,
+            `<span class="num">${String(secNo).padStart(2, "0")}</span>${esc(title)}`,
+          ),
+        );
+        build(s);
+        root.appendChild(s);
+      }
+      const list = (items) =>
+        `<ul class="plain">${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
+      const notes = D.state.notes || {},
+        tl = D.timeline || [],
+        steps = D.state.steps || [];
+      const activeMin = Math.round(
+        tl.reduce((a, r) => a + (r.actualMinutes || 0), 0),
+      );
+      const fmtT = (iso) =>
+        iso
+          ? new Date(iso).toLocaleTimeString("ja-JP", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "";
+      const budget = D.state.budgetMinutes || 90;
+
+      // masthead
+      document.getElementById("h1").textContent =
+        S.headline || "今日あなたがやったこと";
+      document.getElementById("sub").textContent =
+        S.summary ||
+        "RFP への応札から、受注した案件の最初の改修とコードレビューまで。";
+      const started = D.state.startedAt ? new Date(D.state.startedAt) : null;
+      const doneN =
+        steps.filter((x) => x.status === "done").length +
+        (D.state.current &&
+        D.state.current === (steps[steps.length - 1] || {}).id
+          ? 1
+          : 0);
+      document.getElementById("hmeta").innerHTML = [
+        [
+          "日付",
+          started
+            ? started.toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            : "",
+        ],
+        [
+          "案件",
+          "Meridian Components · 在庫ダッシュボード（RFP MC-2026-0417）",
+        ],
+        [
+          "完了したステップ",
+          `${steps.length} 中 ${Math.min(doneN, steps.length)}`,
+        ],
+        ["ステップにかけた時間", `${activeMin} 分 / 予算 ${budget} 分`],
+      ]
+        .map(
+          ([k, v]) =>
+            `<div><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`,
+        )
+        .join("");
+
+      // 01 summary
+      section("概要", (s) => {
+        const commits = (D.git && D.git.commits) || [];
+        const t = D.tests || {};
+        const deliv = (D.deliverables || []).filter(
+          (f) => f.name !== "progress-report.html",
+        );
+        const stats = $("div", "stats");
+        stats.innerHTML = `
+    <div class="stat c"><div class="v">${deliv.length}</div><div class="k">成果物（proposal/）<br>提案書・ページ・スライド・メモ</div></div>
+    <div class="stat m"><div class="v">${commits.length}</div><div class="k">納品したコミット<br>（client/ と server/）</div></div>
+    <div class="stat s"><div class="v">${t.passed != null ? `${esc(t.passed)} <small>/ ${esc(t.passed + (t.failed || 0))}</small>` : "—"}</div><div class="k">バックエンドのテスト（成功 / 全体）<br>${t.failed ? `失敗 ${esc(t.failed)} 件（元から ${esc(t.baselineFailed)} 件）` : ""}</div></div>
+    <div class="stat d"><div class="v">${activeMin} <small>分</small></div><div class="k">ステップにかけた時間<br>予算 ${budget} 分</div></div>`;
+        s.appendChild(stats);
+        if (S.takeaway) {
+          const b = $("div", "box c");
+          b.innerHTML = `<div class="h">一言でまとめると</div><p>${esc(S.takeaway)}</p>`;
+          s.appendChild(b);
+        }
+      });
+
+      // 02 timeline
+      section("タイムライン — 予定と実績", (s) => {
+        const max = Math.max(
+          1,
+          ...tl.map((r) =>
+            Math.max(r.plannedMinutes || 0, r.actualMinutes || 0),
+          ),
+        );
+        const box = $("div", "tl");
+        let part = null;
+        const partOf = (id) => (steps.find((x) => x.id === id) || {}).part;
+        const partTitle = (p) =>
+          ((D.state.parts || []).find((x) => x.id === p) || {}).title || "";
+        tl.forEach((r) => {
+          const p = partOf(r.id);
+          if (p !== part) {
+            part = p;
+            box.appendChild($("div", "phead", esc(partTitle(p))));
+          }
+          const n = steps.findIndex((x) => x.id === r.id);
+          const row = $("div", "trow");
+          row.innerHTML = `<span class="n">${String(n).padStart(2, "0")}</span><span class="t">${esc(r.title)} ${r.forced ? '<span class="chip n">時間の都合で先へ</span>' : ""}<br><small>${fmtT(r.startedAt)}</small></span>
+      <span class="bars"><i style="width:${(100 * (r.plannedMinutes || 0)) / max}%"></i><b style="width:${(100 * (r.actualMinutes || 0)) / max}%"></b></span>
+      <span class="m">${r.actualMinutes ?? "—"} / ${r.plannedMinutes} 分</span>`;
+          box.appendChild(row);
+        });
+        s.appendChild(box);
+        s.appendChild(
+          $(
+            "div",
+            "legend",
+            '<span class="a">予定の時間</span><span class="b">実際にかかった時間</span>',
+          ),
+        );
+        if (S.timelineNote) s.appendChild($("p", null, esc(S.timelineNote)));
+      });
+
+      // 03 Act 1: the proposal
+      section("第1幕 — 提案書", (s) => {
+        if (S.proposalNote) s.appendChild($("p", null, esc(S.proposalNote)));
+        const rows = [
+          ["見つけた RFP の穴", notes.gaps],
+          ["提案の方針（あなたの判断）", notes.decisions],
+          ["前提条件", notes.assumptions],
+        ].filter((r) => r[1]);
+        if (rows.length) {
+          const t = $("table");
+          t.innerHTML = `<tbody>${rows.map((r) => `<tr><th style="width:26%">${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join("")}</tbody>`;
+          s.appendChild(t);
+        }
+        const deliv = (D.deliverables || []).filter(
+          (f) => f.name !== "progress-report.html",
+        );
+        if (deliv.length) {
+          const f = $("div", "files");
+          deliv.forEach((d) => {
+            const a = $(
+              "a",
+              "file",
+              `<div class="p">proposal/${esc(d.name)}</div><div class="d">${d.kind === "md" ? "Markdown（整形して表示）" : "HTML"}</div>`,
+            );
+            a.href = d.url;
+            a.target = "_blank";
+            f.appendChild(a);
+          });
+          s.appendChild(f);
+        }
+      });
+
+      // 04 Act 2: what was delivered
+      section("第2幕 — 納品したもの", (s) => {
+        const changes =
+          S.changes && S.changes.length
+            ? S.changes
+            : ((D.git && D.git.commits) || []).map((c) => ({
+                title: c.subject,
+                commit: c.hash,
+              }));
+        if (notes.reports_issue) {
+          const b = $("div", "box s");
+          b.innerHTML = `<div class="h">アプリを起動して、あなたが気づいたこと</div><p>${esc(notes.reports_issue)}</p>`;
+          s.appendChild(b);
+        }
+        const cards = $("div", "cards");
+        changes.forEach((c) => {
+          const card = $("div", "card");
+          card.innerHTML = `<div class="meta">${c.area ? `<span class="chip c">${esc(c.area)}</span>` : ""}${c.commit ? `<span class="chip k">${esc(String(c.commit).slice(0, 7))}</span>` : ""}</div><h3>${esc(c.title || "")}</h3>${c.what ? `<p>${esc(c.what)}</p>` : ""}${c.check ? `<div class="check"><span class="chip m">確認</span>${esc(c.check)}</div>` : ""}`;
+          cards.appendChild(card);
+        });
+        s.appendChild(cards);
+        if ((D.git || {}).stat)
+          s.appendChild($("p", null, `合計: <code>${esc(D.git.stat)}</code>`));
+      });
+
+      // 05 code review: every finding, why it mattered, what the learner chose, and what the fix changed.
+      // Detailed form: review.findings [{ severity, title, where, problem, decision, reason, fix }];
+      // older story files with review.fixed / review.deferred (plain lists) still render.
+      section("コードレビュー", (s) => {
+        const r = S.review || {};
+        if (r.note) s.appendChild($("p", null, esc(r.note)));
+        const f = r.findings || [];
+        if (f.length) {
+          const is = (x, re) => re.test(x.decision || "");
+          const fixed = f.filter((x) => is(x, /修正|fix/i)), later = f.filter((x) => is(x, /次|later|defer/i)), skip = f.filter((x) => !is(x, /修正|fix/i) && !is(x, /次|later|defer/i));
+          const stats = $("div", "stats");
+          stats.innerHTML = `<div class="stat d"><div class="v">${f.length}</div><div class="k">見つかった指摘</div></div><div class="stat m"><div class="v">${fixed.length}</div><div class="k">修正した${r.fixCommit ? `<br><span class="chip k">${esc(String(r.fixCommit).slice(0, 7))}</span>` : ""}</div></div><div class="stat s"><div class="v">${later.length}</div><div class="k">次フェーズに回した</div></div><div class="stat"><div class="v">${skip.length}</div><div class="k">見送った</div></div>`;
+          s.appendChild(stats);
+          const dc = (x) => (is(x, /修正|fix/i) ? "m" : is(x, /次|later|defer/i) ? "s" : "n");
+          const t = $("table");
+          t.innerHTML = `<thead><tr><th style="width:6%">重要度</th><th style="width:30%">指摘と場所</th><th>何が問題か</th><th style="width:28%">判断と対応</th></tr></thead><tbody>${f
+            .map((x) => `<tr><td style="font-size:18px">${esc(x.severity || "")}</td><td><b>${esc(x.title)}</b>${x.where ? `<br><code>${esc(x.where)}</code>` : ""}</td><td>${esc(x.problem || "")}</td><td><span class="chip ${dc(x)}">${esc(x.decision || "—")}</span>${x.reason ? ` ${esc(x.reason)}` : ""}${x.fix ? `<br><small>修正: ${esc(x.fix)}</small>` : ""}</td></tr>`)
+            .join("")}</tbody>`;
+          s.appendChild(t);
+        } else if ((r.fixed || []).length || (r.deferred || []).length) {
+          const g = $("div", "pairs");
+          const b1 = $("div", "box m"); b1.innerHTML = `<div class="h">直した指摘</div>${(r.fixed || []).length ? list(r.fixed) : "<p>なし</p>"}`;
+          const b2 = $("div", "box"); b2.innerHTML = `<div class="h">次フェーズに回した指摘</div>${(r.deferred || []).length ? list(r.deferred) : "<p>なし</p>"}`;
+          g.appendChild(b1); g.appendChild(b2); s.appendChild(g);
+        } else if (notes.review) { const b = $("div", "box m"); b.innerHTML = `<div class="h">レビューの記録</div><p>${esc(notes.review)}</p>`; s.appendChild(b); }
+      });
+
+      // 06 decisions and corrections
+      section("あなたが決めたことと、Claude を軌道修正した場面", (s) => {
+        const group = (title, items, cls) => {
+          s.appendChild($("h3", "sub", esc(title)));
+          if (!items.length) {
+            s.appendChild($("p", null, "記録はありません。"));
+            return;
+          }
+          const g = $("div", "pairs");
+          items.forEach((d) => {
+            const b = $("div", `box ${cls}`);
+            b.innerHTML = `<div class="h">${esc(d.title)}</div><p>${esc(d.detail)}</p>`;
+            g.appendChild(b);
+          });
+          s.appendChild(g);
+        };
+        group("あなたが決めたこと", S.decisions || [], "c");
+        group("Claude を軌道修正した場面", S.corrections || [], "");
+      });
+
+      // 07 next phase (the handover to the client)
+      // 07 next phase: the detailed handover of everything Part 2 did not cover, grouped by requirement.
+      // Each item: { req, title, status, evidence, action, priority (高/中/低), estimate, question? }.
+      // Older story files with only { title, detail } still render (detail goes into the status column).
+      section("次フェーズへの引き継ぎ", (s) => {
+        const np = S.nextPhase || [];
+        const h = S.handover || {};
+        if (h.note) s.appendChild($("p", null, esc(h.note)));
+        if (!np.length) { s.appendChild($("p", null, "記録はありません。")); return; }
+        const pr = (p) => (/高|high/i.test(p || "") ? "c" : /中|mid|medium/i.test(p || "") ? "s" : "n");
+        const count = (re) => np.filter((x) => re.test(x.priority || "")).length;
+        s.appendChild($("p", "muted", `未対応の課題 ${np.length} 件（優先度 高 ${count(/高|high/i)} · 中 ${count(/中|mid|medium/i)} · 低 ${count(/低|low/i)}）`));
+        const groups = [];
+        np.forEach((x) => { const g = x.req || "その他"; let e = groups.find((y) => y.g === g); if (!e) groups.push((e = { g, items: [] })); e.items.push(x); });
+        groups.forEach(({ g, items }) => {
+          s.appendChild($("h3", "sub", esc(g)));
+          const t = $("table");
+          t.innerHTML = `<thead><tr><th style="width:18%">課題</th><th>現状（確認した根拠）</th><th>推奨対応</th><th style="width:12%">優先度 · 目安</th></tr></thead><tbody>${items
+            .map((x) => `<tr><td><b>${esc(x.title)}</b></td><td>${esc(x.status || x.detail || "")}${x.evidence ? `<br><code>${esc(x.evidence)}</code>` : ""}</td><td>${esc(x.action || "")}${x.question ? `<br><span class="chip s">要確認</span> ${esc(x.question)}` : ""}</td><td>${x.priority ? `<span class="chip ${pr(x.priority)}">${esc(x.priority)}</span>` : ""}${x.estimate ? `<br><small>${esc(x.estimate)}</small>` : ""}</td></tr>`)
+            .join("")}</tbody>`;
+          s.appendChild(t);
+        });
+        if (h.schedule) { const b = $("div", "box s"); b.innerHTML = `<div class="h">提案書のスケジュールとの対応</div><p>${esc(h.schedule)}</p>`; s.appendChild(b); }
+        if ((h.questions || []).length) { const b = $("div", "box c"); b.innerHTML = `<div class="h">クライアントに確認したいこと</div>${list(h.questions)}`; s.appendChild(b); }
+      });
+
+      // 08 features
+      if ((S.features || []).length)
+        section("使った機能と、それを操作したのは誰か", (s) => {
+          const t = $("table");
+          t.innerHTML = `<thead><tr><th>機能</th><th>操作したのは</th><th>今日、何の役に立ったか</th></tr></thead><tbody>${S.features.map((f) => `<tr><td><code>${esc(f.name)}</code></td><td><span class="chip ${/you|あなた/i.test(f.who) ? "c" : "m"}">${esc(f.who)}</span></td><td>${esc(f.note)}</td></tr>`).join("")}</tbody>`;
+          s.appendChild(t);
+        });
+
+      // 09 not covered
+      section("今日は扱わなかったもの", (s) => {
+        const nc =
+          S.notCovered && S.notCovered.length
+            ? S.notCovered
+            : [
+                "MCP（Playwright による E2E テスト）",
+                "hooks",
+                "worktree",
+                "GitHub への push と PR",
+                "R3 発注推奨ビュー",
+              ];
+        s.appendChild($("p", null, nc.map(esc).join(" · ")));
+      });
+      document.getElementById("foot").textContent =
+        `${new Date(D.generatedAt || Date.now()).toLocaleString("ja-JP")} に、あなた自身の実行記録（チューターのログ、git の履歴、テストの結果、あなたのメモ）から生成しました。ここにある情報は、あなたのマシンの外には出ていません。`;
+    </script>
+  </body>
+</html>

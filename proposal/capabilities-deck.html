@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ケイパビリティ・プレゼンテーション</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0f172a; --slide: #ffffff; --ink: #0f172a; --muted: #64748b; --line: #e2e8f0;
+    --accent: #1d4ed8; --accent-soft: #dbeafe; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg);
+    font-family: "Noto Sans JP", system-ui, sans-serif; color: var(--ink); overflow: hidden; }
+  .stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .slide { position: absolute; width: min(96vw, calc(92vh * 16 / 9)); aspect-ratio: 16 / 9;
+    background: var(--slide); border-radius: 10px; padding: 5% 6%; display: none; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4); font-size: min(1.9vw, 3.4vh); }
+  .slide.active { display: flex; }
+  .kicker { color: var(--accent); font-weight: 700; font-size: .7em; letter-spacing: .1em; margin-bottom: .6em; }
+  h1 { font-size: 2.4em; font-weight: 900; line-height: 1.3; margin: 0; }
+  h2 { font-size: 1.6em; font-weight: 700; line-height: 1.35; margin: 0 0 .8em; }
+  p, li { line-height: 1.7; }
+  .sub { color: var(--muted); font-size: .9em; margin-top: 1.2em; }
+  .title-slide { justify-content: center; border-left: 1.2em solid var(--accent); }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; flex: 1; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: .9em 1em; }
+  .card .who { font-size: .65em; color: var(--muted); font-weight: 700; letter-spacing: .05em; }
+  .card .what { font-weight: 700; margin: .3em 0; }
+  .card p { font-size: .8em; margin: 0; color: #334155; }
+  .big { font-size: 1.15em; font-weight: 700; background: var(--accent-soft); color: var(--accent);
+    border-radius: 8px; padding: .6em .9em; margin-top: auto; }
+  ol.flow { list-style: none; padding: 0; margin: 0; display: grid; gap: .7em; }
+  ol.flow li { display: grid; grid-template-columns: 2.4em 1fr; align-items: start; }
+  ol.flow .n { width: 1.8em; height: 1.8em; border-radius: 50%; background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85em; }
+  ol.flow b { display: block; } ol.flow span { color: var(--muted); font-size: .85em; }
+  .tl { display: grid; grid-template-columns: repeat(16, 1fr); gap: 4px; margin: .5em 0 1.2em; }
+  .tl div { height: 2.2em; border-radius: 5px; color: #fff; font-weight: 700; font-size: .75em;
+    display: flex; align-items: center; padding-left: .7em; }
+  .p1 { background:#1d4ed8; grid-column: span 3 } .p2 { background:#0f766e; grid-column: span 4 }
+  .p3 { background:#7c3aed; grid-column: span 4 } .p4 { background:#b45309; grid-column: span 5 }
+  table { width: 100%; border-collapse: collapse; font-size: .8em; }
+  th, td { text-align: left; padding: .45em .6em; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; }
+  .why { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8em 1.4em; }
+  .why div { border-left: 4px solid var(--accent); padding: .2em 0 .2em .8em; }
+  .why b { display: block; } .why span { font-size: .8em; color: #475569; }
+  .nav { position: fixed; right: 16px; bottom: 12px; display: flex; gap: 8px; align-items: center;
+    color: #cbd5e1; font-size: 13px; font-family: "Noto Sans JP", sans-serif; }
+  .nav button { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 6px;
+    padding: 6px 12px; cursor: pointer; font: inherit; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <section class="slide title-slide active">
+    <div class="kicker">RFP MC-2026-0417 · ケイパビリティ・プレゼンテーション</div>
+    <h1>在庫ダッシュボードを、<br>もう一度「信頼できる道具」に</h1>
+    <p class="sub">Meridian Components, Inc. 御中　·　2026年5月</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">課題</div>
+    <h2>「直したいのに、直すことを承認できない」</h2>
+    <div class="grid3">
+      <div class="card"><div class="who">オペレーション</div><div class="what">数字が信用できない</div>
+        <p>概要ページの KPI が期間・拠点に連動せず、表計算ソフトで集計し直している。</p></div>
+      <div class="card"><div class="who">IT 部門</div><div class="what">変更を承認できない</div>
+        <p>自動テストがなく、どの変更が何を壊すか分からない。</p></div>
+      <div class="card"><div class="who">調達</div><div class="what">先が読めない</div>
+        <p>前任ベンダーは作業を未完のまま残し、引き継ぎ資料も56行のみ。</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">アプローチ</div>
+    <h2>信頼を取り戻し、土台を固め、その上で広げる</h2>
+    <ol class="flow">
+      <li><div class="n">1</div><div><b>まず数字を正す（R1）</b><span>最初の3週間で、概要ページの KPI をフィルターに連動させる</span></div></li>
+      <li><div class="n">2</div><div><b>変更を安全にする（R4・R5）</b><span>主要フローの E2E テストと、IT に引き継げるアーキテクチャ資料</span></div></li>
+      <li><div class="n">3</div><div><b>その上で広げる（R2・R3・D2）</b><span>Reports の欠陥を一掃し、発注推奨と日本語対応を追加</span></div></li>
+    </ol>
+    <div class="big">各フェーズの終わりに、動くものと完了基準をお見せしてから次へ進みます</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">スケジュール</div>
+    <h2>16週間・4フェーズ</h2>
+    <div class="tl"><div class="p1">1 · R1</div><div class="p2">2 · R4・R5</div><div class="p3">3 · R2</div><div class="p4">4 · R3・D2</div></div>
+    <table>
+      <thead><tr><th>フェーズ</th><th>期間</th><th>終わりにお見せするもの</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>第1〜3週</td><td>数字がフィルターに連動する概要ページ</td></tr>
+        <tr><td>2</td><td>第4〜7週</td><td>CI で緑の E2E テスト、アーキテクチャ資料</td></tr>
+        <tr><td>3</td><td>第8〜11週</td><td>欠陥一覧と、すべて解消した Reports</td></tr>
+        <tr><td>4</td><td>第12〜16週</td><td>発注推奨ビュー、日英切り替え、最終資料</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">価格</div>
+    <h2>上限付き T&amp;M · 上限 USD 148,000</h2>
+    <ol class="flow">
+      <li><div class="n">✓</div><div><b>支払いの最大額が、最初から分かる</b><span>実際の工数で請求し、上限額を超えては請求しません</span></div></li>
+      <li><div class="n">✓</div><div><b>不確かな範囲にも誠実に対応</b><span>R2 の欠陥が8件を超えても、上限内で優先順位を一緒に決めます</span></div></li>
+      <li><div class="n">✓</div><div><b>毎月の見える化</b><span>実績工数と残りの上限額を、月次でご報告します</span></div></li>
+    </ol>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">選ばれる理由</div>
+    <h2>私たちは「確実に進める」ことを約束します</h2>
+    <div class="why">
+      <div><b>最優先の課題から着手</b><span>R1 を3週間で。現場の信頼を最初に取り戻す</span></div>
+      <div><b>IT が承認できる変更</b><span>テストを先に。以後の改修はすべてテスト付き</span></div>
+      <div><b>前提を隠さない</b><span>RFP の曖昧な点は前提 A1〜A6 として明記</span></div>
+      <div><b>東京チームにも届く</b><span>全モジュールの日本語対応（D2）を同じ期間内に</span></div>
+    </div>
+  </section>
+
+  <section class="slide title-slide">
+    <div class="kicker">ありがとうございました</div>
+    <h1>次の一歩: 第1週のアーキテクチャレビュー</h1>
+    <p class="sub">ご質問・ご要望をお待ちしております。</p>
+  </section>
+
+</div>
+<div class="nav"><button id="prev" aria-label="前へ">←</button><span id="count"></span><button id="next" aria-label="次へ">→</button></div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  const show = n => { i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    document.getElementById('count').textContent = `${i + 1} / ${slides.length}`; };
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0); if (e.key === 'End') show(slides.length - 1); });
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  show(0);
+</script>
+</body>
+</html>

@@ -168,10 +168,10 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
 <!-- ============================ 01 ============================ -->
 <section id="s0">
   <h2><span class="num">01</span>実施サマリー</h2>
-  <p class="lead">課題1（提案書作成）と課題2（実装）の両方を完了しました。課題2 では RFP の必須要件 <strong>R1〜R4 のすべて</strong>に対応しています。</p>
+  <p class="lead">課題1（提案書作成）と課題2（実装）の両方を完了しました。課題2 では RFP の必須要件 <strong>R2〜R5 のすべて</strong>に対応しています。</p>
 
   <div class="stats">
-    <div class="stat g"><div class="v">4 / 4</div><div class="k">必須要件<br>R1・R2・R3・R4 完了</div></div>
+    <div class="stat g"><div class="v">4 / 4</div><div class="k">必須要件<br>R2・R3・R4・R5 完了</div></div>
     <div class="stat b"><div class="v">142</div><div class="k">自動テスト<br>E2E 67 + API 75</div></div>
     <div class="stat p"><div class="v">9</div><div class="k">成果物<br>提案書6 + 文書3</div></div>
     <div class="stat a"><div class="v">14</div><div class="k">検出した技術的負債<br>うち 5 件を解消</div></div>
@@ -182,7 +182,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
     <thead><tr><th style="width:16%">区分</th><th style="width:26%">Agenda 上の想定</th><th>実際</th></tr></thead>
     <tbody>
       <tr><td>課題1</td><td>RFP 解答案の作成（20分）</td><td>提案書6点（エグゼクティブサマリー / 技術アプローチ / スケジュール / 価格 / 関連実績 / 12枚デッキ）を作成。<strong>約25分</strong></td></tr>
-      <tr><td>課題2</td><td>「一つ目の大きい実装が終わる時点で止めてもOK」（25分目安）</td><td><strong>必須4要件すべてを完了。</strong>R4 → R3 → R1 → R2 の順。約1時間20分</td></tr>
+      <tr><td>課題2</td><td>「一つ目の大きい実装が終わる時点で止めてもOK」（25分目安）</td><td><strong>必須4要件すべてを完了。</strong>R5 → R4 → R2 → R3 の順。約1時間20分</td></tr>
       <tr><td>進捗報告</td><td>Claude Code に書かせる（5分）</td><td>HTML 進捗報告書（448行）を生成。<strong>約8分</strong></td></tr>
       <tr><td>Plan Mode</td><td>後半で活用</td><td><span class="chip r">未実施</span> 3回提案したが参加者が毎回スキップを選択（§07・§14 参照）</td></tr>
       <tr><td>サブエージェント</td><td>—</td><td><span class="chip r">未実施</span> <code>vue-expert</code> を提示したが参加者が「そのまま書いて」を選択</td></tr>
@@ -206,17 +206,17 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
     <div class="tlrow"><div class="t">07:40</div><div>背景資料と前任ベンダー引き継ぎ資料を読解。<strong>購買委員会3者の力学</strong>を抽出。<code>AskUserQuestion</code> で確認事項4件を提示し、参加者がクライアント役で回答</div></div>
     <div class="tlrow"><div class="t">07:44</div><div>コードベースを実地確認。<strong>RFP の記述と実物の相違を4件発見</strong>（テスト実在、i18n 稼働、共通フィルター実装、未記載の composable）</div></div>
     <div class="tlrow"><div class="t">07:47</div><div>エグゼクティブサマリー初稿 → 承認</div></div>
-    <div class="tlrow"><div class="t">07:52</div><div>技術アプローチ（R1〜R4・D1〜D3、前提条件 A1〜A10）</div></div>
+    <div class="tlrow"><div class="t">07:52</div><div>技術アプローチ（R2〜R5・D1〜D3、前提条件 A1〜A10）</div></div>
     <div class="tlrow"><div class="t">07:55</div><div>スケジュール（15週）＋価格（上限額付き T&amp;M、$138.6K）＋関連実績の雛形</div></div>
     <div class="tlrow"><div class="t">08:02</div><div><strong>ケイパビリティ・デッキ 12枚</strong>を単一 HTML で生成。<span class="chip g">課題1 完了</span></div></div>
     <div class="tlrow"><div class="t">08:0x</div><div>課題2 開始。環境チェックで <strong><code>uv</code> / <code>node</code> / <code>npm</code> がいずれも未導入</strong>と判明 → ホーム配下に導入（sudo 不要）</div></div>
-    <div class="tlrow"><div class="t">08:2x</div><div>参加者が <code>/start</code> を実行。サーバー起動。リモート環境対応（Vite プロキシ）を実施し、<strong>R1 の不具合1件を発見</strong></div></div>
+    <div class="tlrow"><div class="t">08:2x</div><div>参加者が <code>/start</code> を実行。サーバー起動。リモート環境対応（Vite プロキシ）を実施し、<strong>R2 の不具合1件を発見</strong></div></div>
     <div class="tlrow"><div class="t">08:39</div><div>パッチファイル生成。<code>origin</code> をフォークへ切替</div></div>
     <div class="tlrow"><div class="t">08:58</div><div><code>CLAUDE.md</code> に環境チェック手順を追記（次回以降の運営資産）</div></div>
-    <div class="tlrow"><div class="t">09:0x</div><div><strong>R4 アーキテクチャレビュー。</strong>技術的負債 D-01〜D-13 を実測値付きで文書化</div></div>
-    <div class="tlrow"><div class="t">09:13</div><div><strong>R3 E2E テスト整備。</strong>Playwright 導入、6スペック41件（当初）</div></div>
-    <div class="tlrow"><div class="t">09:24</div><div><strong>R1 Reports 改修。</strong>Composition API へ全面移行。新たに D-14（金額の切り捨て）を発見</div></div>
-    <div class="tlrow"><div class="t">09:37</div><div><strong>R2 発注推奨。</strong>ロジック仕様書を先に作成 → <code>AskUserQuestion</code> で3点合意 → 実装</div></div>
+    <div class="tlrow"><div class="t">09:0x</div><div><strong>R5 アーキテクチャレビュー。</strong>技術的負債 D-01〜D-13 を実測値付きで文書化</div></div>
+    <div class="tlrow"><div class="t">09:13</div><div><strong>R4 E2E テスト整備。</strong>Playwright 導入、6スペック41件（当初）</div></div>
+    <div class="tlrow"><div class="t">09:24</div><div><strong>R2 Reports 改修。</strong>Composition API へ全面移行。新たに D-14（金額の切り捨て）を発見</div></div>
+    <div class="tlrow"><div class="t">09:37</div><div><strong>R3 発注推奨。</strong>ロジック仕様書を先に作成 → <code>AskUserQuestion</code> で3点合意 → 実装</div></div>
     <div class="tlrow"><div class="t">09:57</div><div>ローカルコミット3件（docs / test / fix）</div></div>
     <div class="tlrow"><div class="t">10:04</div><div>進捗報告書（HTML）を生成しコミット</div></div>
     <div class="tlrow"><div class="t">10:14</div><div>振り返り用スクリーンショット12枚を撮影。フォント不具合3件を修正</div></div>
@@ -264,9 +264,9 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       <table>
         <thead><tr><th style="width:20%">箇所</th><th>内容</th><th style="width:26%">見積もりへの影響</th></tr></thead>
         <tbody>
-          <tr><td class="mono">R1</td><td>「少なくとも8件の問題」のリストが同梱されていない</td><td>8件が全件か氷山の一角かで工数が数倍変わる</td></tr>
+          <tr><td class="mono">R2</td><td>「少なくとも8件の問題」のリストが同梱されていない</td><td>8件が全件か氷山の一角かで工数が数倍変わる</td></tr>
           <tr><td class="mono">D1</td><td>「現在の標準に沿って」が未定義</td><td>参照すべきデザインシステムの有無が不明</td></tr>
-          <tr><td class="mono">R3</td><td>「主要なユーザーフロー」が特定されていない</td><td>カバレッジの合格ラインが決まらない</td></tr>
+          <tr><td class="mono">R4</td><td>「主要なユーザーフロー」が特定されていない</td><td>カバレッジの合格ラインが決まらない</td></tr>
           <tr><td class="mono">§4-5</td><td>予算レンジの記載が一切ない</td><td>提案の規模を決められない</td></tr>
         </tbody>
       </table>
@@ -276,7 +276,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
         <thead><tr><th style="width:34%">作業</th><th style="width:20%">人手の目安</th><th>今回の実測</th></tr></thead>
         <tbody>
           <tr><td>RFP と補足資料3点の読解・整理</td><td>1〜2時間</td><td>約7分</td></tr>
-          <tr><td>コードベースの現状把握（約9,000行）</td><td>1〜2日</td><td>約15分（R4 文書化を含む）</td></tr>
+          <tr><td>コードベースの現状把握（約9,000行）</td><td>1〜2日</td><td>約15分（R5 文書化を含む）</td></tr>
           <tr><td>提案書6点の初稿</td><td>2〜3日</td><td>約25分</td></tr>
           <tr><td>ケイパビリティ・デッキ12枚</td><td>半日〜1日</td><td>約6分</td></tr>
         </tbody>
@@ -396,14 +396,14 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
         <p><strong>Plan Mode を3回提案し、3回ともスキップされました。</strong></p>
         <ul class="plain" style="margin-top:10px">
           <li>技術アプローチの執筆前 → 「そのまま書いて」</li>
+          <li>R3 の実装前 → 「このまま進んで」</li>
           <li>R2 の実装前 → 「このまま進んで」</li>
-          <li>R1 の実装前 → 「このまま進んで」</li>
         </ul>
         <p style="margin-top:10px">参加者の判断であり尊重すべきものですが、Agenda が期待した学習項目は未達です。<strong>Plan Mode を体験させたい場合は、任意選択にせず進行上必須にする必要があります。</strong></p>
       </div>
 
       <h4>代わりに機能した「方向性の議論」</h4>
-      <p>Plan Mode の代替として、<code>AskUserQuestion</code> による構造化された合意形成が実際には同じ役割を果たしました。とくに R2 では以下の順序を踏んでいます。</p>
+      <p>Plan Mode の代替として、<code>AskUserQuestion</code> による構造化された合意形成が実際には同じ役割を果たしました。とくに R3 では以下の順序を踏んでいます。</p>
 
       <ol class="seq">
         <li><strong>データの実態確認。</strong>在庫32品目のうち<strong>需要予測があるのは9品目だけ</strong>と判明。設計判断が必要な論点が具体化した</li>
@@ -434,40 +434,40 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       </dl>
 
       <h4>実際の実装順序</h4>
-      <p>参加者の選択により <strong>R4 → R3 → R1 → R2</strong> の順で進みました。これは提案書に書いた「R3 を先に置き、IT 部門の承認ボトルネックを最初に解除する」という論理に沿っています。</p>
+      <p>参加者の選択により <strong>R5 → R4 → R2 → R3</strong> の順で進みました。これは提案書に書いた「R4 を先に置き、IT 部門の承認ボトルネックを最初に解除する」という論理に沿っています。</p>
 
       <table>
         <thead><tr><th style="width:8%">順</th><th style="width:18%">要件</th><th>内容と成果</th></tr></thead>
         <tbody>
           <tr><td class="mono">1</td><td><span class="chip n">環境</span> 準備</td><td><code>uv</code> / Node LTS を導入、リモートアクセス対応（Vite プロキシ）、<code>CLAUDE.md</code> へ環境チェック手順を追記</td></tr>
-          <tr><td class="mono">2</td><td><span class="chip b">R4</span> 現状把握</td><td>約9,000行を精査し <code>architecture.html</code>（729行）を生成。技術的負債 D-01〜D-13 を実測値付きで一覧化</td></tr>
-          <tr><td class="mono">3</td><td><span class="chip b">R3</span> 安全網</td><td>Playwright 導入。6スペック・IT 部門向け手順書（194行）を整備</td></tr>
-          <tr><td class="mono">4</td><td><span class="chip a">R1</span> 改修</td><td><code>Reports.vue</code> を Composition API へ全面移行。新たに D-14 を発見</td></tr>
-          <tr><td class="mono">5</td><td><span class="chip g">R2</span> 新機能</td><td><code>GET /api/restocking</code> ＋ <code>Restocking.vue</code>（561行）。API テスト35件・E2E 26件を追加</td></tr>
+          <tr><td class="mono">2</td><td><span class="chip b">R5</span> 現状把握</td><td>約9,000行を精査し <code>architecture.html</code>（729行）を生成。技術的負債 D-01〜D-13 を実測値付きで一覧化</td></tr>
+          <tr><td class="mono">3</td><td><span class="chip b">R4</span> 安全網</td><td>Playwright 導入。6スペック・IT 部門向け手順書（194行）を整備</td></tr>
+          <tr><td class="mono">4</td><td><span class="chip a">R2</span> 改修</td><td><code>Reports.vue</code> を Composition API へ全面移行。新たに D-14 を発見</td></tr>
+          <tr><td class="mono">5</td><td><span class="chip g">R3</span> 新機能</td><td><code>GET /api/restocking</code> ＋ <code>Restocking.vue</code>（561行）。API テスト35件・E2E 26件を追加</td></tr>
         </tbody>
       </table>
 
-      <h4>成果物 — R1 の改修結果</h4>
+      <h4>成果物 — R2 の改修結果</h4>
       <figure>
         <img src="assets/app-01-reports.png" alt="改修後の Reports 画面">
-        <figcaption><b>R1 完了後の Reports 画面。</b>改修前はこの画面だけ英語表示・USD 表示で、フィルターを操作しても何も変わらず、1回の表示で約80行のデバッグログを出力していた。現在は日本語・JPY・フィルター連動・ログ0行。</figcaption>
+        <figcaption><b>R2 完了後の Reports 画面。</b>改修前はこの画面だけ英語表示・USD 表示で、フィルターを操作しても何も変わらず、1回の表示で約80行のデバッグログを出力していた。現在は日本語・JPY・フィルター連動・ログ0行。</figcaption>
       </figure>
 
-      <h4>成果物 — R2 の新機能</h4>
+      <h4>成果物 — R3 の新機能</h4>
       <figure>
         <img src="assets/app-03-restocking-budget.png" alt="発注推奨画面（予算上限適用後）">
-        <figcaption><b>R2 発注推奨（予算上限を適用した状態）。</b>推奨5品目・見送り3品目。<b>見送り品目を画面から隠さず</b>、理由（予算超過）と追加所要額を表示している。在庫日数は色のみに依存せず太字を併用（D1 の視認性方針を先行適用）。</figcaption>
+        <figcaption><b>R3 発注推奨（予算上限を適用した状態）。</b>推奨5品目・見送り3品目。<b>見送り品目を画面から隠さず</b>、理由（予算超過）と追加所要額を表示している。在庫日数は色のみに依存せず太字を併用（D1 の視認性方針を先行適用）。</figcaption>
       </figure>
 
       <div class="box b">
         <div class="h">観察ポイント — 修正順序の決め方</div>
-        <p>R1 で Claude は症状から入らず、<strong>原因の連鎖を先に特定</strong>しました。<code>api.js</code> にレポート系のラッパー関数が無いため <code>Reports.vue</code> は axios を直接呼ぶしかなく、そこから他の逸脱が連鎖していた、という構造です（D-04 → D-03）。</p>
+        <p>R2 で Claude は症状から入らず、<strong>原因の連鎖を先に特定</strong>しました。<code>api.js</code> にレポート系のラッパー関数が無いため <code>Reports.vue</code> は axios を直接呼ぶしかなく、そこから他の逸脱が連鎖していた、という構造です（D-04 → D-03）。</p>
         <p>結果として「<strong>8件の不具合は単一原因の4症状</strong>」という結論に至り、修正は <code>api.js</code> → ビュー移行の順で行われました。症状を1つずつ潰す進め方より効率的で、この判断過程は観察に値します。</p>
       </div>
 
       <figure>
         <img src="assets/arch-03-debt.png" alt="アーキテクチャ文書の技術的負債一覧">
-        <figcaption><b>R4 文書の技術的負債一覧（§09）。</b>D-01〜D-14 を深刻度・根拠付きで記載。R1 完了により5件が「修正済み」に、範囲外・判断待ちが明示されている。</figcaption>
+        <figcaption><b>R5 文書の技術的負債一覧（§09）。</b>D-01〜D-14 を深刻度・根拠付きで記載。R2 完了により5件が「修正済み」に、範囲外・判断待ちが明示されている。</figcaption>
       </figure>
     </div>
   </div>
@@ -492,7 +492,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       <div class="figs2">
         <figure>
           <img src="assets/prog-02-progress.png" alt="進捗報告書 要件別の進捗">
-          <figcaption><b>要件別の進捗。</b>R1〜R4 が100%、D2 が35%、D1+D3 が0%。バーと表を併記している。</figcaption>
+          <figcaption><b>要件別の進捗。</b>R2〜R5 が100%、D2 が35%、D1+D3 が0%。バーと表を併記している。</figcaption>
         </figure>
         <figure>
           <img src="assets/prog-03-decisions.png" alt="進捗報告書 ご判断をお願いしたい事項">
@@ -529,13 +529,13 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
         <thead><tr><th style="width:6%">#</th><th style="width:30%">間違い</th><th>内容と教訓</th></tr></thead>
         <tbody>
           <tr><td class="mono">1</td><td><code>pkill</code> で自分自身を停止（<strong>3回</strong>）</td><td><code>pkill -f "vite"</code> が <code>pkill</code> 自身のコマンドラインに一致し、実行中のシェルごと終了（終了コード144）。<strong>同じ罠を3回踏んだ。</strong>最終的に <code>fuser -k 3000/tcp</code> というポート指定に切り替え、この教訓を <code>CLAUDE.md</code> に恒久化した</td></tr>
-          <tr><td class="mono">2</td><td>ドキュメントの数値を検証せず引用</td><td><code>tests/TEST_SUMMARY.md</code> の「55件全件パス」をそのまま提案書と R4 文書に記載。実測は40件中38件パス。<strong>「ドキュメントは検証しろ」と提案書に書いておきながら、自分がテストサマリーを検証していなかった</strong></td></tr>
+          <tr><td class="mono">2</td><td>ドキュメントの数値を検証せず引用</td><td><code>tests/TEST_SUMMARY.md</code> の「55件全件パス」をそのまま提案書と R5 文書に記載。実測は40件中38件パス。<strong>「ドキュメントは検証しろ」と提案書に書いておきながら、自分がテストサマリーを検証していなかった</strong></td></tr>
           <tr><td class="mono">3</td><td>訂正の反映漏れ</td><td>上記を3つの文書で訂正したが、<strong>デッキだけ漏れた</strong>（3箇所）。振り返りのスクリーンショット撮影時に発見。<b>同じ数値が複数成果物に伝播した場合、訂正の網羅性を確認する必要がある</b></td></tr>
           <tr><td class="mono">4</td><td>テストのセレクタ誤り（3件）</td><td>strict mode 違反2件（<code>Q1-2025</code> が <code>td</code> と <code>strong</code> に二重一致、<code>Total Revenue</code> が表ヘッダーとカードに二重一致）、ロケール不一致1件（<code>en</code> で開いて「東京」を選択）。<strong>いずれも初回実行で検出でき、修正済み</strong></td></tr>
           <tr><td class="mono">5</td><td>アサーションがヒント文に反応</td><td>「見送りが0件」を検証するテストが、画面のヒント文に含まれる「見送り」の語に一致して失敗。<strong>表示文言ではなく行クラスで判定する形に修正</strong></td></tr>
           <tr><td class="mono">6</td><td>仕様書の例が実装と不一致</td><td>同着順位（在庫日数50.0日）の並び順が仕様書の例と逆。<strong>実装が正しく、仕様書を訂正した</strong></td></tr>
           <tr><td class="mono">7</td><td>作業ディレクトリの誤り</td><td>進捗報告書の書き出しで <code>tests/</code> から <code>cd proposal</code> を実行して失敗。<code>&amp;&amp;</code> で短絡したため<strong>ファイルの部分書き込みは発生せず</strong></td></tr>
-          <tr><td class="mono">8</td><td>範囲の記述矛盾</td><td>R4 文書に「R2 が D-01・D-02 に対応する」と書いたが、前提条件 A5（発注実行は範囲外）と矛盾。<strong>R2 完了時に自己申告で訂正</strong></td></tr>
+          <tr><td class="mono">8</td><td>範囲の記述矛盾</td><td>R5 文書に「R3 が D-01・D-02 に対応する」と書いたが、前提条件 A5（発注実行は範囲外）と矛盾。<strong>R3 完了時に自己申告で訂正</strong></td></tr>
           <tr><td class="mono">9</td><td>日本語フォントの指定漏れ</td><td>等幅フォントに日本語グリフが無く、目次ラベルや表ヘッダーが豆腐（□）化。HTML 成果物3点すべてに影響。<strong>フォールバックに Noto Sans JP を追加して修正</strong></td></tr>
         </tbody>
       </table>
@@ -543,7 +543,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       <div class="box b">
         <div class="h">間違いの性質について</div>
         <p>9件のうち<strong>本番コードの欠陥は0件</strong>です。内訳は環境操作（1）、事実確認の不足（2・3）、テストコード（4・5・6）、手順ミス（7）、文書の整合性（8）、表示品質（9）。</p>
-        <p>注目すべきは<strong>4・5・6 がすべてテスト実行によって即座に検出された</strong>ことです。R3 で安全網を先に作った効果が、Claude 自身の間違いに対しても働いています。</p>
+        <p>注目すべきは<strong>4・5・6 がすべてテスト実行によって即座に検出された</strong>ことです。R4 で安全網を先に作った効果が、Claude 自身の間違いに対しても働いています。</p>
       </div>
 
       <h3><span class="t">議論 2</span>意外な発見</h3>
@@ -569,7 +569,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
 
       <h3><span class="t">議論 3</span>設計上の判断として観察に値したもの</h3>
       <ul class="plain">
-        <li><strong>既知の欠陥を「失敗するのが正しいテスト」として記録した。</strong><code>test.fail()</code> により、未修正の欠陥はスイートを緑に保ったまま記録され、<strong>修正されると赤に転じて完了を知らせる</strong>。R1 完了時に実際に7件が転じた</li>
+        <li><strong>既知の欠陥を「失敗するのが正しいテスト」として記録した。</strong><code>test.fail()</code> により、未修正の欠陥はスイートを緑に保ったまま記録され、<strong>修正されると赤に転じて完了を知らせる</strong>。R2 完了時に実際に7件が転じた</li>
         <li><strong>推測で数字を作らなかった。</strong>需要予測が無い23品目について、予測値を推定せず「発注点までの補充のみ・画面に予測なしと明示」とした</li>
         <li><strong>判断を勝手にしなかった。</strong>動作しない発注ボタンを自分の判断で削除せず、選択肢3つを示して判断を仰いだ</li>
         <li><strong>訂正を目立つ位置に置いた。</strong>都合の悪い数値を小さく扱わず、赤枠で明示した</li>
@@ -598,7 +598,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
             <td><strong>課題2</strong><br><span class="chip n">コード</span></td>
             <td>既存コードベース（約9,000行）の改修と機能追加</td>
             <td><span class="chip g">完了</span></td>
-            <td>必須4要件（R1〜R4）＋ E2E 67件 ＋ API 35件追加 ＋ 文書3点</td>
+            <td>必須4要件（R2〜R5）＋ E2E 67件 ＋ API 35件追加 ＋ 文書3点</td>
           </tr>
         </tbody>
       </table>
@@ -634,7 +634,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
         <thead><tr><th style="width:20%">機能</th><th style="width:12%">実行者</th><th>今回どう役立ったか</th></tr></thead>
         <tbody>
           <tr><td><code>@</code> ファイル参照</td><td><span class="chip b">参加者</span></td><td>RFP をパスを打たずに会話へ引き込む。最初の30秒の体験に最適</td></tr>
-          <tr><td><code>AskUserQuestion</code></td><td>Claude</td><td><strong>今回の中核。</strong>クライアント役としての回答が提案書の前提条件になり、R2 ではロジックの合意形成に使われた</td></tr>
+          <tr><td><code>AskUserQuestion</code></td><td>Claude</td><td><strong>今回の中核。</strong>クライアント役としての回答が提案書の前提条件になり、R3 ではロジックの合意形成に使われた</td></tr>
           <tr><td>スラッシュコマンド</td><td><span class="chip b">参加者</span></td><td><code>/start</code> でサーバー一括起動。<code>/usage</code>・<code>/rename</code> も使用。<strong>プロジェクトで定義できる</strong>ことが伝わる</td></tr>
           <tr><td>MCP サーバー</td><td>Claude</td><td>Playwright で実ブラウザを操作。<strong>コンソール出力の実測</strong>により静的解析では見えない欠陥（80行のログ、コンポーネント解決失敗）を検出</td></tr>
           <tr><td>スキル</td><td>Claude</td><td><code>backend-api-test</code> を呼び出し、プロジェクト規約に沿ったテストを作成</td></tr>
@@ -666,10 +666,10 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       <h3><span class="t">D</span>技術的な知識点として共有できること</h3>
       <ol class="seq">
         <li><strong>ドキュメントは実物と突き合わせる。</strong>今回は引き継ぎ資料（起動ツールの前提欠落）、RFP（テスト有無の誤り）、テストサマリー（件数と成否の誤り）の<strong>3つすべてが実態と乖離</strong>していた。しかも Claude 自身が一度その罠にかかった</li>
-        <li><strong>安全網を先に作ると、その後の全変更が速くなる。</strong>R3 を先行させたため、R1 の全面書き換えを「計算結果を壊していない」と確認しながら実施できた。Claude 自身のテスト記述ミス3件も即座に検出された</li>
+        <li><strong>安全網を先に作ると、その後の全変更が速くなる。</strong>R4 を先行させたため、R2 の全面書き換えを「計算結果を壊していない」と確認しながら実施できた。Claude 自身のテスト記述ミス3件も即座に検出された</li>
         <li><strong>症状ではなく原因の連鎖を探す。</strong>「8件の不具合」は単一原因の4症状だった。修正順序（<code>api.js</code> → ビュー）が決まったのはこの理解の後</li>
         <li><strong>未修正の欠陥をテストとして記録する（<code>test.fail()</code>）。</strong>スイートを緑に保ちつつ修正すべき事項を実行可能な形で残し、修正完了を自動検知できる</li>
-        <li><strong>実データで試算してから合意する。</strong>R2 では机上の議論を避け、実データの試算結果（8品目 $151,508）を見せてから3点を決めた。結果、仕様と実装が完全一致した</li>
+        <li><strong>実データで試算してから合意する。</strong>R3 では机上の議論を避け、実データの試算結果（8品目 $151,508）を見せてから3点を決めた。結果、仕様と実装が完全一致した</li>
         <li><strong>判断と実装を分ける。</strong>為替レート、動作しないボタンの去就など<strong>業務判断が必要なものは実装せず選択肢を提示</strong>した。AI に任せる範囲の線引きの実例</li>
       </ol>
 
@@ -743,10 +743,10 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
     <li><strong>Plan Mode を任意選択にしない。</strong>3回提案して3回スキップされ、学習項目が未達になった。「ここでは必ず Plan Mode に入る」と進行上のルールにする。または最初の1回だけ必須にする</li>
     <li><strong>「必ず1箇所直す」を課題1のルールにする。</strong>今回は修正の反復が0回で、「作り替えの容易さ」という最大の体験が得られなかった。デッキの色・順序・枚数のいずれかを必ず変更させる</li>
     <li><strong>成果物の閲覧手段を事前に確定する。</strong>GUI 無しのリモート環境では <code>client/public/</code> に置いて既存ポートから配信する方式を最初から案内する。今回は配信の試行錯誤で議論時間を消費した</li>
-    <li><strong>実装を意図的に区切る。</strong>今回は必須4要件すべてが完了し、Agenda の25分想定を大きく超えた。議論の時間を確保するため、<strong>R3 完了時点</strong>または <strong>R1 完了時点</strong>で止める運営を推奨する</li>
+    <li><strong>実装を意図的に区切る。</strong>今回は必須4要件すべてが完了し、Agenda の25分想定を大きく超えた。議論の時間を確保するため、<strong>R4 完了時点</strong>または <strong>R2 完了時点</strong>で止める運営を推奨する</li>
     <li><strong>環境チェックは <code>CLAUDE.md</code> の手順を使う。</strong>今回追記した節（ツール確認コマンド、導入手順、ポート確認、<code>pkill</code> の罠、リモート環境の設定）により、次回は同じ調査を繰り返さずに済む</li>
     <li><strong>間違いのリストを議論の中心に置く。</strong>§10 の9件は、成果物の紹介より参加者の関心を引きやすい。特に「<code>pkill</code> で3回自滅」は AI の限界と対処の両方を具体的に語れる</li>
-    <li><strong>サブエージェントの提示タイミングを変える。</strong>作業が流れている最中に提案すると中断が選ばれにくい。フェーズの切り替わり（R1 完了直後など）で提示する</li>
+    <li><strong>サブエージェントの提示タイミングを変える。</strong>作業が流れている最中に提案すると中断が選ばれにくい。フェーズの切り替わり（R2 完了直後など）で提示する</li>
   </ol>
 
   <div class="box g">
@@ -756,7 +756,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding-top:26px;font-fa
       <tbody>
         <tr><td><code>CLAUDE.md</code> の環境チェック節</td><td>ツールチェーン未導入・ポート競合・リモート環境の対応手順。<code>pkill</code> の罠も明記済み</td></tr>
         <tr><td><code>tests/e2e/</code>（67件 + 手順書194行）</td><td>次回の参加者が「既にテストがある状態」から始められる。または比較対象として使える</td></tr>
-        <tr><td><code>proposal/architecture.html</code></td><td>コードベースの現状把握資料。次回は R4 を短縮できる</td></tr>
+        <tr><td><code>proposal/architecture.html</code></td><td>コードベースの現状把握資料。次回は R5 を短縮できる</td></tr>
         <tr><td><code>proposal/restocking-logic.md</code></td><td>「実装前に合意する」進め方の実例テンプレート</td></tr>
         <tr><td>本報告書と進捗報告書</td><td>報告書生成のサンプル。および運営の振り返り資料</td></tr>
       </tbody>

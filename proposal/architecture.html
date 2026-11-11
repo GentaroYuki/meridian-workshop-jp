@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>アーキテクチャドキュメント — Meridian 在庫ダッシュボード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --paper: #ffffff; --ink: #0f172a; --muted: #64748b; --line: #e2e8f0;
+    --accent: #1d4ed8; --accent-soft: #eff6ff;
+    --red: #b91c1c; --red-soft: #fef2f2; --amber: #a16207; --amber-soft: #fefce8;
+    --green: #15803d; --green-soft: #f0fdf4;
+    --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto Sans JP", sans-serif; font-size: 15px; line-height: 1.8; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.cover { background: var(--ink); color: #fff; border-radius: 12px; padding: 40px; margin-bottom: 32px; }
+  header.cover .eyebrow { font-size: 12px; letter-spacing: .15em; color: #93c5fd; font-weight: 500; }
+  header.cover h1 { font-size: 30px; margin: 8px 0 4px; line-height: 1.4; }
+  header.cover p { color: #cbd5e1; margin: 0 0 24px; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .meta div { border-top: 1px solid #334155; padding-top: 8px; font-size: 13px; }
+  .meta b { display: block; color: #94a3b8; font-weight: 500; font-size: 11px; letter-spacing: .08em; }
+  nav.toc { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 20px 28px; margin-bottom: 32px; }
+  nav.toc ol { columns: 2; margin: 8px 0 0; padding-left: 20px; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  section { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+  h2 { font-size: 22px; margin: 0 0 16px; display: flex; gap: 12px; align-items: baseline; }
+  h2 .no { font-family: var(--mono); color: var(--accent); font-size: 16px; }
+  h3 { font-size: 16px; margin: 24px 0 8px; }
+  code, pre { font-family: var(--mono); font-size: 13px; }
+  code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; }
+  pre { background: #0f172a; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.6; }
+  pre code { background: none; padding: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0 16px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f1f5f9; font-weight: 500; font-size: 13px; white-space: nowrap; }
+  .tbl { overflow-x: auto; }
+  .note { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+  .warn { border-left-color: var(--amber); background: var(--amber-soft); }
+  .bad { border-left-color: var(--red); background: var(--red-soft); }
+  .note b:first-child { display: block; margin-bottom: 2px; }
+  .tag { display: inline-block; font-size: 12px; padding: 0 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+  .t-high { background: var(--red-soft); color: var(--red); }
+  .t-mid { background: var(--amber-soft); color: var(--amber); }
+  .t-low { background: #f1f5f9; color: var(--muted); }
+  .t-ok { background: var(--green-soft); color: var(--green); }
+  .ok { color: var(--green); font-weight: 700; } .ng { color: var(--red); font-weight: 700; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+  .kpi { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .kpi .v { font-size: 26px; font-weight: 700; line-height: 1.3; }
+  .kpi .l { font-size: 13px; color: var(--muted); }
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; align-items: stretch; margin: 16px 0; }
+  .tier { border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: #fff; position: relative; font-size: 13px; }
+  .tier h4 { margin: 0 0 6px; font-size: 15px; }
+  .tier .lbl { font-size: 11px; color: var(--accent); letter-spacing: .1em; font-weight: 500; }
+  .tier ul { margin: 6px 0 0; padding-left: 18px; }
+  .arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; text-align: center; }
+  .tiers { grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1fr; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 32px; }
+  @media (max-width: 760px) {
+    .wrap { padding: 24px 16px 60px; }
+    header.cover, section { padding: 20px; }
+    nav.toc ol { columns: 1; }
+    .tiers { grid-template-columns: 1fr; }
+    .arrow { padding: 4px 0; }
+    .arrow span { display: inline-block; transform: rotate(90deg); }
+  }
+  @media print { body { background: #fff; } section, nav.toc { break-inside: avoid; border-color: #ccc; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="cover">
+  <div class="eyebrow">R5 — ARCHITECTURE DOCUMENTATION（初版）</div>
+  <h1>在庫管理ダッシュボード<br>アーキテクチャドキュメント</h1>
+  <p>Meridian Components, Inc. / RFP MC-2026-0417 要件 R5 に基づく、現状アーキテクチャの概要と既知の課題。貴社 IT 部門への引き継ぎを目的とします。</p>
+  <div class="meta">
+    <div><b>CLIENT</b>Meridian Components, Inc.</div>
+    <div><b>REQUIREMENT</b>R5 アーキテクチャドキュメント</div>
+    <div><b>VERSION</b>初版（フェーズ2）/ 2026年11月11日</div>
+    <div><b>BASELINE</b>ブランチ <code style="background:#1e293b;color:#e2e8f0">feature/purchase-orders</code>（3bc9717）</div>
+    <div><b>METHOD</b>ソースコード精査 + テスト実行</div>
+  </div>
+</header>
+
+<nav class="toc">
+  <b>目次</b>
+  <ol>
+    <li><a href="#s0">要旨</a></li>
+    <li><a href="#s1">システム全体構成</a></li>
+    <li><a href="#s2">技術スタックと起動手順</a></li>
+    <li><a href="#s3">ディレクトリ構成</a></li>
+    <li><a href="#s4">データ層</a></li>
+    <li><a href="#s5">API エンドポイント一覧</a></li>
+    <li><a href="#s6">データフロー（フィルター）</a></li>
+    <li><a href="#s7">フロントエンドの実装パターン</a></li>
+    <li><a href="#s8">既知の課題（技術的負債）</a></li>
+    <li><a href="#s9">テストの現状</a></li>
+    <li><a href="#s10">セキュリティ上の注意</a></li>
+    <li><a href="#s11">引き継ぎメモとの相違</a></li>
+    <li><a href="#s12">確認事項と今後の更新</a></li>
+  </ol>
+</nav>
+
+<!-- 00 -->
+<section id="s0">
+  <h2><span class="no">00</span>要旨</h2>
+  <p>本システムは、Vue 3 のシングルページアプリケーションと FastAPI の API サーバーで構成され、データベースを持たずに JSON ファイルをメモリへ読み込んで動作します。構成自体は単純で、共通のフィルター状態・API クライアント・i18n の基盤も整っています。<b>課題は設計の誤りではなく、前任ベンダーが途中で止めた作業が複数の箇所に残っている点</b>にあります。</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">約 9,700 行</div><div class="l">client 約 9,200 / server 約 520</div></div>
+    <div class="kpi"><div class="v">17</div><div class="l">実装済みエンドポイント（うち書き込み 1）</div></div>
+    <div class="kpi"><div class="v">4</div><div class="l">画面から呼ばれるが未実装の API（/api/tasks 系）</div></div>
+    <div class="kpi"><div class="v">74 / 76</div><div class="l">バックエンドテスト成功（2 件はデータ不整合で想定内の失敗）</div></div>
+  </div>
+  <ul>
+    <li><b>R1（概要ページ）</b>: 対応済み。KPI はフィルター済みのデータから計算されます。ただし、このコードは <code>main-jp</code> にはまだ取り込まれていません（<a href="#s12">§12</a>）。</li>
+    <li><b>R2（Reports）</b>: 未着手。7 画面のうち <code>Reports.vue</code> だけが共通基盤に接続されていません（<a href="#s7">§7</a>）。</li>
+    <li><b>R4（ブラウザテスト）</b>: 未着手。E2E テストは存在せず、バックエンドの API テストのみです（<a href="#s9">§9</a>）。</li>
+    <li><b>データは永続化されません。</b> 発注（PO）の登録はメモリ上のみで、サーバー再起動で消えます（<a href="#s4">§4</a>）。</li>
+  </ul>
+</section>
+
+<!-- 01 -->
+<section id="s1">
+  <h2><span class="no">01</span>システム全体構成</h2>
+  <p>4 層構成です。開発サーバー（Vite）が <code>/api</code> へのリクエストを API サーバーへ転送するため、ブラウザから見える入口はポート 3000 だけです。</p>
+  <div class="tiers">
+    <div class="tier"><div class="lbl">TIER 1 — CLIENT</div><h4>ブラウザ</h4><ul><li>Vue 3 SPA</li><li>vue-router（履歴モード、6 ルート）</li><li>自作 SVG チャート</li></ul></div>
+    <div class="arrow"><span>→<br>HTTP</span></div>
+    <div class="tier"><div class="lbl">TIER 2 — DEV SERVER</div><h4>Vite :3000</h4><ul><li>HMR による配信</li><li><code>/api</code> を :8001 へプロキシ</li><li><code>host: true</code></li></ul></div>
+    <div class="arrow"><span>→<br>proxy</span></div>
+    <div class="tier"><div class="lbl">TIER 3 — API</div><h4>FastAPI :8001</h4><ul><li>uvicorn で起動</li><li>Pydantic で応答を検証</li><li>メモリ上でフィルター</li></ul></div>
+    <div class="arrow"><span>→<br>起動時に読込</span></div>
+    <div class="tier"><div class="lbl">TIER 4 — DATA</div><h4>JSON ファイル</h4><ul><li><code>server/data/</code> 7 ファイル</li><li>DB・ORM なし</li><li>書き込みは保存されない</li></ul></div>
+  </div>
+  <div class="note warn"><b>本番配信の構成は未定義です</b>リポジトリには開発サーバーで動かす手順しかありません。<code>npm run build</code> の成果物をどこから配信するか、API の <code>/api</code> をどう公開するかは決まっていません。社内ホスティングの実際の構成は貴社 IT 部門にご確認いただく必要があります（<a href="#s12">§12</a>）。</div>
+</section>
+
+<!-- 02 -->
+<section id="s2">
+  <h2><span class="no">02</span>技術スタックと起動手順</h2>
+  <div class="tbl"><table>
+    <tr><th>層</th><th>技術</th><th>バージョン指定</th><th>備考</th></tr>
+    <tr><td>フロントエンド</td><td>Vue 3 / vue-router 4 / axios</td><td><code>vue ^3.4.21</code></td><td>ビルドは Vite 5（<code>client/package.json</code>）</td></tr>
+    <tr><td>バックエンド</td><td>FastAPI / uvicorn / Pydantic 2</td><td><code>fastapi &gt;=0.110</code></td><td>Python 3.11 以上（<code>server/pyproject.toml</code>）</td></tr>
+    <tr><td>データ</td><td>JSON ファイル</td><td>—</td><td><code>server/mock_data.py</code> が起動時に読み込む</td></tr>
+    <tr><td>パッケージ管理</td><td>uv（Python）/ npm（Node）</td><td>—</td><td>依存は <code>uv.lock</code> / <code>package-lock.json</code> で固定</td></tr>
+    <tr><td>テスト</td><td>pytest + httpx（TestClient）</td><td><code>pytest &gt;=8.0</code></td><td>バックエンドのみ。E2E なし</td></tr>
+  </table></div>
+
+  <h3>前提ツール</h3>
+  <p>Python 3.11 以上、<a href="https://docs.astral.sh/uv/">uv</a>、Node.js 18 以上、npm、git。<b>引き継ぎメモにはこの前提が書かれていません。</b></p>
+
+  <h3>起動手順</h3>
+<pre><code># まとめて起動（Linux / macOS / Windows の Git Bash）
+./scripts/start.sh          # 停止は ./scripts/stop.sh
+
+# 個別に起動する場合
+cd server &amp;&amp; uv run python main.py           # API     → http://localhost:8001/docs
+cd client &amp;&amp; npm install &amp;&amp; npm run dev       # 画面    → http://localhost:3000
+
+# ポートの確認と解放（fuser / lsof がない Git Bash でも動く）
+./scripts/ports.sh
+./scripts/ports.sh free 3000 8001</code></pre>
+  <div class="note"><b>運用上の注意</b>Python は <code>uv run python …</code> で呼んでください（Windows の仮想環境には <code>python3</code> がありません）。プロセスを <code>pkill -f vite</code> のようにコマンド名で止めると、実行中のシェルごと落ちることがあるため、ポート指定で止める <code>ports.sh</code> を使ってください。</div>
+</section>
+
+<!-- 03 -->
+<section id="s3">
+  <h2><span class="no">03</span>ディレクトリ構成</h2>
+<pre><code>meridian-workshop-jp/
+├── client/                      Vue 3 フロントエンド
+│   ├── vite.config.js           ポート 3000、/api → localhost:8001 のプロキシ
+│   └── src/
+│       ├── main.js              ルート定義（6 件）
+│       ├── App.vue              レイアウト・ナビ・タスク機能（486 行）
+│       ├── api.js               API クライアント（18 関数、うち 4 件は未実装の API を呼ぶ）
+│       ├── views/
+│       │   ├── Dashboard.vue    1,320 行 — 概要ページ（R1 で改修済み）
+│       │   ├── Spending.vue       852 行
+│       │   ├── Reports.vue        488 行 — 共通基盤に未接続（R2）
+│       │   ├── Demand.vue         369 行
+│       │   ├── Inventory.vue      339 行
+│       │   ├── Orders.vue         279 行
+│       │   └── Backlog.vue        152 行 — ルート未定義のため到達できない
+│       ├── components/          モーダル等 10 ファイル（PurchaseOrderModal 571 行、TasksModal 621 行）
+│       ├── composables/         useFilters / useI18n / useAuth
+│       ├── locales/             en.js（358 行）/ ja.js（412 行）
+│       └── utils/currency.js    為替レート 150 円固定
+├── server/                      FastAPI バックエンド
+│   ├── main.py                  全エンドポイントと Pydantic モデル（343 行）
+│   ├── mock_data.py             JSON ローダー（39 行）
+│   ├── generate_data.py         サンプルデータ生成（134 行）
+│   └── data/                    JSON データ 7 ファイル
+├── tests/backend/               pytest — API テスト 5 ファイル
+├── scripts/                     start.sh / stop.sh / ports.sh
+└── docs/rfp/                    RFP・背景資料・前任ベンダーの引き継ぎメモ</code></pre>
+  <p>前任ベンダー自身が <code>client/CLAUDE.md</code> に「template が 100 行、ロジックが 150 行を超えたらコンポーネントを切り出す」と書いていますが、<code>Dashboard.vue</code>（1,320 行）と <code>Spending.vue</code>（852 行）はこの基準を大きく超えています。動作への影響はありませんが、変更の影響範囲が読みにくくなっています。</p>
+</section>
+
+<!-- 04 -->
+<section id="s4">
+  <h2><span class="no">04</span>データ層</h2>
+  <p>データベースはありません。<code>server/mock_data.py</code> が起動時に JSON を読み込み、モジュールレベルの Python リストとして保持します。</p>
+  <div class="tbl"><table>
+    <tr><th>ファイル</th><th>サイズ</th><th>件数</th><th>内容・注意点</th></tr>
+    <tr><td><code>orders.json</code></td><td>154 KB</td><td>250</td><td>受注。<code>order_date</code> は 2025年1月〜12月のみ。<b>ID 201〜210 が重複</b>し、<b>Delivered なのに <code>actual_delivery</code> がない受注が 8 件</b>あります（テストで検出）</td></tr>
+    <tr><td><code>transactions.json</code></td><td>14 KB</td><td>—</td><td>取引履歴（Spending 画面）</td></tr>
+    <tr><td><code>inventory.json</code></td><td>10 KB</td><td>32</td><td>在庫。<code>quantity_on_hand</code> と <code>reorder_point</code>（発注点）を持つ。R3 の入力になる</td></tr>
+    <tr><td><code>spending.json</code></td><td>2.6 KB</td><td>—</td><td>支出。1 ファイルから 3 変数（summary / monthly / categories）へ展開</td></tr>
+    <tr><td><code>demand_forecasts.json</code></td><td>1.9 KB</td><td>9</td><td>需要予測。<code>current_demand</code> / <code>forecasted_demand</code> / <code>trend</code></td></tr>
+    <tr><td><code>backlog_items.json</code></td><td>1 KB</td><td>4</td><td>バックログ（在庫不足で出荷できない明細）</td></tr>
+    <tr><td><code>purchase_orders.json</code></td><td>4 B</td><td>0</td><td>空配列。POST で追加した発注はメモリにのみ保持</td></tr>
+  </table></div>
+  <div class="note bad"><b>書き込みは保存されません</b><code>POST /api/purchase-orders</code> で登録した発注はメモリ上のリストに追加されるだけで、JSON ファイルには書き戻されません。サーバーを再起動すると消えます。また発注番号は「件数 + 1」で採番しているため、複数プロセスで動かすと番号が衝突します。現場で発注を記録に残す運用をする場合は、保存先の設計が別途必要です。</div>
+</section>
+
+<!-- 05 -->
+<section id="s5">
+  <h2><span class="no">05</span>API エンドポイント一覧</h2>
+  <p>実装済みは 17 件（GET 16、POST 1）です。応答の型は <code>server/main.py</code> の Pydantic モデルで定義され、<code>http://localhost:8001/docs</code> で確認できます。</p>
+  <div class="tbl"><table>
+    <tr><th>メソッド・パス</th><th>受け付けるフィルター</th><th>利用画面</th><th>備考</th></tr>
+    <tr><td><code>GET /</code></td><td>—</td><td>—</td><td>疎通確認</td></tr>
+    <tr><td><code>GET /api/inventory</code></td><td>warehouse, category</td><td>Inventory, Dashboard</td><td></td></tr>
+    <tr><td><code>GET /api/inventory/{id}</code></td><td>—</td><td>詳細モーダル</td><td>該当なしで 404</td></tr>
+    <tr><td><code>GET /api/orders</code></td><td>warehouse, category, status, month</td><td>Orders, Dashboard</td><td>4 フィルターすべて対応</td></tr>
+    <tr><td><code>GET /api/orders/{id}</code></td><td>—</td><td>詳細モーダル</td><td>該当なしで 404</td></tr>
+    <tr><td><code>GET /api/dashboard/summary</code></td><td>warehouse, category, status, month</td><td>Dashboard</td><td><code>total_backlog_items</code> だけはフィルター非対応</td></tr>
+    <tr><td><code>GET /api/demand</code></td><td>なし</td><td>Demand</td><td>常に全件</td></tr>
+    <tr><td><code>GET /api/backlog</code></td><td>なし</td><td>Dashboard</td><td><code>has_purchase_order</code> を付与して返す</td></tr>
+    <tr><td><code>GET /api/purchase-orders/{backlog_item_id}</code></td><td>—</td><td>発注モーダル</td><td>発注なしで 404</td></tr>
+    <tr><td><code>POST /api/purchase-orders</code></td><td>—</td><td>発注モーダル</td><td>入力検証あり。重複は 409、対象なしは 404。<b>保存はメモリのみ</b></td></tr>
+    <tr><td><code>GET /api/spending/summary</code> ほか 3 件</td><td>なし</td><td>Spending</td><td>monthly / categories / transactions。画面側で期間だけ絞り込む</td></tr>
+    <tr><td><code>GET /api/reports/quarterly</code></td><td>なし</td><td>Reports</td><td>四半期判定が 2025 年に固定。<code>api.js</code> 未登録</td></tr>
+    <tr><td><code>GET /api/reports/monthly-trends</code></td><td>なし</td><td>Reports</td><td><code>api.js</code> 未登録</td></tr>
+  </table></div>
+
+  <h3>画面から呼ばれているが未実装の API</h3>
+  <div class="tbl"><table>
+    <tr><th>メソッド・パス</th><th>呼び出し元</th><th>影響</th></tr>
+    <tr><td><code>GET /api/tasks</code></td><td><code>App.vue:91</code>（画面を開くたび）</td><td>毎回 404 になり、コンソールにエラーが出る</td></tr>
+    <tr><td><code>POST /api/tasks</code>、<code>DELETE /api/tasks/{id}</code>、<code>PATCH /api/tasks/{id}</code></td><td><code>App.vue</code> → <code>TasksModal.vue</code></td><td>タスクの追加・削除・完了切り替えが動かない</td></tr>
+  </table></div>
+</section>
+
+<!-- 06 -->
+<section id="s6">
+  <h2><span class="no">06</span>データフロー（フィルター）</h2>
+  <p>画面上部のフィルター（期間・倉庫・カテゴリー・ステータス）の値は、全画面で 1 つの状態を共有しています。</p>
+<pre><code>FilterBar.vue（選択）
+  └→ useFilters.js（モジュール内の ref = 全画面で共有）
+       └→ 各ビューが watch で変更を検知 → getCurrentFilters()
+            └→ api.js がクエリパラメータを組み立てる（'all' は送らない）
+                 └→ FastAPI: apply_filters() / filter_by_month() でメモリ上を絞り込む
+                      └→ Pydantic で検証して返却 → ビューの ref に格納 → computed で集計・表示</code></pre>
+  <h3>サーバー側の共通関数（<code>server/main.py</code>）</h3>
+  <ul>
+    <li><code>apply_filters()</code>: <code>'all'</code> または未指定は無視します。category と status は大文字小文字を区別せずに比較しますが、<b>warehouse だけは完全一致</b>です。現行データでは実害はありません。</li>
+    <li><code>filter_by_month()</code>: <code>order_date</code> の部分一致で判定します。四半期指定（<code>Q1-2025</code> 形式）は <code>QUARTER_MAP</code> で月に展開しますが、<b>2025 年分しか定義されていません</b>。画面の期間の選択肢（<code>FilterBar.vue</code>）も 2025 年の 12 か月で固定されています。</li>
+  </ul>
+  <h3>フィルターの反映状況（画面別）</h3>
+  <div class="tbl"><table>
+    <tr><th>画面</th><th>反映方法</th><th>状態</th></tr>
+    <tr><td>概要（Dashboard）</td><td>API 側で 4 フィルターを適用し、画面で集計</td><td><span class="tag t-ok">反映（R1 で改修）</span></td></tr>
+    <tr><td>Orders / Inventory</td><td>API 側で適用</td><td><span class="tag t-ok">反映</span></td></tr>
+    <tr><td>Demand</td><td>API はフィルター非対応。画面側で処理</td><td><span class="tag t-mid">一部</span>（詳細は未確認）</td></tr>
+    <tr><td>Spending</td><td>API はフィルター非対応。画面で期間だけ絞り込む</td><td><span class="tag t-mid">期間のみ</span> 倉庫・カテゴリーは効かない</td></tr>
+    <tr><td>Reports</td><td>フィルターを読んでいない</td><td><span class="tag t-high">未反映</span></td></tr>
+  </table></div>
+</section>
+
+<!-- 07 -->
+<section id="s7">
+  <h2><span class="no">07</span>フロントエンドの実装パターン</h2>
+  <p>前任ベンダーの規約（<code>client/CLAUDE.md</code>）は、Composition API（<code>setup()</code>）、共通の composable の利用、API 呼び出しの <code>api.js</code> への集約、「生データは ref、派生データは computed」です。7 画面の準拠状況は次のとおりで、<b>Reports.vue だけがすべての項目で外れています</b>。</p>
+  <div class="tbl"><table>
+    <tr><th>ビュー</th><th>Composition API</th><th>useFilters</th><th>useI18n</th><th>api.js 経由</th><th>console 出力</th></tr>
+    <tr><td>Dashboard / Orders / Inventory / Demand</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td>0</td></tr>
+    <tr><td>Spending</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td>1</td></tr>
+    <tr><td>Backlog（到達不能）</td><td class="ok">✓</td><td class="ok">✓</td><td class="ng">✗</td><td class="ok">✓</td><td>0</td></tr>
+    <tr><td><b>Reports</b></td><td class="ng">✗ Options API</td><td class="ng">✗</td><td class="ng">✗</td><td class="ng">✗ axios 直接</td><td><b>13</b></td></tr>
+  </table></div>
+  <h3>横断的な仕組み（composables / utils）</h3>
+  <div class="tbl"><table>
+    <tr><th>ファイル</th><th>役割</th><th>注意点</th></tr>
+    <tr><td><code>useFilters.js</code>（56 行）</td><td>フィルター状態の共有（シングルトン）</td><td>状態は URL に載らないため、画面の再読み込みで初期値に戻る</td></tr>
+    <tr><td><code>useI18n.js</code>（128 行）</td><td>日英の翻訳と通貨の切り替え</td><td>言語は <code>localStorage</code> の <code>app-locale</code> に保存。既定は日本語</td></tr>
+    <tr><td><code>utils/currency.js</code>（28 行）</td><td>金額表示</td><td>USD→JPY を <b>1 ドル 150 円で固定換算</b>。会計上の扱いは要確認</td></tr>
+    <tr><td><code>useAuth.js</code>（114 行）</td><td>ログインユーザーの表示</td><td><b>モック</b>。認証は実装されておらず、ログアウトは alert を出すだけ</td></tr>
+  </table></div>
+</section>
+
+<!-- 08 -->
+<section id="s8">
+  <h2><span class="no">08</span>既知の課題（技術的負債）</h2>
+  <p>すべて今回のコードで確認した事実にもとづきます。優先度は「業務への影響」を基準にしています。</p>
+  <div class="tbl"><table>
+    <tr><th>ID</th><th>優先度</th><th>内容</th><th>根拠</th><th>関連要件</th></tr>
+    <tr><td>T-01</td><td><span class="tag t-high">高</span></td><td>Reports がフィルターを読まず、API もフィルターを受け付けない</td><td><code>Reports.vue</code> / <code>main.py</code> の reports 2 件</td><td>R2</td></tr>
+    <tr><td>T-02</td><td><span class="tag t-high">高</span></td><td>Reports の四半期判定が 2025 年に固定。それ以外の受注は集計から除外される</td><td><code>get_quarterly_reports()</code></td><td>R2</td></tr>
+    <tr><td>T-03</td><td><span class="tag t-high">高</span></td><td>Reports が翻訳（<code>t()</code>）を使わず、金額も <code>$</code> を直書き。日本語表示でもドル・英語のまま</td><td><code>Reports.vue:31</code> ほか</td><td>R2 / D2</td></tr>
+    <tr><td>T-04</td><td><span class="tag t-mid">中</span></td><td>Reports が Options API・axios 直接呼び出し・console 出力 13 件で、他画面と構造が違う</td><td><code>Reports.vue:128, 156, 162</code></td><td>R2</td></tr>
+    <tr><td>T-05</td><td><span class="tag t-high">高</span></td><td>ブラウザ（E2E）テストがなく、画面の変更を自動で確かめる手段がない</td><td><code>tests/</code> はバックエンドのみ</td><td>R4</td></tr>
+    <tr><td>T-06</td><td><span class="tag t-mid">中</span></td><td>タスク機能が未実装の API を呼び、画面を開くたびに 404 が出る</td><td><code>App.vue:91</code>、<code>api.js</code> の tasks 4 関数</td><td>範囲外</td></tr>
+    <tr><td>T-07</td><td><span class="tag t-mid">中</span></td><td>発注（PO）が保存されず、再起動で消える。採番が件数ベース</td><td><code>create_purchase_order()</code></td><td>R3 関連</td></tr>
+    <tr><td>T-08</td><td><span class="tag t-mid">中</span></td><td>期間の選択肢と <code>QUARTER_MAP</code> が 2025 年固定。2026 年以降のデータを扱えない</td><td><code>FilterBar.vue:9-20</code>、<code>main.py</code> 冒頭</td><td>R1 / R2</td></tr>
+    <tr><td>T-09</td><td><span class="tag t-mid">中</span></td><td>Spending の API がフィルター非対応で、倉庫・カテゴリーを選んでも数字が変わらない</td><td><code>Spending.vue:202</code></td><td>範囲外（要確認）</td></tr>
+    <tr><td>T-10</td><td><span class="tag t-mid">中</span></td><td>受注データの不整合（ID 重複 10 件、配送日のない Delivered 8 件）</td><td><code>test_orders.py:68, 73</code>（xfail）</td><td>データ</td></tr>
+    <tr><td>T-11</td><td><span class="tag t-low">低</span></td><td>概要 API の <code>total_backlog_items</code> がフィルター非対応（画面側では別途絞り込み）</td><td><code>get_dashboard_summary()</code></td><td>R1</td></tr>
+    <tr><td>T-12</td><td><span class="tag t-low">低</span></td><td>為替レートが 150 円固定</td><td><code>utils/currency.js:3</code></td><td>D2</td></tr>
+    <tr><td>T-13</td><td><span class="tag t-low">低</span></td><td><code>Backlog.vue</code> にルートがなく到達できない（概要ページに同等の表示あり）</td><td><code>main.js</code></td><td>—</td></tr>
+    <tr><td>T-14</td><td><span class="tag t-low">低</span></td><td>大型コンポーネント（Dashboard 1,320 行、Spending 852 行）</td><td><code>client/src/views/</code></td><td>—</td></tr>
+    <tr><td>T-15</td><td><span class="tag t-low">低</span></td><td>warehouse だけ完全一致で比較（他は大文字小文字を無視）</td><td><code>apply_filters()</code></td><td>—</td></tr>
+  </table></div>
+</section>
+
+<!-- 09 -->
+<section id="s9">
+  <h2><span class="no">09</span>テストの現状</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="v">74</div><div class="l">成功</div></div>
+    <div class="kpi"><div class="v">2</div><div class="l">想定内の失敗（xfail・データ不整合）</div></div>
+    <div class="kpi"><div class="v">0</div><div class="l">ブラウザ（E2E）テスト</div></div>
+    <div class="kpi"><div class="v">なし</div><div class="l">CI（自動実行の仕組み）</div></div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>ファイル</th><th>テスト関数</th><th>対象</th></tr>
+    <tr><td><code>test_dashboard.py</code></td><td>13</td><td>概要 API（フィルター連動を含む）</td></tr>
+    <tr><td><code>test_inventory.py</code></td><td>10</td><td>在庫 API</td></tr>
+    <tr><td><code>test_misc_endpoints.py</code></td><td>18</td><td>需要・バックログ・支出・Reports API</td></tr>
+    <tr><td><code>test_orders.py</code></td><td>21</td><td>受注 API（xfail 2 件を含む）</td></tr>
+    <tr><td><code>test_purchase_orders.py</code></td><td>10</td><td>発注 API（作成・重複・入力検証）</td></tr>
+  </table></div>
+<pre><code>cd tests &amp;&amp; uv run --project ../server pytest -v
+# 2026-11-11 実行結果: 74 passed, 2 xfailed</code></pre>
+  <div class="note warn"><b>xfail の 2 件は「データを直すまで失敗させておく」設定です</b><code>strict=True</code> のため、データを修正すると逆にテストが失敗し、xfail の外し忘れに気づける仕組みです。データを直すか、仕様として受け入れるかは貴社のご判断が必要です。</div>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2><span class="no">10</span>セキュリティ上の注意</h2>
+  <p>社内ネットワークでの利用を前提とした作りです。外部に公開する場合は、以下をすべて見直す必要があります。</p>
+  <ul>
+    <li><b>認証がありません。</b> API にはだれでもアクセスでき、発注の登録（POST）も認証なしで実行できます。画面の「ユーザー」はモックです。</li>
+    <li><b>CORS が全許可です。</b> <code>allow_origins=["*"]</code> と <code>allow_credentials=True</code> の組み合わせです。</li>
+    <li><b>開発サーバーが外部から接続できる設定です。</b> <code>vite.config.js</code> の <code>host: true</code> と <code>allowedHosts: true</code> により、同じネットワーク上の他の端末からアクセスできます。</li>
+    <li>API サーバーは <code>0.0.0.0:8001</code> で待ち受けます。</li>
+  </ul>
+  <div class="note"><b>この点は未確認です</b>社内ホスティングの実際のネットワーク構成（ファイアウォール、リバースプロキシの有無）は当社では把握していません。上記の設定が本番環境でも有効になっているかどうかは、貴社 IT 部門にご確認ください。</div>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <h2><span class="no">11</span>引き継ぎメモとの相違</h2>
+  <p>前任ベンダーの引き継ぎメモ（<code>docs/rfp/vendor-handoff.md</code>、2024年11月）と実際のコードを突き合わせた結果です。</p>
+  <div class="tbl"><table>
+    <tr><th>引き継ぎメモの記載</th><th>実際</th></tr>
+    <tr><td>起動コマンドのみ記載</td><td>uv・Node.js が事前に入っていることが前提だが、記載がない</td></tr>
+    <tr><td>API 一覧（inventory / orders / dashboard / demand / backlog / spending）</td><td>Reports 用の 2 件と発注 API が記載されていない。未実装の <code>/api/tasks</code> を画面が呼んでいることにも触れていない</td></tr>
+    <tr><td>Reports は「フィルターの一部が未接続」</td><td>一部ではなく、フィルターを一切読んでいない。API 側も受け付けない</td></tr>
+    <tr><td>「一部のビューは旧パターン（Options API）のまま」</td><td>該当するのは Reports.vue の 1 画面のみ</td></tr>
+    <tr><td>「自動テストは未納品」</td><td>バックエンドの API テストは存在する（現在 74 件成功）。ブラウザテストはない</td></tr>
+    <tr><td>ファイルマップ</td><td>到達できない <code>Backlog.vue</code>、未完成の <code>TasksModal.vue</code> に触れていない</td></tr>
+  </table></div>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+  <h2><span class="no">12</span>確認事項と今後の更新</h2>
+  <h3>コードの取り込み状況</h3>
+  <p>本書は <code>feature/purchase-orders</code> ブランチ（3bc9717）を基準にしています。このブランチには R1 の改修、レビュー指摘の修正、テストの修正、発注モーダルと発注 API が含まれますが、<b><code>main-jp</code> にはまだ取り込まれていません</b>。</p>
+  <div class="tbl"><table>
+    <tr><th>コミット</th><th>内容</th></tr>
+    <tr><td><code>deba073</code></td><td>概要: KPI をフィルター済みのデータから計算し、期間・場所の選択を反映（R1）</td></tr>
+    <tr><td><code>43cd0a3</code></td><td>R1: レビュー指摘の修正</td></tr>
+    <tr><td><code>fca9566</code></td><td>テスト: demand テストを納品データに合わせ、README とサマリーを実態に修正</td></tr>
+    <tr><td><code>edbc1e9</code></td><td>発注モーダルと発注 API を追加し、注文 API のテストを作成</td></tr>
+    <tr><td><code>3bc9717</code></td><td>発注モーダル: 入力し直したらエラー表示を消し、ステータスを日本語で表示</td></tr>
+  </table></div>
+
+  <h3>貴社にご判断いただきたい事項</h3>
+  <ol>
+    <li><b>本番の配信構成</b>: 社内ホスティングで、画面と API をどのように配信・公開しているか（<a href="#s1">§1</a>、<a href="#s10">§10</a>）。</li>
+    <li><b>発注データの保存先</b>: 発注を記録として残す必要があるか。必要なら保存先（ファイル・DB・既存の購買システム）をどうするか（T-07）。</li>
+    <li><b>タスク機能の扱い</b>: API を実装して完成させるか、画面から撤去するか（T-06）。</li>
+    <li><b>2026 年以降のデータ</b>: 扱う予定があるか。あれば期間フィルターと Reports の年固定を優先して直します（T-02、T-08）。</li>
+    <li><b>Spending のフィルター</b>: 倉庫・カテゴリーで絞り込める必要があるか（T-09）。</li>
+    <li><b>為替レート</b>: 150 円固定を続けるか、設定可能にするか、日本語表示でも USD を維持するか（T-12）。</li>
+    <li><b>受注データの不整合</b>: 元データを修正するか、仕様として受け入れるか（T-10）。</li>
+  </ol>
+
+  <h3>当社エンジニアで追加確認する事項</h3>
+  <ul>
+    <li>Demand 画面のフィルター処理の詳細（<a href="#s6">§6</a> で「未確認」としたもの）</li>
+    <li>概要ページのバックログ件数の表示が、API の値と画面側の絞り込みのどちらを使っているか（T-11）</li>
+    <li><code>mock_data.py</code> が文字コードを指定せずに JSON を開いている点が、Windows 環境で問題にならないか</li>
+  </ul>
+
+  <h3>今後の更新予定</h3>
+  <p>提案書のスケジュールどおり、本書はフェーズ2の初版です。R4（ブラウザテスト）と R2（Reports）の改修後に内容を更新し、フェーズ4で最終版を納品します。完了基準は「貴社 IT 部門が本書だけを見て、環境を立ち上げ、変更の可否を判断できること」です。</p>
+</section>
+
+<footer>
+  R5 — アーキテクチャドキュメント（初版）/ Meridian Components, Inc. / RFP MC-2026-0417<br>
+  調査方法: client/ と server/ のソースコード精査、バックエンドテストの実行（2026年11月11日）
+</footer>
+
+</div>
+</body>
+</html>

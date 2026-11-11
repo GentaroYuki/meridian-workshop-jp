@@ -130,12 +130,12 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 
 <header>
   <div class="wrap">
-    <div class="kicker"><span class="bar"></span>R4 — ARCHITECTURE DOCUMENTATION</div>
+    <div class="kicker"><span class="bar"></span>R5 — ARCHITECTURE DOCUMENTATION</div>
     <h1>在庫管理ダッシュボード<br>アーキテクチャドキュメント</h1>
-    <p class="sub">Meridian Components, Inc. / RFP MC-2026-0417 要件 R4 に基づく現状アーキテクチャの概要。前任ベンダー納品物（2024年）に対する調査結果を含む。</p>
+    <p class="sub">Meridian Components, Inc. / RFP MC-2026-0417 要件 R5 に基づく現状アーキテクチャの概要。前任ベンダー納品物（2024年）に対する調査結果を含む。</p>
     <div class="hmeta">
       <div><div class="k">Client</div><div class="v">Meridian Components, Inc.</div></div>
-      <div><div class="k">Requirement</div><div class="v">R4 — アーキテクチャドキュメント</div></div>
+      <div><div class="k">Requirement</div><div class="v">R5 — アーキテクチャドキュメント</div></div>
       <div><div class="k">Phase</div><div class="v">フェーズ1 / 週1–3</div></div>
       <div><div class="k">Method</div><div class="v">ソースコード精査 + 実機検証</div></div>
       <div><div class="k">Codebase</div><div class="v">約 8,990 行（client 8,511 / server 482）</div></div>
@@ -274,7 +274,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 │   │   ├── views/                 <span class="c"># ページ単位のコンポーネント</span>
 │   │   │   ├── Dashboard.vue      <span class="c"># 1,271 行 — 最大のファイル</span>
 │   │   │   ├── Spending.vue       <span class="c"># 852 行</span>
-│   │   │   ├── Reports.vue        <span class="o"># 488 行 — R1 の対象。規約から逸脱</span>
+│   │   │   ├── Reports.vue        <span class="o"># 488 行 — R2 の対象。規約から逸脱</span>
 │   │   │   ├── Demand.vue         <span class="c"># 369 行</span>
 │   │   │   ├── Inventory.vue      <span class="c"># 339 行</span>
 │   │   │   ├── Orders.vue         <span class="c"># 279 行</span>
@@ -299,7 +299,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 │
 ├── tests/
 │   ├── backend/                   <span class="c"># pytest — API テスト 40 件（38 パス / 2 失敗）</span>
-│   └── e2e/                       <span class="c"># Playwright — E2E テスト 40 件（R3 で追加、全件パス）</span>
+│   └── e2e/                       <span class="c"># Playwright — E2E テスト 40 件（R4 で追加、全件パス）</span>
 │
 └── docs/rfp/                      <span class="c"># RFP パッケージ・引き継ぎ資料</span>
 </pre>
@@ -320,7 +320,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
     <tbody>
       <tr><td><code>orders.json</code></td><td class="num">151.4 KB</td><td><code>orders</code></td><td>受注。最大のデータセット。<code>order_date</code> による期間フィルターの対象</td></tr>
       <tr><td><code>transactions.json</code></td><td class="num">13.7 KB</td><td><code>recent_transactions</code></td><td>取引履歴</td></tr>
-      <tr><td><code>inventory.json</code></td><td class="num">9.6 KB</td><td><code>inventory_items</code></td><td>在庫。<code>reorder_point</code>（発注点）を保持 — <strong>R2 の起点</strong></td></tr>
+      <tr><td><code>inventory.json</code></td><td class="num">9.6 KB</td><td><code>inventory_items</code></td><td>在庫。<code>reorder_point</code>（発注点）を保持 — <strong>R3 の起点</strong></td></tr>
       <tr><td><code>spending.json</code></td><td class="num">2.5 KB</td><td><code>spending_summary</code> 他3件</td><td>支出。1ファイルから3つの変数へ展開</td></tr>
       <tr><td><code>demand_forecasts.json</code></td><td class="num">1.9 KB</td><td><code>demand_forecasts</code></td><td>需要予測。<code>current_demand</code> / <code>forecasted_demand</code> / <code>trend</code></td></tr>
       <tr><td><code>backlog_items.json</code></td><td class="num">0.9 KB</td><td><code>backlog_items</code></td><td>バックログ</td></tr>
@@ -329,7 +329,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
   </table>
 
   <div class="box b">
-    <div class="h">R2（発注推奨機能）への示唆</div>
+    <div class="h">R3（発注推奨機能）への示唆</div>
     <p>推奨ロジックに必要な3つの入力が、いずれも既存データに存在します。<strong>在庫水準</strong>は <code>inventory.json</code> の <code>quantity_on_hand</code> と <code>reorder_point</code>、<strong>需要予測</strong>は <code>demand_forecasts.json</code> の <code>forecasted_demand</code> と <code>trend</code>。既存のバックエンドテストも「発注点以下のアイテム」の判定を検証しており、この概念はすでにシステムに定着しています。<strong>予算上限</strong>のみがオペレーター入力として新規に必要です。</p>
   </div>
 </section>
@@ -337,7 +337,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 <!-- 5 -->
 <section id="s5">
   <h2><span class="num">05</span>API エンドポイント一覧</h2>
-  <p class="lead">実装済みは 14 エンドポイント（すべて GET）。うち <code>/api/restocking</code> は R2 で追加。フロントエンドが呼び出しているが未実装のものが 6 件あります（§09 参照）。</p>
+  <p class="lead">実装済みは 14 エンドポイント（すべて GET）。うち <code>/api/restocking</code> は R3 で追加。フロントエンドが呼び出しているが未実装のものが 6 件あります（§09 参照）。</p>
 
   <h3>実装済み</h3>
   <table>
@@ -355,7 +355,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr><td><code>GET /api/spending/monthly</code></td><td><span class="chip n">なし</span></td><td>Spending</td></tr>
       <tr><td><code>GET /api/spending/categories</code></td><td><span class="chip n">なし</span></td><td>Spending</td></tr>
       <tr><td><code>GET /api/spending/transactions</code></td><td><span class="chip n">なし</span></td><td>Spending</td></tr>
-      <tr><td><code>GET /api/restocking</code></td><td>budget, warehouse, category</td><td>Restocking</td><td><span class="chip g">R2 で追加</span> 発注推奨を算出</td></tr>
+      <tr><td><code>GET /api/restocking</code></td><td>budget, warehouse, category</td><td>Restocking</td><td><span class="chip g">R3 で追加</span> 発注推奨を算出</td></tr>
       <tr><td><code>GET /api/reports/quarterly</code></td><td><span class="chip n">なし</span></td><td>Reports</td><td><span class="chip a">api.js に未登録</span> 四半期集計を算出</td></tr>
       <tr><td><code>GET /api/reports/monthly-trends</code></td><td><span class="chip n">なし</span></td><td>Reports</td><td><span class="chip a">api.js に未登録</span> 月次推移を算出</td></tr>
     </tbody>
@@ -398,7 +398,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
   <h2><span class="num">07</span>フロントエンドの実装パターン</h2>
 
   <h3>ルーティング</h3>
-  <p><code>main.js</code> に7件のルートが定義されています（R2 で <code>/restocking</code> を追加）。</p>
+  <p><code>main.js</code> に7件のルートが定義されています（R3 で <code>/restocking</code> を追加）。</p>
   <table>
     <thead><tr><th style="width:20%">パス</th><th style="width:24%">ビュー</th><th style="width:12%">行数</th><th>役割</th></tr></thead>
     <tbody>
@@ -407,8 +407,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr><td><code>/orders</code></td><td><code>Orders.vue</code></td><td class="num">279</td><td>受注一覧</td></tr>
       <tr><td><code>/demand</code></td><td><code>Demand.vue</code></td><td class="num">369</td><td>需要予測</td></tr>
       <tr><td><code>/spending</code></td><td><code>Spending.vue</code></td><td class="num">852</td><td>サプライヤー支出</td></tr>
-      <tr><td><code>/reports</code></td><td><code>Reports.vue</code></td><td class="num">488</td><td>四半期・月次レポート <span class="chip a">R1 対象</span></td></tr>
-      <tr><td><code>/restocking</code></td><td><code>Restocking.vue</code></td><td class="num">555</td><td>発注推奨 <span class="chip g">R2 で追加</span></td></tr>
+      <tr><td><code>/reports</code></td><td><code>Reports.vue</code></td><td class="num">488</td><td>四半期・月次レポート <span class="chip a">R2 対象</span></td></tr>
+      <tr><td><code>/restocking</code></td><td><code>Restocking.vue</code></td><td class="num">555</td><td>発注推奨 <span class="chip g">R3 で追加</span></td></tr>
       <tr class="tot"><td colspan="4">ルート未定義: <code>Backlog.vue</code>（152 行） — ナビゲーションからも到達できません</td></tr>
     </tbody>
   </table>
@@ -429,10 +429,10 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
   </table>
 
   <div class="box r">
-    <div class="h">R1 に関する最重要の発見</div>
+    <div class="h">R2 に関する最重要の発見</div>
     <p><strong><code>Reports.vue</code> は、確認したすべての規約から単独で逸脱しています。</strong> コードベース全体の <code>console.log</code> 15箇所のうち 13 がこのファイルに集中しています。</p>
     <p>RFP が挙げた症状カテゴリ（フィルターの挙動、国際化対応の不備、データパターンの不整合、コンソール出力）は、それぞれ別の不具合ではなく、<strong>「Reports.vue が既存の共通基盤に接続されていない」という単一の状態が、4つの症状として表面化したもの</strong>と考えられます。</p>
-    <p>したがって R1 の修正方針は、個別の症状に対処するのではなく、<strong>このビューを他の6ビューと同じ構造へ揃えること</strong>になります。移行先の実装はすでに存在するため、新規に設計する必要はありません。</p>
+    <p>したがって R2 の修正方針は、個別の症状に対処するのではなく、<strong>このビューを他の6ビューと同じ構造へ揃えること</strong>になります。移行先の実装はすでに存在するため、新規に設計する必要はありません。</p>
   </div>
 </section>
 
@@ -471,10 +471,10 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 <section id="s9">
   <h2><span class="num">09</span>技術的負債の一覧</h2>
   <p class="lead">調査で確認した事項です。RFP の記録済み8件との対応関係は、リストのご提供後に突き合わせます。深刻度は当社の判断です。<br>
-  <strong>R1（フェーズ2）の完了により 5 件が解消済みです。</strong>各項目の状態は E2E テストスイート（<code>tests/e2e/</code>）で継続的に検証されます。</p>
+  <strong>R2（フェーズ2）の完了により 5 件が解消済みです。</strong>各項目の状態は E2E テストスイート（<code>tests/e2e/</code>）で継続的に検証されます。</p>
 
   <div class="stats">
-    <div class="stat g"><div class="v">5</div><div class="k">R1 で修正済み<br>D-03 / D-04 / D-07 / D-09 / D-14</div></div>
+    <div class="stat g"><div class="v">5</div><div class="k">R2 で修正済み<br>D-03 / D-04 / D-07 / D-09 / D-14</div></div>
     <div class="stat r"><div class="v">6</div><div class="k">フロントエンドが呼ぶが<br>未実装の API（範囲外・要判断）</div></div>
     <div class="stat r"><div class="v">1</div><div class="k">参照されているが<br>存在しないコンポーネント（要判断）</div></div>
     <div class="stat a"><div class="v">3</div><div class="k">Meridian のご判断待ち<br>D-05 / D-06 / D-08</div></div>
@@ -501,13 +501,13 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr>
         <td class="mono">D-03</td>
         <td><code>Reports.vue</code> が共通基盤から分離している</td>
-        <td><span class="chip g">修正済み</span><br><span class="chip n">R1</span></td>
-        <td>§07 の表を参照。<code>useFilters</code> 未使用、<code>useI18n</code> 未使用、Options API、<code>api.js</code> を経由しない axios 直呼び、<code>console.log</code> 13箇所。<strong>R1 の主対象。</strong></td>
+        <td><span class="chip g">修正済み</span><br><span class="chip n">R2</span></td>
+        <td>§07 の表を参照。<code>useFilters</code> 未使用、<code>useI18n</code> 未使用、Options API、<code>api.js</code> を経由しない axios 直呼び、<code>console.log</code> 13箇所。<strong>R2 の主対象。</strong></td>
       </tr>
       <tr>
         <td class="mono">D-04</td>
         <td><code>api.js</code> にレポート系の関数がない</td>
-        <td><span class="chip g">修正済み</span><br><span class="chip n">R1</span></td>
+        <td><span class="chip g">修正済み</span><br><span class="chip n">R2</span></td>
         <td><code>/api/reports/quarterly</code> と <code>/api/reports/monthly-trends</code> はバックエンドに実装済み（実測 200）ですが、<code>api.js</code> にラッパーがありません。これが D-03 の「axios 直呼び」の直接的な原因です。<strong>API クライアント側の欠落が、ビュー側の逸脱を生んでいます。</strong></td>
       </tr>
       <tr>
@@ -525,7 +525,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr>
         <td class="mono">D-07</td>
         <td>四半期マッピングが 2025 年固定</td>
-        <td><span class="chip g">修正済み</span><br><span class="chip n">R1</span></td>
+        <td><span class="chip g">修正済み</span><br><span class="chip n">R2</span></td>
         <td><code>main.py:10-15</code> の <code>QUARTER_MAP</code> に <code>Q1-2025</code>〜<code>Q4-2025</code> のみが定義されています。<code>/api/reports/quarterly</code>（<code>main.py:239-246</code>）にも同じ年が直書きされています。<strong>2026 年のデータでは四半期集計が空になります。</strong></td>
       </tr>
       <tr>
@@ -537,7 +537,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr>
         <td class="mono">D-09</td>
         <td>別案件の情報が残存</td>
-        <td><span class="chip g">修正済み</span><br><span class="chip n">R1</span></td>
+        <td><span class="chip g">修正済み</span><br><span class="chip n">R2</span></td>
         <td><code>useAuth.js:6</code> のメールアドレスが <code>john.doe@catalystcomponents.com</code>。Meridian のドメインではありません。画面に表示されます。</td>
       </tr>
       <tr>
@@ -561,8 +561,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr>
         <td class="mono">D-14</td>
         <td>金額表示が切り捨てられていた</td>
-        <td><span class="chip g">修正済み</span><br><span class="chip n">R1</span></td>
-        <td><strong>R1 の調査中に判明。RFP の記録には含まれていない可能性が高い事項です。</strong><br>
+        <td><span class="chip g">修正済み</span><br><span class="chip n">R2</span></td>
+        <td><strong>R2 の調査中に判明。RFP の記録には含まれていない可能性が高い事項です。</strong><br>
         <code>Reports.vue</code> の <code>formatNumber</code> が手書きのカンマ区切り実装で、小数部を <code>substring(0, 2)</code> により<strong>切り捨て</strong>ていました（四捨五入ではない）。<br>
         実測例: <code>30082.22999999975</code> → <code>$30,082.22</code>（正しくは <code>.23</code>）、<code>47473.389999999665</code> → <code>$47,473.38</code>（正しくは <code>.39</code>）。<br>
         Reports 上の全金額が最大 1 銭低く表示されていました。共通実装 <code>utils/currency.js</code> の <code>formatCurrencyWithDecimals</code>（<code>toLocaleString</code> ベース）へ置き換えて解消しています。</td>
@@ -585,7 +585,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <li><strong>API クライアント</strong> — <code>createPurchaseOrder</code> と <code>getPurchaseOrderByBacklogItem</code> は実装済み、ただし呼び先が 404</li>
       <li><strong>UI 層</strong> — <code>Dashboard.vue</code> に配置済み、ただし<strong>コンポーネント本体が存在しない</strong></li>
     </ul>
-    <p style="margin-top:12px">R2（発注推奨機能）は、この既存の足場を活用して構築できます。データ構造とインターフェースの意図はコードから読み取れるため、設計を白紙から起こす必要はありません。</p>
+    <p style="margin-top:12px">R3（発注推奨機能）は、この既存の足場を活用して構築できます。データ構造とインターフェースの意図はコードから読み取れるため、設計を白紙から起こす必要はありません。</p>
   </div>
 </section>
 
@@ -612,7 +612,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr><td>ダッシュボード endpoint</td><td class="num">13</td><td>サマリー取得、型検証、非負値検証、4フィルターの単独・組み合わせ、<strong>実際の計算値の検証</strong>（保留中注文数、在庫僅少判定、在庫総額）</td></tr>
       <tr><td>在庫 endpoint</td><td class="num">10</td><td>全件取得、倉庫別・カテゴリー別・組み合わせフィルター</td></tr>
       <tr><td>その他 endpoint</td><td class="num">17</td><td><code>test_misc_endpoints.py</code>。うち <span class="chip r">2 件が失敗</span>（需要予測データの不整合、既存）</td></tr>
-      <tr><td>発注推奨 endpoint</td><td class="num">35</td><td><code>test_restocking.py</code>（R2 で追加）。構造・算出・優先順位・予算配分・フィルター・endpoint 間整合</td></tr>
+      <tr><td>発注推奨 endpoint</td><td class="num">35</td><td><code>test_restocking.py</code>（R3 で追加）。構造・算出・優先順位・予算配分・フィルター・endpoint 間整合</td></tr>
       <tr class="tot"><td>合計</td><td class="num">75</td><td>73 パス / 2 失敗（既存）</td></tr>
     </tbody>
   </table>
@@ -620,7 +620,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
   <p><strong>実行方法:</strong> <code>cd tests && ../server/.venv/bin/python -m pytest -q</code>（<code>pytest.ini</code> と <code>conftest.py</code> を同梱）</p>
   <p>引き継ぎ資料が案内する <code>uv run pytest</code> は、<code>tests/</code> に <code>pyproject.toml</code> が無いため解決に失敗します。<code>server/</code> の仮想環境を指定して実行してください。</p>
 
-  <h3>R3 で追加したブラウザ層（納品済み）</h3>
+  <h3>R4 で追加したブラウザ層（納品済み）</h3>
   <p>ブラウザ層の E2E テストは存在しませんでした。バックエンドが守られている一方で UI の挙動を検証する手段がなかったため、D-02（存在しないコンポーネント）のような不具合が検知されないまま残っていました。<code>tests/e2e/</code> に Playwright ベースのスイートを構築しました。</p>
 
   <table>
@@ -630,9 +630,9 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
       <tr><td><code>specs/02-inventory.spec.js</code></td><td class="num">6</td><td>在庫の表示、倉庫・カテゴリーの絞り込み、フィルター保持</td></tr>
       <tr><td><code>specs/03-orders.spec.js</code></td><td class="num">6</td><td>受注の表示、ステータス・期間の絞り込み、リセット</td></tr>
       <tr><td><code>specs/04-spending.spec.js</code></td><td class="num">3</td><td>支出の表示、4 エンドポイントの取得</td></tr>
-      <tr><td><code>specs/05-reports.spec.js</code></td><td class="num">10</td><td>Reports の回帰テスト（R1 の安全網）</td></tr>
+      <tr><td><code>specs/05-reports.spec.js</code></td><td class="num">10</td><td>Reports の回帰テスト（R2 の安全網）</td></tr>
       <tr><td><code>specs/06-console-health.spec.js</code></td><td class="num">6</td><td>コンソールの健全性、ブランディング整合性</td></tr>
-      <tr><td><code>specs/07-restocking.spec.js</code></td><td class="num">26</td><td>発注推奨（R2）。根拠表示・優先順位・予算配分・フィルター連動</td></tr>
+      <tr><td><code>specs/07-restocking.spec.js</code></td><td class="num">26</td><td>発注推奨（R3）。根拠表示・優先順位・予算配分・フィルター連動</td></tr>
       <tr class="tot"><td>合計</td><td class="num">67</td><td>全件パス / 実行約 13 秒 / 終了コード 0</td></tr>
     </tbody>
   </table>
@@ -643,7 +643,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
     <div class="h">既知の欠陥を「失敗するのが正しい」として記録しています</div>
     <p>未修正の欠陥は <code>test.fail()</code> で宣言しています。<strong>現状は失敗するのが正しい状態</strong>であり、Playwright はこれを「想定どおり失敗した」として合格に数えるため、スイート全体は緑（終了コード 0）を保ちます。</p>
     <p><strong>欠陥を修正すると、そのテストは成功に転じてスイートが赤になります。</strong>これは異常ではなく修正完了の合図です。該当テストから <code>test.fail()</code> を外すと、以降は通常の回帰テストとして機能します。</p>
-    <p>現在 <code>test.fail()</code> で記録されているのは 4 件です。D-01・D-02（R2 で対応）、D-06・D-08（Meridian のご判断待ち）。</p>
+    <p>現在 <code>test.fail()</code> で記録されているのは 4 件です。D-01・D-02（R3 で対応）、D-06・D-08（Meridian のご判断待ち）。</p>
   </div>
 
   <ul class="plain">
@@ -679,15 +679,15 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 <section id="s12">
   <h2><span class="num">12</span>引き継ぎに向けた推奨事項</h2>
 
-  <h3>本案件（R1〜R4、D1〜D3）で対応する事項</h3>
+  <h3>本案件（R2〜R5、D1〜D3）で対応する事項</h3>
   <table>
     <thead><tr><th style="width:14%">要件</th><th style="width:30%">対応する負債</th><th>方針</th></tr></thead>
     <tbody>
-      <tr><td><span class="chip g">R1 完了</span></td><td>D-03、D-04、D-07、D-09、D-14</td><td><strong>対応済み。</strong><code>api.js</code> にレポート系関数を追加（D-04）したうえで、<code>Reports.vue</code> を Composition API へ移行し <code>useFilters</code>・<code>useI18n</code> へ接続しました。<code>console.log</code> を全廃し、金額整形を共通実装へ統一（D-14）。バックエンドのレポート系 2 エンドポイントにフィルターを追加し、四半期判定を年非依存にしました（D-07）。ブランド情報も是正（D-09）。</td></tr>
-      <tr><td><span class="chip g">R2 完了</span></td><td>—</td><td><strong>納品済み。</strong><code>GET /api/restocking</code> と <code>Restocking.vue</code> を新設しました。算出方法は <code>proposal/restocking-logic.md</code> に定義し、実装前に Meridian と合意済みです。バックエンドテスト 35 件、E2E テスト 26 件を追加。<br><strong>D-01・D-02 は本要件の範囲外です</strong>（下記参照）。</td></tr>
-      <tr><td><span class="chip g">R3 完了</span></td><td>—</td><td><strong>納品済み。</strong><code>tests/e2e/</code> に 40 件のスイートを構築。主要 4 フローと、コンソール健全性（D-02 の類を検知）を含みます。IT チーム向けの実行手順は <code>tests/e2e/README.md</code>。R2 完了後に発注推奨フローを追加します。</td></tr>
-      <tr><td><span class="chip n">R4</span></td><td>—</td><td>本ドキュメント。フェーズ2〜4の変更を反映して最終更新します。</td></tr>
-      <tr><td><span class="chip a">D2 一部完了</span></td><td>—</td><td>R1 の一環として Reports の翻訳定義（<code>reports.*</code>、<code>nav.reports</code>）を <code>en.js</code>・<code>ja.js</code> に追加しました。残りの未対応箇所はフェーズ4で対応します。</td></tr>
+      <tr><td><span class="chip g">R2 完了</span></td><td>D-03、D-04、D-07、D-09、D-14</td><td><strong>対応済み。</strong><code>api.js</code> にレポート系関数を追加（D-04）したうえで、<code>Reports.vue</code> を Composition API へ移行し <code>useFilters</code>・<code>useI18n</code> へ接続しました。<code>console.log</code> を全廃し、金額整形を共通実装へ統一（D-14）。バックエンドのレポート系 2 エンドポイントにフィルターを追加し、四半期判定を年非依存にしました（D-07）。ブランド情報も是正（D-09）。</td></tr>
+      <tr><td><span class="chip g">R3 完了</span></td><td>—</td><td><strong>納品済み。</strong><code>GET /api/restocking</code> と <code>Restocking.vue</code> を新設しました。算出方法は <code>proposal/restocking-logic.md</code> に定義し、実装前に Meridian と合意済みです。バックエンドテスト 35 件、E2E テスト 26 件を追加。<br><strong>D-01・D-02 は本要件の範囲外です</strong>（下記参照）。</td></tr>
+      <tr><td><span class="chip g">R4 完了</span></td><td>—</td><td><strong>納品済み。</strong><code>tests/e2e/</code> に 40 件のスイートを構築。主要 4 フローと、コンソール健全性（D-02 の類を検知）を含みます。IT チーム向けの実行手順は <code>tests/e2e/README.md</code>。R3 完了後に発注推奨フローを追加します。</td></tr>
+      <tr><td><span class="chip n">R5</span></td><td>—</td><td>本ドキュメント。フェーズ2〜4の変更を反映して最終更新します。</td></tr>
+      <tr><td><span class="chip a">D2 一部完了</span></td><td>—</td><td>R2 の一環として Reports の翻訳定義（<code>reports.*</code>、<code>nav.reports</code>）を <code>en.js</code>・<code>ja.js</code> に追加しました。残りの未対応箇所はフェーズ4で対応します。</td></tr>
     </tbody>
   </table>
 
@@ -696,7 +696,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
     <li><strong>D-05 — 為替レートの扱い。</strong> 固定レート 150 での換算表示を継続するか、レートを設定可能にするか、あるいは日本語表示でも USD を維持するか。会計上の扱いに関わるため、当社では判断できません。</li>
     <li><strong>D-06 — <code>Backlog.vue</code> の去就。</strong> ルートを追加して画面として復活させるか、削除するか。<code>Dashboard.vue</code> にインライン実装があるため、機能面での欠落は現在生じていません。</li>
     <li><strong>D-01 — タスク機能の去就。</strong> <code>TasksModal.vue</code>（621 行）は未実装 API に依存しています。バックエンドを実装して機能を完成させるか、UI ごと撤去するか。<strong>本提案の範囲外</strong>であり、ご希望に応じて別途お見積もりします。</li>
-    <li><strong>D-02 — 発注実行機能の去就。</strong> R2 の完了後も本項目は残っています。<code>&lt;PurchaseOrderModal&gt;</code> と「Create PO」ボタンは<strong>発注の実行</strong>を担う UI であり、前提条件 A5（発注実行の連携は範囲外）により R2 の納品範囲に含まれません。当社の判断で UI を削除することは避け、現状のまま残しています。<br><strong>選択肢は3つです。</strong>(1) 発注実行機能として完成させる（別途お見積もり）、(2) 動作しない UI を撤去する、(3) 現状のまま残す。オペレーターが押しても何も起きないボタンが表示されている状態のため、(1) または (2) を推奨します。</li>
+    <li><strong>D-02 — 発注実行機能の去就。</strong> R3 の完了後も本項目は残っています。<code>&lt;PurchaseOrderModal&gt;</code> と「Create PO」ボタンは<strong>発注の実行</strong>を担う UI であり、前提条件 A5（発注実行の連携は範囲外）により R3 の納品範囲に含まれません。当社の判断で UI を削除することは避け、現状のまま残しています。<br><strong>選択肢は3つです。</strong>(1) 発注実行機能として完成させる（別途お見積もり）、(2) 動作しない UI を撤去する、(3) 現状のまま残す。オペレーターが押しても何も起きないボタンが表示されている状態のため、(1) または (2) を推奨します。</li>
     <li><strong>D-07 — 四半期マッピングの年次対応。</strong> 2026 年以降のデータを扱う予定があるかどうかで対応の緊急度が変わります。</li>
     <li><strong>D-08 — 支出画面のフィルター。</strong> 支出データにフィルターを効かせる想定があるか。UI 側にフィルターが表示されているため、オペレーターは効くと考えている可能性があります。</li>
   </ol>
@@ -704,7 +704,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
   <h3>本提案の範囲外とする事項</h3>
   <ul class="plain">
     <li><strong>D-10 — 認証の実装。</strong> 社内ホスティング前提の設計と理解しています。外部公開のご予定がある場合はご相談ください。</li>
-    <li><strong>D-11 — 大型コンポーネントの分割。</strong> 動作に影響しないため、R1・R2 の作業で触れる範囲にとどめます。全面的なリファクタリングはご予算を消費するのみで、新たな価値を生みません。</li>
+    <li><strong>D-11 — 大型コンポーネントの分割。</strong> 動作に影響しないため、R2・R3 の作業で触れる範囲にとどめます。全面的なリファクタリングはご予算を消費するのみで、新たな価値を生みません。</li>
     <li><strong>D-12 — フィルター比較の不統一。</strong> <code>warehouse</code> のみ完全一致で比較されています。現状のデータでは実害が生じないため、修正は見送ります。データ入力元が増える場合はご相談ください。</li>
     <li><strong>需要予測テストの失敗 2 件。</strong> §10 の訂正欄に記載のとおり、データ側の不整合です。<code>demand_forecasts.json</code> に <code>SNR-420</code> を追加するか、テストを現行データに合わせるかの判断が必要です。<strong>本提案の範囲外</strong>ですが、テストが常時赤である状態は IT チームの承認判断を妨げるため、早期の解消をお勧めします。</li>
     <li><strong>データベースの導入。</strong> 現行の JSON ファイル方式を踏襲します（技術アプローチ 前提条件 A6）。</li>
@@ -719,7 +719,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding-top:26px;font-fa
 </section>
 
 <footer>
-  R4 — アーキテクチャドキュメント / Meridian Components, Inc. / RFP MC-2026-0417<br>
+  R5 — アーキテクチャドキュメント / Meridian Components, Inc. / RFP MC-2026-0417<br>
   調査方法: <code>client/</code> および <code>server/</code> のソースコード精査、稼働中サーバーに対するエンドポイント実測、既存テストスイートの確認<br>
   本ドキュメントはフェーズ2〜4 の変更を反映し、フェーズ5（引き継ぎ）で最終版を納品します
 </footer>

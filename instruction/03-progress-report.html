@@ -134,10 +134,10 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
 
 <section>
   <h2><span class="num">01</span>要旨</h2>
-  <p class="lead"><strong>必須項目 R1〜R4 のすべてが完了しました。</strong>スケジュール上のマイルストーン（2026年8月14日）を満たし、残るは希望項目（D1・D3・D2）と引き継ぎです。</p>
+  <p class="lead"><strong>必須項目 R2〜R5 のすべてが完了しました。</strong>スケジュール上のマイルストーン（2026年8月14日）を満たし、残るは希望項目（D1・D3・D2）と引き継ぎです。</p>
 
   <div class="stats">
-    <div class="stat g"><div class="v">4 / 4</div><div class="k">必須項目<br>R1・R2・R3・R4 完了</div></div>
+    <div class="stat g"><div class="v">4 / 4</div><div class="k">必須項目<br>R2・R3・R4・R5 完了</div></div>
     <div class="stat b"><div class="v">142</div><div class="k">自動テスト総数<br>E2E 67 + API 75</div></div>
     <div class="stat g"><div class="v">5</div><div class="k">解消した技術的負債<br>D-03/04/07/09/14</div></div>
     <div class="stat a"><div class="v">6</div><div class="k">ご判断を仰ぐ事項<br>§06 参照</div></div>
@@ -146,7 +146,7 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
   <div class="box g">
     <div class="h">IT 部門の承認ボトルネックは解除されました</div>
     <p>本案件の最大の制約は「テストがないため IT 部門が変更を承認できない」という循環でした。提案時にこれを最優先課題として位置づけ、フェーズ1で<strong>ブラウザ E2E テスト 67 件</strong>を先に整備しました。</p>
-    <p>その結果、R1 の全面改修（<code>Reports.vue</code> を Options API から Composition API へ移行）を、<strong>計算結果を壊していないことをテストで確認しながら</strong>実施できました。前任ベンダーの環境にはこの安全網がありませんでした。</p>
+    <p>その結果、R2 の全面改修（<code>Reports.vue</code> を Options API から Composition API へ移行）を、<strong>計算結果を壊していないことをテストで確認しながら</strong>実施できました。前任ベンダーの環境にはこの安全網がありませんでした。</p>
   </div>
 </section>
 
@@ -155,22 +155,22 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
 
   <div class="prog">
     <div class="prow">
-      <div class="lb">R1<span>REPORTS 改修</span></div>
+      <div class="lb">R2<span>REPORTS 改修</span></div>
       <div class="track"><div class="fill done" style="width:100%"></div></div>
       <div class="pct">100%</div>
     </div>
     <div class="prow">
-      <div class="lb">R2<span>発注推奨機能</span></div>
+      <div class="lb">R3<span>発注推奨機能</span></div>
       <div class="track"><div class="fill done" style="width:100%"></div></div>
       <div class="pct">100%</div>
     </div>
     <div class="prow">
-      <div class="lb">R3<span>ブラウザテスト</span></div>
+      <div class="lb">R4<span>ブラウザテスト</span></div>
       <div class="track"><div class="fill done" style="width:100%"></div></div>
       <div class="pct">100%</div>
     </div>
     <div class="prow">
-      <div class="lb">R4<span>アーキテクチャ文書</span></div>
+      <div class="lb">R5<span>アーキテクチャ文書</span></div>
       <div class="track"><div class="fill done" style="width:100%"></div></div>
       <div class="pct">100%</div>
     </div>
@@ -190,41 +190,41 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
     <thead><tr><th style="width:8%">要件</th><th style="width:12%">状態</th><th>内容と成果物</th></tr></thead>
     <tbody>
       <tr>
-        <td class="mono">R1</td>
+        <td class="mono">R2</td>
         <td><span class="chip g">完了</span></td>
         <td><strong>Reports モジュールの改修。</strong>RFP が挙げた4カテゴリの症状（フィルター挙動・i18n の不備・データパターンの不整合・コンソール出力）は個別の不具合ではなく、<strong>単一の原因が4つの症状として表面化したもの</strong>でした（§03 参照）。<code>Reports.vue</code> を他6ビューと同じ構造へ揃え、あわせて調査中に判明した金額の切り捨て（D-14）も解消しています。</td>
       </tr>
       <tr>
-        <td class="mono">R2</td>
+        <td class="mono">R3</td>
         <td><span class="chip g">完了</span></td>
         <td><strong>発注推奨機能。</strong><code>GET /api/restocking</code> と新規ビュー <code>Restocking.vue</code>。算出方法は <code>restocking-logic.md</code> に文書化し、<strong>実装前にご確認をいただいてから</strong>着手しました（前提条件 A4）。予算上限の入力、優先順位付け、見送り理由の表示に対応。</td>
       </tr>
       <tr>
-        <td class="mono">R3</td>
+        <td class="mono">R4</td>
         <td><span class="chip g">完了</span></td>
         <td><strong>ブラウザテストの自動化。</strong><code>tests/e2e/</code> に Playwright スイート 67 件。IT 部門向けの実行手順書（<code>README.md</code>、194行）を同梱し、<strong>IT 部門が自ら実行できる状態</strong>まで引き継ぎ可能です。</td>
       </tr>
       <tr>
-        <td class="mono">R4</td>
+        <td class="mono">R5</td>
         <td><span class="chip g">完了</span></td>
         <td><strong>アーキテクチャドキュメント。</strong><code>architecture.html</code>（729行）。単一 HTML のため閲覧に開発環境は不要です。構成図・データフロー・API 一覧・実装パターン・技術的負債 D-01〜D-14 を実測値付きで収録。フェーズ2・3の変更を反映済み。</td>
       </tr>
       <tr>
         <td class="mono">D2</td>
         <td><span class="chip a">一部完了</span></td>
-        <td><strong>国際化対応の拡張。</strong>R1・R2 の一環として <code>reports.*</code>、<code>restocking.*</code>、<code>nav.*</code> の翻訳定義を追加しました。残る未対応箇所はフェーズ4で対応します。</td>
+        <td><strong>国際化対応の拡張。</strong>R2・R3 の一環として <code>reports.*</code>、<code>restocking.*</code>、<code>nav.*</code> の翻訳定義を追加しました。残る未対応箇所はフェーズ4で対応します。</td>
       </tr>
       <tr>
         <td class="mono">D1<br>D3</td>
         <td><span class="chip n">未着手</span></td>
-        <td><strong>視認性の改善とダークモード。</strong>フェーズ4で対応予定。「倉庫フロアでの視認性を最優先に」とのご回答により<strong>両項目をひとつの設計課題として扱います</strong>。なお R2 の在庫日数表示では、色のみに依存せず太字を併用する方針を先行適用しています。</td>
+        <td><strong>視認性の改善とダークモード。</strong>フェーズ4で対応予定。「倉庫フロアでの視認性を最優先に」とのご回答により<strong>両項目をひとつの設計課題として扱います</strong>。なお R3 の在庫日数表示では、色のみに依存せず太字を併用する方針を先行適用しています。</td>
       </tr>
     </tbody>
   </table>
 </section>
 
 <section>
-  <h2><span class="num">03</span>R1 — 調査で判明した構造</h2>
+  <h2><span class="num">03</span>R2 — 調査で判明した構造</h2>
   <p class="lead">RFP には「少なくとも8件の問題」と記載されていました。調査の結果、これらは<strong>8つの独立した不具合ではありませんでした。</strong></p>
 
   <p>ビュー7つ × 規約5項目で準拠状況を突き合わせたところ、<code>Reports.vue</code> の行だけがすべて不適合でした。</p>
@@ -259,7 +259,7 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
 </section>
 
 <section>
-  <h2><span class="num">04</span>R2 — 発注推奨機能</h2>
+  <h2><span class="num">04</span>R3 — 発注推奨機能</h2>
   <p class="lead">実装に先立ち算出方法を文書化し、<strong>3点についてご確認をいただいてから</strong>着手しました。合意内容はそのまま実装に反映されています。</p>
 
   <table>
@@ -303,12 +303,12 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
 
 <section>
   <h2><span class="num">05</span>テストの整備状況</h2>
-  <p class="lead">要件 R3 の中心的な成果です。実行は約13秒で完了し、CI に組み込める状態です。</p>
+  <p class="lead">要件 R4 の中心的な成果です。実行は約13秒で完了し、CI に組み込める状態です。</p>
 
   <div class="stats">
     <div class="stat b"><div class="v">67</div><div class="k">E2E テスト（新規）<br>全件パス / 約13秒</div></div>
     <div class="stat g"><div class="v">75</div><div class="k">API テスト<br>73 パス / 2 失敗（既存）</div></div>
-    <div class="stat g"><div class="v">+35</div><div class="k">R2 で追加した<br>API テスト</div></div>
+    <div class="stat g"><div class="v">+35</div><div class="k">R3 で追加した<br>API テスト</div></div>
     <div class="stat b"><div class="v">0</div><div class="k">終了コード<br>CI 組み込み可</div></div>
   </div>
 
@@ -319,7 +319,7 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
       <tr><td><code>02-inventory.spec.js</code></td><td class="num">6</td><td>在庫の表示、倉庫・カテゴリー絞り込み、フィルター保持</td></tr>
       <tr><td><code>03-orders.spec.js</code></td><td class="num">6</td><td>受注の表示、ステータス・期間絞り込み、リセット</td></tr>
       <tr><td><code>04-spending.spec.js</code></td><td class="num">3</td><td>支出の表示、4エンドポイントの取得</td></tr>
-      <tr><td><code>05-reports.spec.js</code></td><td class="num">10</td><td>Reports の回帰テスト（R1 の安全網）</td></tr>
+      <tr><td><code>05-reports.spec.js</code></td><td class="num">10</td><td>Reports の回帰テスト（R2 の安全網）</td></tr>
       <tr><td><code>06-console-health.spec.js</code></td><td class="num">6</td><td>コンソール健全性、ブランディング整合性</td></tr>
       <tr><td><code>07-restocking.spec.js</code></td><td class="num">26</td><td>発注推奨。根拠・優先順位・予算配分・フィルター連動</td></tr>
       <tr class="tot"><td>合計</td><td class="num">67</td><td>全件パス</td></tr>
@@ -330,14 +330,14 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
     <div class="h">未修正の欠陥をテストとして記録しています</div>
     <p>ご判断待ちや範囲外の欠陥は <code>test.fail()</code> で「<strong>失敗するのが正しい</strong>」と宣言しています。Playwright はこれを想定どおりの失敗として合格に数えるため、<strong>スイート全体は緑（終了コード 0）を保ちます。</strong></p>
     <p>そして<strong>欠陥を修正するとテストが成功に転じ、スイートが赤になります。</strong>これは異常ではなく修正完了の合図です。該当宣言を外せば、以降は通常の回帰テストとして機能します。修正すべき事項の一覧が実行可能な形で残り、完了が自動検知される仕組みです。</p>
-    <p>R1 の完了時には、この仕組みにより 7 件が成功に転じました。現在残っているのは 4 件です（D-01・D-02・D-06・D-08）。</p>
+    <p>R2 の完了時には、この仕組みにより 7 件が成功に転じました。現在残っているのは 4 件です（D-01・D-02・D-06・D-08）。</p>
   </div>
 
   <div class="box r">
     <div class="h">訂正 — 既存テストの件数と成否</div>
     <p>提案時、同梱の <code>tests/TEST_SUMMARY.md</code> の記述にもとづき「バックエンド API テスト 55 件が全件パス」とご報告しました。<strong>フェーズ1の実測では 40 件収集・38 件パス・2 件失敗であり、この記述は事実と異なります。</strong></p>
-    <p>失敗している 2 件は需要予測データに期待される SKU（<code>SNR-420</code>）が存在しないことによるもので、<strong>当社の着手前から失敗していた既存の不整合</strong>です（変更前のコードで再現確認済み）。R2 で 35 件を追加した現在は 75 件収集・73 件パス・2 件失敗です。</p>
-    <p>バックエンド層に相応のカバレッジが存在するという結論、および R3 のスコープ判断・見積もりへの影響はありません。<strong>テストが常時 2 件赤である状態は IT 部門の承認判断を妨げる</strong>ため、早期の解消をお勧めします（§06）。</p>
+    <p>失敗している 2 件は需要予測データに期待される SKU（<code>SNR-420</code>）が存在しないことによるもので、<strong>当社の着手前から失敗していた既存の不整合</strong>です（変更前のコードで再現確認済み）。R3 で 35 件を追加した現在は 75 件収集・73 件パス・2 件失敗です。</p>
+    <p>バックエンド層に相応のカバレッジが存在するという結論、および R4 のスコープ判断・見積もりへの影響はありません。<strong>テストが常時 2 件赤である状態は IT 部門の承認判断を妨げる</strong>ため、早期の解消をお勧めします（§06）。</p>
   </div>
 </section>
 
@@ -348,7 +348,7 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
   <ol class="seq">
     <li><strong>D-05 — 為替レートの扱い。</strong> <code>utils/currency.js</code> に <code>USD_TO_JPY = 150</code> が定数として直書きされています。既定ロケールが日本語であるため、<strong>東京拠点のオペレーターが通常目にする金額はすべてこの固定レートによる換算値</strong>です。レート更新の手段はコード変更以外にありません。<br>選択肢: (1) 固定レートを維持、(2) 設定可能にする、(3) 日本語表示でも USD を維持。<strong>会計上の扱いに関わるため当社では判断できません。</strong></li>
 
-    <li><strong>D-02 — 発注実行機能の去就。</strong> <code>Dashboard.vue</code> が <code>&lt;PurchaseOrderModal&gt;</code> を参照していますが、コンポーネントが存在しません。「Create PO」ボタンは表示されるものの<strong>押しても何も起きません</strong>。これは<strong>発注の実行</strong>を担う UI であり、前提条件 A5（発注実行の連携は範囲外）により R2 の納品範囲外です。当社の判断で UI を削除することは避け、現状のまま残しています。<br>選択肢: (1) 発注実行機能として完成させる（別途お見積もり）、(2) 動作しない UI を撤去する、(3) 現状維持。<strong>(1) または (2) を推奨します。</strong></li>
+    <li><strong>D-02 — 発注実行機能の去就。</strong> <code>Dashboard.vue</code> が <code>&lt;PurchaseOrderModal&gt;</code> を参照していますが、コンポーネントが存在しません。「Create PO」ボタンは表示されるものの<strong>押しても何も起きません</strong>。これは<strong>発注の実行</strong>を担う UI であり、前提条件 A5（発注実行の連携は範囲外）により R3 の納品範囲外です。当社の判断で UI を削除することは避け、現状のまま残しています。<br>選択肢: (1) 発注実行機能として完成させる（別途お見積もり）、(2) 動作しない UI を撤去する、(3) 現状維持。<strong>(1) または (2) を推奨します。</strong></li>
 
     <li><strong>D-01 — タスク機能の去就。</strong> <code>TasksModal.vue</code>（621行）が未実装の <code>/api/tasks</code> に依存しており、<strong>全ページの起動時に 404 エラーが発生</strong>します（<code>App.vue</code> から呼ばれるため）。コンソールにエラーが出続ける状態は IT 部門の異常検知を妨げます。<br>選択肢: (1) バックエンドを実装して完成させる（別途お見積もり）、(2) UI ごと撤去する。<strong>本提案の範囲外です。</strong></li>
 
@@ -372,19 +372,19 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
       <div class="trow">
         <div class="lb">P1 現状把握・安全網</div>
         <div class="tk"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <div class="bar b1" style="left:0;width:20%">R4 · R3 完了</div>
+          <div class="bar b1" style="left:0;width:20%">R5 · R4 完了</div>
         </div>
       </div>
       <div class="trow">
         <div class="lb">P2 Reports 改修</div>
         <div class="tk"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <div class="bar b2" style="left:20%;width:20%">R1 完了</div>
+          <div class="bar b2" style="left:20%;width:20%">R2 完了</div>
         </div>
       </div>
       <div class="trow">
         <div class="lb">P3 発注推奨機能</div>
         <div class="tk"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <div class="bar b3" style="left:40%;width:33.33%">R2 完了</div>
+          <div class="bar b3" style="left:40%;width:33.33%">R3 完了</div>
           <div class="now" style="left:73.33%"></div>
         </div>
       </div>
@@ -418,12 +418,12 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
   <table>
     <thead><tr><th style="width:40%">成果物</th><th style="width:12%">規模</th><th>内容</th></tr></thead>
     <tbody>
-      <tr><td><code>proposal/architecture.html</code></td><td class="num">729 行</td><td>アーキテクチャドキュメント（R4）。単一 HTML、閲覧に開発環境不要</td></tr>
-      <tr><td><code>proposal/restocking-logic.md</code></td><td class="num">169 行</td><td>発注推奨ロジック仕様書（R2 の事前合意文書）</td></tr>
-      <tr><td><code>tests/e2e/</code></td><td class="num">67 件</td><td>ブラウザ E2E テストスイート（R3）+ IT 部門向け手順書</td></tr>
-      <tr><td><code>tests/backend/test_restocking.py</code></td><td class="num">35 件</td><td>発注推奨の API テスト（R2）</td></tr>
-      <tr><td><code>client/src/views/Restocking.vue</code></td><td class="num">561 行</td><td>発注推奨ビュー（R2、新規）</td></tr>
-      <tr><td><code>client/src/views/Reports.vue</code></td><td class="num">改修</td><td>Composition API へ移行（R1）</td></tr>
+      <tr><td><code>proposal/architecture.html</code></td><td class="num">729 行</td><td>アーキテクチャドキュメント（R5）。単一 HTML、閲覧に開発環境不要</td></tr>
+      <tr><td><code>proposal/restocking-logic.md</code></td><td class="num">169 行</td><td>発注推奨ロジック仕様書（R3 の事前合意文書）</td></tr>
+      <tr><td><code>tests/e2e/</code></td><td class="num">67 件</td><td>ブラウザ E2E テストスイート（R4）+ IT 部門向け手順書</td></tr>
+      <tr><td><code>tests/backend/test_restocking.py</code></td><td class="num">35 件</td><td>発注推奨の API テスト（R3）</td></tr>
+      <tr><td><code>client/src/views/Restocking.vue</code></td><td class="num">561 行</td><td>発注推奨ビュー（R3、新規）</td></tr>
+      <tr><td><code>client/src/views/Reports.vue</code></td><td class="num">改修</td><td>Composition API へ移行（R2）</td></tr>
       <tr><td><code>server/main.py</code></td><td class="num">改修</td><td>発注推奨エンドポイント追加、レポート系にフィルター追加</td></tr>
       <tr><td>提案書一式</td><td class="num">6 点</td><td>第1幕の成果物。ケイパビリティ・プレゼン（12枚）を含む</td></tr>
     </tbody>
@@ -439,7 +439,7 @@ footer{border-top:1px solid var(--line);margin-top:66px;padding-top:26px;font-fa
 
 <footer>
   プロジェクト進捗報告書 / Meridian Components, Inc. / RFP MC-2026-0417 / 2026年8月19日<br>
-  報告時点: フェーズ3 完了（必須項目 R1〜R4 完了）<br>
+  報告時点: フェーズ3 完了（必須項目 R2〜R5 完了）<br>
   検証方法: E2E テスト 67 件、API テスト 75 件の実行結果、および稼働中アプリケーションに対する実機確認にもとづく
 </footer>
 

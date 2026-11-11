@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>提案書 MC-2026-0417</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --paper: #ffffff; --ink: #0f172a; --muted: #64748b;
+    --line: #e2e8f0; --accent: #1d4ed8; --accent-soft: #dbeafe;
+    --ok: #15803d; --ok-soft: #dcfce7; --skip: #94a3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1120; --paper: #111827; --ink: #e5e7eb; --muted: #94a3b8;
+      --line: #1f2937; --accent: #60a5fa; --accent-soft: #1e293b;
+      --ok: #4ade80; --ok-soft: #14301f; --skip: #64748b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Sans JP", system-ui, sans-serif; line-height: 1.8; font-size: 15px; }
+  .page { max-width: 880px; margin: 0 auto; padding: 48px 16px 80px; }
+  header.cover { background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 32px; margin-bottom: 32px; border-top: 6px solid var(--accent); }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .08em; }
+  h1 { font-size: 26px; line-height: 1.4; margin: 8px 0 16px; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 24px;
+    color: var(--muted); font-size: 13px; }
+  .meta b { color: var(--ink); font-weight: 500; }
+  section { background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 28px 32px; margin-bottom: 24px; }
+  h2 { font-size: 20px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  h2 .num { color: var(--accent); margin-right: 8px; }
+  h3 { font-size: 16px; margin: 24px 0 8px; }
+  .callout { background: var(--accent-soft); border-left: 4px solid var(--accent);
+    padding: 12px 16px; border-radius: 6px; font-weight: 500; }
+  ol.steps { padding-left: 1.4em; } ol.steps li { margin-bottom: 8px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: 13px; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .b-full { background: var(--ok-soft); color: var(--ok); }
+  .b-opt { background: var(--accent-soft); color: var(--accent); }
+  .b-out { background: transparent; color: var(--skip); border: 1px solid var(--line); }
+  dl.req { display: grid; grid-template-columns: 6em 1fr; gap: 4px 12px; margin: 0; }
+  dl.req dt { color: var(--muted); font-size: 13px; padding-top: 2px; }
+  dl.req dd { margin: 0; }
+  .timeline { display: grid; grid-template-columns: repeat(16, 1fr); gap: 3px; margin: 12px 0 4px; }
+  .timeline div { height: 28px; border-radius: 4px; color: #fff; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; padding-left: 8px; white-space: nowrap; overflow: hidden; }
+  .p1 { background: #1d4ed8; grid-column: span 3; } .p2 { background: #0f766e; grid-column: span 4; }
+  .p3 { background: #7c3aed; grid-column: span 4; } .p4 { background: #b45309; grid-column: span 5; }
+  .weeks { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+  .price { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .tbd { color: var(--muted); font-style: italic; }
+  @media (max-width: 600px) { section, header.cover { padding: 20px; } h1 { font-size: 22px; }
+    dl.req { grid-template-columns: 1fr; } .timeline div { font-size: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="cover">
+  <div class="eyebrow">提案書 · RFP MC-2026-0417</div>
+  <h1>在庫ダッシュボードのモダナイズおよび機能拡張</h1>
+  <div class="meta">
+    <div>宛先 <b>Meridian Components, Inc.　J. Okafor 様（調達部長）</b></div>
+    <div>提出日 <b>2026年5月8日</b></div>
+    <div>価格形態 <b>上限付き T&amp;M</b></div>
+    <div>期間 <b>16週間・4フェーズ</b></div>
+  </div>
+</header>
+
+<section>
+  <h2><span class="num">1</span>エグゼクティブサマリー</h2>
+  <p>貴社のオペレーションチームは、毎日の業務を在庫ダッシュボードから始めています。ところが、その起点である概要ページの数字は、期間や拠点を変えても動きません。そのため現場はダッシュボードを信用できず、表計算ソフトで集計し直しています。また、自動テストがないため、IT 部門は変更を安全に承認できません。前任ベンダーが未完のまま残した作業によって、<strong>「直したいのに、直すことを承認できない」</strong>状態に陥っていると理解しています。</p>
+  <p class="callout">私たちの提案の軸は「確実に進める」ことです。</p>
+  <ol class="steps">
+    <li><strong>最初の3週間で、概要ページ（R1）を直します。</strong>現場が最も困っている数字の信頼を、まず取り戻します。</li>
+    <li><strong>次に、テスト（R4）とアーキテクチャ資料（R5）を整えます。</strong>IT 部門が以後の変更を自信を持って承認できる土台を作ります。</li>
+    <li><strong>その土台の上で、Reports の改修（R2）と発注推奨（R3）を進めます。</strong>東京チームのための日本語対応（D2）も、ここで併せて提供します。</li>
+  </ol>
+  <p>各フェーズの終わりには、動くものと完了基準を示してから次に進みます。価格は<strong>上限付きの T&amp;M</strong> とします。Reports の欠陥は「少なくとも8件」とされており、全体の件数はまだ分かりません。それでも貴社が支払いの最大額をあらかじめ把握できるようにするためです。</p>
+</section>
+
+<section>
+  <h2><span class="num">2</span>技術アプローチ</h2>
+  <h3>着手時のアーキテクチャレビュー（第1週）</h3>
+  <p>前任ベンダーの引き継ぎメモは56行と簡素です。起動に必要な環境（uv、Node.js）すら書かれていません。そこで着手直後にコードを読み、メモと実装の食い違いを洗い出します。結果は R5 の土台にします。</p>
+
+  <h3>要件対応表</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>要件</th><th>対応</th><th>フェーズ</th><th>完了基準</th></tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>概要ページの改修</td><td><span class="badge b-full">全面対応</span></td><td>1</td><td>全 KPI がフィルターに連動し、テストで確認済み</td></tr>
+      <tr><td>R2</td><td>Reports の改修</td><td><span class="badge b-full">全面対応</span></td><td>3</td><td>確定した欠陥一覧のすべてを解消し、回帰テストを追加済み</td></tr>
+      <tr><td>R3</td><td>発注推奨機能</td><td><span class="badge b-full">全面対応</span></td><td>4</td><td>予算上限から推奨一覧を表示し、受け入れ確認済み</td></tr>
+      <tr><td>R4</td><td>ブラウザテストの自動化</td><td><span class="badge b-full">全面対応</span></td><td>2〜</td><td>合意した主要フローの E2E テストが CI で緑</td></tr>
+      <tr><td>R5</td><td>アーキテクチャドキュメント</td><td><span class="badge b-full">全面対応</span></td><td>2・4</td><td>IT 部門のレビューで承認済み</td></tr>
+      <tr><td>D1</td><td>UI のモダナイズ</td><td><span class="badge b-out">対象外</span></td><td>—</td><td>次フェーズで別途ご提案</td></tr>
+      <tr><td>D2</td><td>国際化対応</td><td><span class="badge b-opt">提案</span></td><td>4</td><td>全モジュールで日英を切り替えられる</td></tr>
+      <tr><td>D3</td><td>ダークモード</td><td><span class="badge b-out">対象外</span></td><td>—</td><td>次フェーズで別途ご提案</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>R1 · 概要ページの改修</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>フィルターの値が API 呼び出しと集計処理まで届いているかを、画面からサーバーまで順に追います。原因を特定してから直し、KPI ごとの連動をテストで固定します。</dd>
+    <dt>リスク</dt><dd>原因が画面側とサーバー側の両方にまたがる可能性があります。第1週のレビューで範囲を確定させます。</dd>
+    <dt>完了基準</dt><dd>全 KPI がフィルターに連動すること。オペレーションチームが表計算ソフトの集計と突き合わせ、一致を確認できること。</dd>
+  </dl>
+
+  <h3>R4 · ブラウザテストの自動化</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>標準的な E2E ツールを使い、「重要なフロー」を IT 部門・オペレーションチームと合意してから整備します。以後の改修では、必ずテストを先に追加します。</dd>
+    <dt>リスク</dt><dd>テストデータが不整合だと、テストが不安定になります。既存の JSON データの整合性も、併せて確認します。</dd>
+    <dt>完了基準</dt><dd>合意した主要フローの E2E テストが CI 上で安定して通ること。</dd>
+  </dl>
+
+  <h3>R5 · アーキテクチャドキュメント</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>構成図、データの流れ、起動手順、既知の課題をまとめます。フェーズ2で初版、フェーズ4で最終版を納品します。</dd>
+    <dt>完了基準</dt><dd>貴社 IT 部門がこの資料だけを見て、環境を立ち上げて変更を判断できること。</dd>
+  </dl>
+
+  <h3>R2 · Reports モジュールの改修</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>貴社が記録した8件を出発点に全面調査を行い、欠陥一覧を確定・合意してから修正します。1件ごとに回帰テストを追加します。</dd>
+    <dt>リスク</dt><dd>件数が8件を大きく超える可能性があります。上限額の範囲内で、優先順位を貴社と決めます。</dd>
+    <dt>完了基準</dt><dd>合意した欠陥一覧のすべてが解消され、テストで確認済みであること。</dd>
+  </dl>
+
+  <h3>R3 · 発注推奨機能</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>現在庫、需要予測、予算上限から推奨を出す Restocking ビューを追加します。推奨ロジックは Tanaka 様のチームと試作で早めに確認します。</dd>
+    <dt>完了基準</dt><dd>予算上限を入力すると、根拠つきの推奨一覧が表示され、受け入れ確認を済ませていること。</dd>
+  </dl>
+
+  <h3>D2 · 国際化対応</h3>
+  <dl class="req">
+    <dt>進め方</dt><dd>既存の i18n の仕組みを残りのモジュールへ広げ、東京チームに実際の画面で確認してもらいます。</dd>
+    <dt>完了基準</dt><dd>全モジュールで日本語と英語を切り替えられること。</dd>
+  </dl>
+</section>
+
+<section>
+  <h2><span class="num">3</span>関連実績</h2>
+  <p class="tbd">（社内資料から追記）</p>
+</section>
+
+<section>
+  <h2><span class="num">4</span>スケジュール</h2>
+  <div class="timeline" aria-hidden="true">
+    <div class="p1">1 · R1</div><div class="p2">2 · R4・R5</div><div class="p3">3 · R2</div><div class="p4">4 · R3・D2</div>
+  </div>
+  <div class="weeks"><span>第1週</span><span>第8週</span><span>第16週</span></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>フェーズ</th><th>期間</th><th>内容</th><th>終わりにお見せするもの</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>第1〜3週</td><td>アーキテクチャレビュー、R1</td><td>数字がフィルターに連動する概要ページ</td></tr>
+      <tr><td>2</td><td>第4〜7週</td><td>R4（主要フロー）、R5 初版</td><td>CI で緑の E2E テスト、アーキテクチャ資料</td></tr>
+      <tr><td>3</td><td>第8〜11週</td><td>R2（調査 → 一覧の合意 → 修正）</td><td>欠陥一覧と、すべて解消した Reports</td></tr>
+      <tr><td>4</td><td>第12〜16週</td><td>R3、D2、R5 最終版</td><td>発注推奨ビュー、日英切り替え、最終資料</td></tr>
+    </tbody>
+  </table></div>
+  <p>各フェーズの終わりにデモと完了確認を行い、貴社の承認を得てから次に進みます。</p>
+</section>
+
+<section>
+  <h2><span class="num">5</span>価格</h2>
+  <p>上限付き T&amp;M（実際の工数で請求し、上限額を超えては請求しません）</p>
+  <p class="price">上限 USD 148,000 <span style="font-size:14px;color:var(--muted);font-weight:400">（税別）</span></p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>フェーズ</th><th>工数目安（人日）</th><th>金額目安（USD）</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>30</td><td>27,000</td></tr>
+      <tr><td>2</td><td>40</td><td>36,000</td></tr>
+      <tr><td>3</td><td>40</td><td>36,000</td></tr>
+      <tr><td>4</td><td>50</td><td>45,000</td></tr>
+      <tr><td>予備</td><td>—</td><td>4,000</td></tr>
+    </tbody>
+  </table></div>
+  <p>月次で実績工数と残りの上限額を報告します。上限額に近づいた時点で、残りの作業の優先順位を貴社と協議します。</p>
+</section>
+
+<section>
+  <h2><span class="num">6</span>前提条件</h2>
+  <p>RFP に記載がなく、見積もりに影響する点について、次のとおり想定しています。異なる場合はご指摘ください。</p>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>A1</td><td><strong>予算:</strong>予算レンジの記載がないため、必須項目と D2 を確実に納めることを優先して上限額を設定しました。ご予算に応じて範囲を調整します。</td></tr>
+      <tr><td>A2</td><td><strong>UI の「現在の標準」（D1）:</strong>定義が示されていないため、今回は対象外とします。基準を合意できた段階で、別途ご提案します。</td></tr>
+      <tr><td>A3</td><td><strong>「主要なユーザーフロー」（R4）:</strong>フェーズ2の冒頭に、IT 部門・オペレーションチームと合意して確定します（目安5〜8本）。</td></tr>
+      <tr><td>A4</td><td><strong>Reports の欠陥件数（R2）:</strong>記録済みの8件を基準に見積もっています。追加分は上限額の範囲内で優先順位を決めて対応します。</td></tr>
+      <tr><td>A5</td><td>開発・テスト環境と、本番相当のデータへのアクセスは、貴社にご用意いただきます。</td></tr>
+      <tr><td>A6</td><td>各フェーズの完了確認には、貴社の担当者に1週間以内でご対応いただきます。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>
+</body>
+</html>

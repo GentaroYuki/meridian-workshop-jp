@@ -197,7 +197,7 @@ footer{border-top:1px solid var(--line);margin-top:62px;padding-top:26px;font-fa
   <div class="box r">
     <div class="h">時間管理の最重要ポイント</div>
     <p><strong>後半の実装（2-2）は必ず講師が止めてください。</strong>放置すると必須要件をすべて完了してしまい、議論（2-4）とまとめの時間が消えます。前回はこれが起きました。</p>
-    <p>止める推奨タイミングは <strong>「テスト整備（R3）が完了した時点」</strong>または<strong>「不具合修正（R1）が完了した時点」</strong>です。詳細は §08。</p>
+    <p>止める推奨タイミングは <strong>「テスト整備（R4）が完了した時点」</strong>または<strong>「不具合修正（R2）が完了した時点」</strong>です。詳細は §08。</p>
   </div>
 </section>
 
@@ -243,7 +243,7 @@ ss -ltn | grep -E ':(3000|8001)' || echo "3000 / 8001 : free"</div>
   <ol class="seq">
     <li><strong>機能のツアーをしない。</strong>作業の流れが必要としたときに、その場で1〜2文で紹介する。冒頭で機能一覧を説明すると、以降ずっとツールの話になります</li>
     <li><strong>世界観を崩さない。</strong>Meridian は「クライアント」、コードは「前任ベンダーの残したもの」、作業は「案件」。「これはワークショップの課題6です」のような舞台裏の発言は避けます</li>
-    <li><strong>参加者に決めさせる。</strong>推奨は伝えますが、順序も範囲も参加者の判断に委ねます。「R1 より先に R2 をやりたい」もそのまま通してください</li>
+    <li><strong>参加者に決めさせる。</strong>推奨は伝えますが、順序も範囲も参加者の判断に委ねます。「R2 より先に R3 をやりたい」もそのまま通してください</li>
   </ol>
 
   <div class="box p">
@@ -303,9 +303,9 @@ ss -ltn | grep -E ':(3000|8001)' || echo "3000 / 8001 : free"</div>
         <table style="margin-top:8px">
           <thead><tr><th style="width:16%">箇所</th><th>内容</th></tr></thead>
           <tbody>
-            <tr><td class="mono">R1</td><td>「少なくとも8件の問題」のリストが同梱されていない</td></tr>
+            <tr><td class="mono">R2</td><td>「少なくとも8件の問題」のリストが同梱されていない</td></tr>
             <tr><td class="mono">D1</td><td>「現在の標準に沿って」が未定義。参照すべきデザインシステムが不明</td></tr>
-            <tr><td class="mono">R3</td><td>「主要なユーザーフロー」が特定されていない。合格ラインが不明</td></tr>
+            <tr><td class="mono">R4</td><td>「主要なユーザーフロー」が特定されていない。合格ラインが不明</td></tr>
             <tr><td class="mono">§4-5</td><td>予算レンジの記載がない</td></tr>
           </tbody>
         </table>
@@ -330,9 +330,9 @@ ss -ltn | grep -E ':(3000|8001)' || echo "3000 / 8001 : free"</div>
         <table style="margin-top:8px">
           <thead><tr><th style="width:20%">質問</th><th>参加者の回答</th></tr></thead>
           <tbody>
-            <tr><td>R1 の8件リスト</td><td>「リストは渡す。これで全件のはず」</td></tr>
+            <tr><td>R2 の8件リスト</td><td>「リストは渡す。これで全件のはず」</td></tr>
             <tr><td>D1 の基準</td><td>「倉庫フロアでの視認性を最優先に」</td></tr>
-            <tr><td>R3 の合格ライン</td><td>「主要フローが通ればよい。カバレッジ率は問わない」</td></tr>
+            <tr><td>R4 の合格ライン</td><td>「主要フローが通ればよい。カバレッジ率は問わない」</td></tr>
             <tr><td>予算・契約形態</td><td>「上限付き T&amp;M を希望。レンジは開示する」</td></tr>
           </tbody>
         </table>
@@ -491,11 +491,11 @@ cp proposal/*.html client/public/
       </div>
 
       <h4>着手順の推奨</h4>
-      <p>提案書の論理に沿えば <strong>R3（テスト）→ R1（修正）→ R2（新機能）</strong> です。R4（現状把握）を最初に置くとオリエンテーションを兼ねられます。ただし<strong>参加者が別の順を選んだらそのまま通してください。</strong></p>
+      <p>提案書の論理に沿えば <strong>R4（テスト）→ R2（修正）→ R3（新機能）</strong> です。R5（現状把握）を最初に置くとオリエンテーションを兼ねられます。ただし<strong>参加者が別の順を選んだらそのまま通してください。</strong></p>
 
       <div class="box g">
-        <div class="h">R2 に入る場合の重要な進め方</div>
-        <p>R2（発注推奨）は業務ロジックを含みます。<strong>実装前に計算方法を文書化して合意する</strong>という順序を必ず踏ませてください。前回はこの順序により、仕様書に書いた判定例が実装後の実測値と完全に一致し、<strong>「合意した内容がそのまま動く」ことを数字で示せました</strong>。教育効果が非常に高い展開です。</p>
+        <div class="h">R3 に入る場合の重要な進め方</div>
+        <p>R3（発注推奨）は業務ロジックを含みます。<strong>実装前に計算方法を文書化して合意する</strong>という順序を必ず踏ませてください。前回はこの順序により、仕様書に書いた判定例が実装後の実測値と完全に一致し、<strong>「合意した内容がそのまま動く」ことを数字で示せました</strong>。教育効果が非常に高い展開です。</p>
       </div>
     </div>
   </div>
@@ -519,13 +519,13 @@ cp proposal/*.html client/public/
         <table style="margin-top:8px">
           <thead><tr><th style="width:26%">区切り</th><th style="width:14%">経過目安</th><th>止める判断</th></tr></thead>
           <tbody>
-            <tr><td>R4 完了（現状把握）</td><td class="num">15分</td><td>早すぎる。実装の観察材料が少ない</td></tr>
-            <tr><td><strong>R3 完了（テスト整備）</strong></td><td class="num">30分</td><td><span class="chip g">推奨</span> 「安全網を先に作る」効果を語れる。ただし修正の観察はできない</td></tr>
-            <tr><td><strong>R1 完了（不具合修正）</strong></td><td class="num">45分</td><td><span class="chip g">推奨</span> <strong>教育効果が最大。</strong>原因の連鎖、テストによる検知、Claude の間違いがすべて観察できる</td></tr>
-            <tr><td>R2 完了（新機能）</td><td class="num">80分</td><td>議論時間が確保できるなら可。前回はここまで到達し、まとめが押した</td></tr>
+            <tr><td>R5 完了（現状把握）</td><td class="num">15分</td><td>早すぎる。実装の観察材料が少ない</td></tr>
+            <tr><td><strong>R4 完了（テスト整備）</strong></td><td class="num">30分</td><td><span class="chip g">推奨</span> 「安全網を先に作る」効果を語れる。ただし修正の観察はできない</td></tr>
+            <tr><td><strong>R2 完了（不具合修正）</strong></td><td class="num">45分</td><td><span class="chip g">推奨</span> <strong>教育効果が最大。</strong>原因の連鎖、テストによる検知、Claude の間違いがすべて観察できる</td></tr>
+            <tr><td>R3 完了（新機能）</td><td class="num">80分</td><td>議論時間が確保できるなら可。前回はここまで到達し、まとめが押した</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:10px"><strong>時間に余裕がない場合は R3 完了、標準は R1 完了で止めてください。</strong></p>
+        <p style="margin-top:10px"><strong>時間に余裕がない場合は R4 完了、標準は R2 完了で止めてください。</strong></p>
       </div>
 
       <h4>観察を促すタイミング</h4>
@@ -543,7 +543,7 @@ cp proposal/*.html client/public/
 
       <div class="box a">
         <div class="h">サブエージェントの提示タイミング</div>
-        <p>前回は作業が流れている最中に提示したため使われませんでした。<strong>フェーズの切り替わり（R1 完了直後など）で提示</strong>してください。「次はフロントエンドの作業が多いので、専門のサブエージェントに任せる選択もあります」という形です。</p>
+        <p>前回は作業が流れている最中に提示したため使われませんでした。<strong>フェーズの切り替わり（R2 完了直後など）で提示</strong>してください。「次はフロントエンドの作業が多いので、専門のサブエージェントに任せる選択もあります」という形です。</p>
       </div>
     </div>
   </div>
@@ -642,7 +642,7 @@ cp proposal/*.html client/public/
           <tr><td><strong>安全網を先に作る</strong></td><td>テストを先に整えたため、大きな書き換えを安全に実施できた。Claude 自身のテスト記述ミスも即検出された</td></tr>
           <tr><td><strong>症状ではなく原因の連鎖を探す</strong></td><td>「不具合8件」が単一原因の4症状だった</td></tr>
           <tr><td><strong>未修正の欠陥をテストとして記録</strong></td><td><code>test.fail()</code> でスイートを緑に保ちつつ、修正完了を自動検知</td></tr>
-          <tr><td><strong>実データで試算してから合意</strong></td><td>R2 で机上の議論を避け、実データの試算を見せてから決めた</td></tr>
+          <tr><td><strong>実データで試算してから合意</strong></td><td>R3 で机上の議論を避け、実データの試算を見せてから決めた</td></tr>
           <tr><td><strong>判断と実装を分ける</strong></td><td>為替レート・動作しないボタンの去就は実装せず選択肢を提示</td></tr>
         </tbody>
       </table>
@@ -672,7 +672,7 @@ cp proposal/*.html client/public/
     <p>コードベースに存在する問題の一覧です。参加者が行き詰まったときのヒント出しに使ってください。<strong>ただし答えを直接言わず、「〇〇を確認してみましょう」という形で誘導</strong>してください。</p>
   </div>
 
-  <h3>Reports ページに集中する問題（R1 の対象）</h3>
+  <h3>Reports ページに集中する問題（R2 の対象）</h3>
   <p>ビュー7つのうち <code>Reports.vue</code> だけが<strong>すべての規約から外れています</strong>。この構造に気づけるかがポイントです。</p>
   <table>
     <thead><tr><th style="width:26%">規約</th><th style="width:20%">他6ビュー</th><th>Reports.vue</th></tr></thead>
@@ -714,7 +714,7 @@ cp proposal/*.html client/public/
     <p>いずれも<strong>画面を見ただけでは気づきにくく、コードとテストの両方を突き合わせないと出てこない</strong>種類の欠陥です。「AI にコードを読ませる価値」を具体的に語れます。</p>
   </div>
 
-  <h3>R2（発注推奨）で合意が必要な論点</h3>
+  <h3>R3（発注推奨）で合意が必要な論点</h3>
   <p>実装前に決めるべき3点です。前回の参加者の回答も併記します。</p>
   <table>
     <thead><tr><th style="width:30%">論点</th><th style="width:24%">前回の回答</th><th>背景</th></tr></thead>
@@ -859,7 +859,7 @@ cp proposal/*.html client/public/
     <li><strong>Plan Mode を任意選択にしない。</strong>進行上のルールにする。または最初の1回だけ必須にする</li>
     <li><strong>「必ず1箇所直す」を課題1のルールにする。</strong>最大の体験を取り逃がさないため</li>
     <li><strong>成果物の閲覧手段を事前に確定する。</strong><code>client/public/</code> 方式を最初から案内する</li>
-    <li><strong>実装を意図的に区切る。</strong>R3 完了または R1 完了で止める（§08）</li>
+    <li><strong>実装を意図的に区切る。</strong>R4 完了または R2 完了で止める（§08）</li>
     <li><strong>環境チェックは <code>CLAUDE.md</code> の手順を使う。</strong>前回追記済み。同じ調査を繰り返さない</li>
     <li><strong>間違いのリストを議論の中心に置く。</strong>成果物紹介より参加者の関心を引く</li>
     <li><strong>サブエージェントはフェーズ切り替わりで提示する。</strong>作業中の提示は選ばれない</li>
